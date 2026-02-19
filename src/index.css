@@ -6,25 +6,25 @@
 
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 213 50% 10%;
+    --background: 0 0% 100%;
+    --foreground: 220 30% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 213 50% 10%;
+    --card-foreground: 220 30% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 213 50% 10%;
+    --popover-foreground: 220 30% 15%;
 
-    --primary: 221 83% 28%;
+    --primary: 221 83% 53%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 20% 95%;
-    --secondary-foreground: 213 50% 10%;
+    --secondary: 220 20% 96%;
+    --secondary-foreground: 220 30% 15%;
 
-    --muted: 220 14% 94%;
+    --muted: 220 14% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 217 91% 56%;
+    --accent: 221 83% 53%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -32,21 +32,24 @@
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 221 83% 28%;
+    --ring: 221 83% 53%;
 
     --radius: 0.75rem;
 
-    --navy: 213 50% 10%;
-    --navy-light: 216 40% 18%;
-    --blue-bright: 217 91% 56%;
+    --navy: 220 30% 15%;
+    --navy-light: 221 50% 25%;
+    --blue-bright: 221 83% 53%;
     --blue-glow: 210 100% 65%;
-    --cyan-accent: 190 95% 55%;
+    --cyan-accent: 199 89% 48%;
+    --paypal-blue: 221 83% 53%;
+    --paypal-dark: 220 60% 20%;
+    --paypal-light: 214 100% 97%;
 
-    --gradient-hero: linear-gradient(135deg, hsl(213 50% 10%) 0%, hsl(221 83% 28%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(217 91% 56%) 0%, hsl(221 83% 28%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(217 91% 56%) 0%, hsl(190 95% 55%) 100%);
-    --shadow-card: 0 4px 24px -4px hsl(221 83% 28% / 0.12);
-    --shadow-elevated: 0 20px 60px -10px hsl(221 83% 28% / 0.25);
+    --gradient-hero: linear-gradient(135deg, hsl(220 60% 20%) 0%, hsl(221 83% 53%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(221 83% 53%) 0%, hsl(220 60% 20%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(221 83% 53%) 0%, hsl(199 89% 48%) 100%);
+    --shadow-card: 0 4px 24px -4px hsl(221 83% 53% / 0.08);
+    --shadow-elevated: 0 20px 60px -10px hsl(221 83% 53% / 0.15);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
