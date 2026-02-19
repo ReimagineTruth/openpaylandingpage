@@ -1,13 +1,15 @@
+import openPayLogo from "@/assets/openpay-logo.jpg";
+
 const Footer = () => {
   return (
     <footer className="border-t border-border py-12 px-6">
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-7 h-7 rounded-lg bg-card-gradient flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xs">O</span>
-            </div>
-            <span className="text-lg font-bold text-foreground" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>OpenPay</span>
+            <img src={openPayLogo} alt="OpenPay" className="w-7 h-7 rounded-lg object-cover" />
+            <span className="text-lg font-bold text-foreground" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+              Open<span className="text-accent">Pay</span>
+            </span>
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed">
             Web3 digital currency payment platform powered by Pi Network.
@@ -32,7 +34,7 @@ const Footer = () => {
         ))}
       </div>
       <div className="max-w-7xl mx-auto mt-12 pt-6 border-t border-border text-center">
-        <p className="text-xs text-muted-foreground">© 2025 OpenPay. All rights reserved. Powered by Pi Network.</p>
+        <p className="text-xs text-muted-foreground">© 2026 OpenPay. All rights reserved. Powered by Pi Network.</p>
       </div>
     </footer>
   );

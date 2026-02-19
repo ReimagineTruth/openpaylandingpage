@@ -54,6 +54,9 @@ export default {
         "blue-bright": "hsl(var(--blue-bright))",
         "blue-glow": "hsl(var(--blue-glow))",
         "cyan-accent": "hsl(var(--cyan-accent))",
+        "paypal-blue": "hsl(var(--paypal-blue))",
+        "paypal-dark": "hsl(var(--paypal-dark))",
+        "paypal-light": "hsl(var(--paypal-light))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
