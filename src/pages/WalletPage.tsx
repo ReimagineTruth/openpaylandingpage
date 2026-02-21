@@ -42,7 +42,7 @@ const WalletPage = () => {
                   </div>
                 </div>
                 <p className="text-white font-bold text-xl mb-0.5">Good morning, OpenPay! 👋</p>
-                <p className="text-white/70 text-sm">@piuser</p>
+                <p className="text-white/70 text-sm">@openpay</p>
               </div>
 
               {/* Tabs */}

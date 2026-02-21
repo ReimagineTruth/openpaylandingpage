@@ -33,7 +33,7 @@ const SecurityPage = () => {
                 </div>
                 <p className="text-white text-2xl font-bold mb-2">Good morning</p>
                 <div className="inline-block bg-accent-dark/40 rounded-full px-6 py-2">
-                  <p className="text-white font-semibold">@piuser</p>
+                  <p className="text-white font-semibold">@openpay</p>
                 </div>
               </div>
               <div className="p-6">
