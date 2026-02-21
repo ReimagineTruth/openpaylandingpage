@@ -74,7 +74,7 @@ const HeroSection = () => {
             {/* Header */}
             <div className="bg-hero px-5 py-6 text-primary-foreground">
               <p className="text-xs opacity-70 mb-1">Good afternoon!</p>
-              <p className="text-sm font-semibold">@wainfoundation</p>
+              <p className="text-sm font-semibold">@openpay</p>
               <div className="mt-4 flex items-baseline gap-2">
                 <span className="text-3xl font-bold">π204.99</span>
                 <span className="text-xs opacity-60">Balance · PI</span>
@@ -123,23 +123,6 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Floating balance card */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 1, duration: 0.5 }}
-            className="absolute -left-6 top-16 bg-card rounded-xl p-3 shadow-elevated border border-border"
-          >
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-full bg-accent-gradient flex items-center justify-center">
-                <span className="text-primary-foreground text-sm font-bold">π</span>
-              </div>
-              <div>
-                <p className="text-[10px] text-muted-foreground">Wallet</p>
-                <p className="text-sm font-bold text-foreground">π204.99</p>
-              </div>
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </section>
