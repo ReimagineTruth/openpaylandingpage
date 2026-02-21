@@ -31,7 +31,7 @@ const MerchantPage = () => {
                   </div>
                   <div>
                     <p className="text-white font-bold text-sm">OpenPay Merchant POS</p>
-                    <p className="text-white/70 text-xs">@piuser</p>
+                    <p className="text-white/70 text-xs">@openpay</p>
                   </div>
                 </div>
                 <div className="text-right">

@@ -29,7 +29,7 @@ const SavingsPage = () => {
                   </div>
                   <div>
                     <p className="text-white/70 text-xs">Savings balance</p>
-                    <p className="text-white text-3xl font-bold">π1,155,859.20</p>
+                    <p className="text-white text-3xl font-bold">π1,000.00</p>
                   </div>
                 </div>
                 <div className="space-y-2 mt-4">
@@ -39,7 +39,7 @@ const SavingsPage = () => {
                   </div>
                   <div className="bg-white/10 rounded-lg p-3">
                     <p className="text-white/60 text-[10px] font-semibold tracking-wider">SAVINGS BALANCE</p>
-                    <p className="text-white font-bold">π1,155,859.20</p>
+                    <p className="text-white font-bold">π1,000.00</p>
                   </div>
                   <div className="bg-white/10 rounded-lg p-3">
                     <p className="text-white/60 text-[10px] font-semibold tracking-wider">ESTIMATED APY</p>

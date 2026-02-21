@@ -17,6 +17,9 @@ import CareersPage from "./pages/CareersPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import TermsPage from "./pages/TermsPage";
 import BlogPage from "./pages/BlogPage";
+import CompliancePage from "./pages/CompliancePage";
+import GDPRPage from "./pages/GDPRPage";
+import FeedbackPage from "./pages/FeedbackPage";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +43,9 @@ const App = () => (
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/compliance" element={<CompliancePage />} />
+          <Route path="/gdpr" element={<GDPRPage />} />
+          <Route path="/feedback" element={<FeedbackPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

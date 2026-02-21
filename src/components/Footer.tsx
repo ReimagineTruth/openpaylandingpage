@@ -40,6 +40,7 @@ const Footer = () => {
               { label: "Blog", to: "/blog" },
               { label: "Careers", to: "/careers" },
               { label: "Security", to: "/security" },
+              { label: "Feedback", to: "/feedback" },
             ]
           },
           {
@@ -47,8 +48,8 @@ const Footer = () => {
             links: [
               { label: "Privacy Policy", to: "/privacy" },
               { label: "Terms of Service", to: "/terms" },
-              { label: "Compliance", to: "/terms" },
-              { label: "GDPR", to: "/privacy" },
+              { label: "Compliance", to: "/compliance" },
+              { label: "GDPR", to: "/gdpr" },
             ]
           },
         ].map((col) => (
