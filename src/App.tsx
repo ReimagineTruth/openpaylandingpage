@@ -17,6 +17,7 @@ import CareersPage from "./pages/CareersPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import TermsPage from "./pages/TermsPage";
 import BlogPage from "./pages/BlogPage";
+import BlogPostDetail from "./pages/BlogPostDetail";
 import CompliancePage from "./pages/CompliancePage";
 import GDPRPage from "./pages/GDPRPage";
 import FeedbackPage from "./pages/FeedbackPage";
@@ -43,6 +44,7 @@ const App = () => (
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:id" element={<BlogPostDetail />} />
           <Route path="/compliance" element={<CompliancePage />} />
           <Route path="/gdpr" element={<GDPRPage />} />
           <Route path="/feedback" element={<FeedbackPage />} />
