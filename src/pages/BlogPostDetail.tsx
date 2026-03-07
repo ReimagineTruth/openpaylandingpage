@@ -2471,6 +2471,7 @@ const BlogPostDetail = () => {
     Guide: "bg-green-100 text-green-700",
     Update: "bg-orange-100 text-orange-700",
     Insight: "bg-purple-100 text-purple-700",
+    Security: "bg-red-100 text-red-700",
   };
 
   return (
