@@ -32,7 +32,7 @@ const HeroSection = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
             <a
-              href="https://openpay-space.vercel.app/auth"
+              href="https://openpy.space/"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-accent-foreground bg-accent rounded-full hover:opacity-90 transition-all duration-300 shadow-elevated"
             >
               Get Started Free

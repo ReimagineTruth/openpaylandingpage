@@ -26,13 +26,13 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="https://openpay-space.vercel.app/auth"
+            href="https://openpy.space/"
             className="px-5 py-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
           >
             Log In
           </a>
           <a
-            href="https://openpay-space.vercel.app/auth"
+            href="https://openpy.space/"
             className="px-5 py-2.5 text-sm font-semibold text-accent-foreground bg-accent rounded-full hover:opacity-90 transition-opacity"
           >
             Sign Up Free
@@ -57,7 +57,7 @@ const Navbar = () => {
               <a href="/#showcase" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>App</a>
               <Link to="/merchant" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>Business</Link>
               <Link to="/security" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>Security</Link>
-              <a href="https://openpay-space.vercel.app/auth" className="px-4 py-2.5 text-sm font-semibold text-center text-accent-foreground bg-accent rounded-full">
+              <a href="https://openpy.space/" className="px-4 py-2.5 text-sm font-semibold text-center text-accent-foreground bg-accent rounded-full">
                 Get Started
               </a>
             </div>

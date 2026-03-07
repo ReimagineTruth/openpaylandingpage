@@ -57,7 +57,7 @@ const LoansPage = () => {
                 <span className="text-xs text-accent font-semibold">Coming Soon</span>
               </div>
 
-              <a href="https://openpay-space.vercel.app/auth" className="block w-full py-3.5 bg-accent text-white text-center rounded-xl font-semibold opacity-60 cursor-not-allowed">
+              <a href="https://openpy.space/" className="block w-full py-3.5 bg-accent text-white text-center rounded-xl font-semibold opacity-60 cursor-not-allowed">
                 Apply for Loan
               </a>
             </motion.div>

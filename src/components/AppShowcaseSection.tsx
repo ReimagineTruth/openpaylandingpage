@@ -136,7 +136,7 @@ const AppShowcaseSection = () => {
               </AnimatePresence>
               <div className="flex gap-2">
                 {["Pay", "Receive", "Top Up"].map((a, i) => (
-                  <motion.a key={a} href="https://openpay-space.vercel.app/auth" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className={`flex-1 py-2 rounded-full text-center text-[10px] font-semibold cursor-pointer transition-all ${i === 0 ? "bg-white text-accent" : "bg-white/10 text-white hover:bg-white/20"}`}>{a}</motion.a>
+                  <motion.a key={a} href="https://openpy.space/" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className={`flex-1 py-2 rounded-full text-center text-[10px] font-semibold cursor-pointer transition-all ${i === 0 ? "bg-white text-accent" : "bg-white/10 text-white hover:bg-white/20"}`}>{a}</motion.a>
                 ))}
               </div>
             </div>
@@ -172,7 +172,7 @@ const AppShowcaseSection = () => {
                   <span className="text-xs text-muted-foreground">USD · EUR · GBP · +170 more</span>
                 </div>
               </div>
-              <motion.a href="https://openpay-space.vercel.app/auth" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="block w-full py-3 rounded-full bg-accent text-white text-sm font-semibold text-center cursor-pointer">Send π50.00</motion.a>
+              <motion.a href="https://openpy.space/" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="block w-full py-3 rounded-full bg-accent text-white text-sm font-semibold text-center cursor-pointer">Send π50.00</motion.a>
             </div>
           </motion.div>
         </div>
@@ -229,7 +229,7 @@ const AppShowcaseSection = () => {
                         </div>
                         <p className="text-[10px] text-muted-foreground text-center mt-2">Amount: π100.00 PI</p>
                       </div>
-                      <motion.a href="https://openpay-space.vercel.app/auth" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="block w-full py-2.5 rounded-full bg-accent text-white text-xs font-semibold text-center">Open / send in OpenPay</motion.a>
+                      <motion.a href="https://openpy.space/" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="block w-full py-2.5 rounded-full bg-accent text-white text-xs font-semibold text-center">Open / send in OpenPay</motion.a>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -392,7 +392,7 @@ const AppShowcaseSection = () => {
                 </div>
                 <div className="flex gap-2 mt-2">
                   <button onClick={() => setPosAmount("0.00")} className="flex-1 py-2 rounded-lg border border-border text-xs font-semibold text-foreground">Clear</button>
-                  <motion.a href="https://openpay-space.vercel.app/auth" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1 py-2 rounded-lg bg-green-500 text-white text-xs font-semibold text-center">Generate QR</motion.a>
+                  <motion.a href="https://openpy.space/" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="flex-1 py-2 rounded-lg bg-green-500 text-white text-xs font-semibold text-center">Generate QR</motion.a>
                 </div>
               </div>
               <div className="flex justify-center">
@@ -706,9 +706,9 @@ const AppShowcaseSection = () => {
           </div>
           <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { icon: Store, title: "Set Up Merchant POS", desc: "Accept Pi payments for your business with a full merchant dashboard, real-time analytics, and easy refunds.", cta: "Get Merchant Access", href: "https://openpay-space.vercel.app/auth", badge: "Popular" },
-              { icon: PiggyBank, title: "Activate Savings", desc: "Move your Pi to savings and start earning 4.50% APY instantly. No minimum, no lock-up period.", cta: "Start Saving", href: "https://openpay-space.vercel.app/auth", badge: "Earn Yield" },
-              { icon: CreditCard, title: "Get Your Virtual Card", desc: "Link your Pi balance to a virtual card and spend Pi online globally without any conversion hassle.", cta: "Activate Card", href: "https://openpay-space.vercel.app/auth", badge: "New" },
+              { icon: Store, title: "Set Up Merchant POS", desc: "Accept Pi payments for your business with a full merchant dashboard, real-time analytics, and easy refunds.", cta: "Get Merchant Access", href: "https://openpy.space/", badge: "Popular" },
+              { icon: PiggyBank, title: "Activate Savings", desc: "Move your Pi to savings and start earning 4.50% APY instantly. No minimum, no lock-up period.", cta: "Start Saving", href: "https://openpy.space/", badge: "Earn Yield" },
+              { icon: CreditCard, title: "Get Your Virtual Card", desc: "Link your Pi balance to a virtual card and spend Pi online globally without any conversion hassle.", cta: "Activate Card", href: "https://openpy.space/", badge: "New" },
             ].map((r, i) => (
               <motion.div key={r.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} whileHover={{ y: -4 }} className="bg-card rounded-2xl border border-border p-6 shadow-card hover:border-accent/40 hover:shadow-elevated transition-all duration-300">
                 <div className="flex justify-between items-start mb-4">

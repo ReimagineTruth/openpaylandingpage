@@ -71,7 +71,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto mt-10 pt-6 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="text-xs text-muted-foreground">© 2026 OpenPay. All rights reserved. Powered by Pi Network.</p>
         <div className="flex items-center gap-4">
-          <a href="https://openpay-space.vercel.app/auth" className="text-xs text-accent font-semibold hover:opacity-80 transition-opacity">
+          <a href="https://openpy.space/" className="text-xs text-accent font-semibold hover:opacity-80 transition-opacity">
             Launch App →
           </a>
         </div>

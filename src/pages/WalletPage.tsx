@@ -87,14 +87,14 @@ const WalletPage = () => {
                 {/* Action buttons */}
                 <div className="flex gap-3">
                   {[{ label: "Pay", primary: true }, { label: "Receive", primary: false }, { label: "Top Up", primary: false }].map(btn => (
-                    <a key={btn.label} href="https://openpay-space.vercel.app/auth" className={`flex-1 py-3 rounded-full text-center text-xs font-semibold transition-all ${btn.primary ? "bg-accent text-white" : "border border-border text-foreground hover:bg-secondary"}`}>{btn.label}</a>
+                    <a key={btn.label} href="https://openpy.space/" className={`flex-1 py-3 rounded-full text-center text-xs font-semibold transition-all ${btn.primary ? "bg-accent text-white" : "border border-border text-foreground hover:bg-secondary"}`}>{btn.label}</a>
                   ))}
                 </div>
               </div>
             </motion.div>
 
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} className="mt-6 text-center">
-              <a href="https://openpay-space.vercel.app/auth" className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white rounded-full font-semibold hover:opacity-90 transition-opacity">
+              <a href="https://openpy.space/" className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white rounded-full font-semibold hover:opacity-90 transition-opacity">
                 Open Your Wallet <ArrowRight size={18} />
               </a>
             </motion.div>

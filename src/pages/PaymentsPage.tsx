@@ -47,7 +47,7 @@ const PaymentsPage = () => {
                   <p className="text-[10px] text-muted-foreground mb-1">Note (optional)</p>
                   <p className="text-sm text-muted-foreground">For coffee ☕</p>
                 </div>
-                <a href="https://openpay-space.vercel.app/auth" className="block w-full py-3 rounded-full bg-accent text-white text-center text-sm font-semibold">
+                <a href="https://openpy.space/" className="block w-full py-3 rounded-full bg-accent text-white text-center text-sm font-semibold">
                   Send π50.00
                 </a>
               </div>
@@ -110,7 +110,7 @@ const PaymentsPage = () => {
                   <span className="text-sm font-semibold text-foreground">Due today</span>
                   <span className="text-sm font-bold text-accent">π25.00 PI</span>
                 </div>
-                <a href="https://openpay-space.vercel.app/auth" className="block w-full py-3 rounded-full bg-accent text-white text-center text-sm font-semibold">Pay with OpenPay</a>
+                <a href="https://openpy.space/" className="block w-full py-3 rounded-full bg-accent text-white text-center text-sm font-semibold">Pay with OpenPay</a>
               </div>
             </motion.div>
 
@@ -137,13 +137,13 @@ const PaymentsPage = () => {
                   <span className="text-sm font-bold text-foreground">Total</span>
                   <span className="text-sm font-bold text-accent">π150.00</span>
                 </div>
-                <a href="https://openpay-space.vercel.app/auth" className="block w-full py-2.5 rounded-full bg-accent text-white text-center text-xs font-semibold">Create Invoice</a>
+                <a href="https://openpy.space/" className="block w-full py-2.5 rounded-full bg-accent text-white text-center text-xs font-semibold">Create Invoice</a>
               </div>
             </motion.div>
           </div>
 
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-10 text-center">
-            <a href="https://openpay-space.vercel.app/auth" className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white rounded-full font-semibold hover:opacity-90 transition-opacity">
+            <a href="https://openpy.space/" className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-white rounded-full font-semibold hover:opacity-90 transition-opacity">
               Get Started Free <ArrowRight size={18} />
             </a>
           </motion.div>

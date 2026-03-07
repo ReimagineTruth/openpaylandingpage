@@ -21,7 +21,7 @@ const CTASection = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="https://openpay-space.vercel.app/auth"
+                href="https://openpy.space/"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-accent bg-primary-foreground rounded-full hover:opacity-90 transition-opacity"
               >
                 Create Free Account

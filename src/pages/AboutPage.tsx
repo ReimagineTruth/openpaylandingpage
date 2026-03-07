@@ -39,7 +39,7 @@ const AboutPage = () => {
               <p className="text-primary-foreground/70 leading-relaxed relative z-10">
                 Built on Pi Network's decentralized infrastructure, OpenPay leverages the world's most accessible cryptocurrency to power real-world payments, invoices, and merchant solutions.
               </p>
-              <a href="https://openpay-space.vercel.app/auth" className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-white text-accent rounded-full font-semibold text-sm hover:opacity-90 transition-opacity relative z-10">
+              <a href="https://openpy.space/" className="inline-flex items-center gap-2 mt-6 px-6 py-3 bg-white text-accent rounded-full font-semibold text-sm hover:opacity-90 transition-opacity relative z-10">
                 Join OpenPay <ArrowRight size={16} />
               </a>
             </motion.div>
