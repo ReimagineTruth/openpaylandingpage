@@ -4,75 +4,162 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft, Calendar, User, ArrowRight } from "lucide-react";
 
-const blogPosts = [
+interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  author: string;
+  category: string;
+  desc: string;
+  meta: string;
+  tags: string[];
+  hero: string;
+  content: string;
+  cta: {
+    text: string;
+    link: string;
+  };
+}
+
+const blogPosts: BlogPost[] = [
   {
-    id: "openpay-launches-merchant-pos",
-    title: "OpenPay Launches Merchant POS for Pi Payments",
-    date: "Feb 20, 2026",
+    id: "openpay-nft-marketplace",
+    slug: "openpay-nft-marketplace",
+    title: "OpenPay NFT — Complete Feature Blog",
+    date: "Jul 10, 2026",
     author: "OpenPay Team",
     category: "Product",
-    desc: "Introducing the OpenPay Merchant POS — accept Pi payments in-store and online with a full dashboard, refund management, and transaction history.",
+    desc: "A creator-first NFT marketplace built into OpenPay. Mint, sell, auction, gift, chat, and run your own store — all from one app, on web and inside Pi Browser.",
+    meta: "Mint, sell, auction, gift, chat, and run your own NFT store — all from one app.",
+    tags: ["nft", "marketplace", "web3", "creators"],
+    hero: "Your NFT studio. Your global stage.",
     content: `
-# OpenPay Launches Merchant POS for Pi Payments
+# OpenPay NFT — Complete Feature Blog
 
-We're thrilled to announce the launch of OpenPay's Merchant Point of Sale (POS) system, bringing Pi payments to businesses worldwide. This comprehensive solution enables merchants to accept Pi payments both in-store and online with ease.
+A creator-first NFT marketplace built into OpenPay. Mint, sell, auction, gift, chat, and run your own store — all from one app, on web and inside Pi Browser.
 
-## What is OpenPay Merchant POS?
+## Mint Your First NFT
 
-OpenPay Merchant POS is a complete payment solution designed specifically for businesses wanting to accept Pi Network's native currency. The system includes:
+**Where:** \`/web3/nft/create\`
 
-- **In-store POS terminal** with QR code generation and scanning
-- **Online payment gateway** for e-commerce integration
-- **Merchant dashboard** with real-time analytics
-- **Transaction history** and detailed reporting
-- **Refund management** system
-- **Multi-currency support** for automatic conversion
+Upload image, GIF, video, or audio. Set name, unique code, description, category, and royalty %. Choose supply (1 = 1/1, more = limited edition). Pick currency: OUSD, USD, or Pi.
 
-## Key Features
+**Sale Type picker:** Fixed Price (instant buy) or 🔥 **Live Auction** (real-time bidding war that launches the moment you mint).
 
-### 1. Seamless Integration
-Our POS system integrates seamlessly with existing business operations. Whether you run a retail store, restaurant, or online shop, OpenPay Merchant POS adapts to your needs.
+**Why creators love it:** zero gas fees, fully on-platform escrow, your buyers pay with their OpenPay balance, virtual card, or Pi.
 
-### 2. Real-time Analytics
-Track your daily revenue, transaction counts, and payment trends through our intuitive dashboard. Get insights into customer behavior and payment patterns.
+## Live Realtime Auctions
 
-### 3. Easy Refunds
-Process refunds and cancellations with just a few clicks from the merchant dashboard. No complicated procedures or long waiting times.
+**Where:** any NFT detail page
 
-### 4. Multi-location Support
-Manage multiple store locations and merchant wallets from a single account. Perfect for growing businesses and franchises.
+- ⏱️ Countdown updates every second (turns red and pulses in the last hour)
+- 📈 Current bid jumps in realtime with a green glow animation each time someone bids
+- 👑 Leader nameplate switches live
+- 📜 Recent bids feed shows the last 5 bids and bidders
+- 🏆 Winner banner appears the second the auction ends — no refresh needed
+- 💸 Funds are escrowed safely; outbid users are refunded automatically
 
-## Getting Started
+## Global Live Chat
 
-Getting started with OpenPay Merchant POS is simple:
+**Where:** marketplace header → 💬 icon, or \`/web3/nft/chat\`
 
-1. **Create a merchant account** on OpenPay
-2. **Verify your business** documentation
-3. **Set up your POS terminal** or integrate the online gateway
-4. **Start accepting Pi payments** immediately
+Real-time global chat for every signed-in OpenPay user. **Share NFT button:** pick from NFTs you own or created → it renders as a clickable preview card in the chat. Live indicator, message timestamps, delete-your-own. Built on Supabase realtime — messages stream in instantly.
 
-## Benefits for Merchants
+Use it to: hype your drop, find collectors, run giveaways, build a fandom.
 
-- **Lower transaction fees** compared to traditional payment processors
-- **Access to the growing Pi ecosystem** and its user base
-- **Instant settlement** to your merchant wallet
-- **No chargebacks** - blockchain transactions are final
-- **Global reach** - accept payments from anywhere in the world
+## Status Badges
 
-## Join the Pi Economy
+Every NFT card shows live availability:
+- 🟢 **Available**
+- 🟠 **Limited** (≤ 3 left or ≤ 10% of supply)
+- 🔴 **Sold Out**
+- 🔵 **Live Auction**
 
-By accepting Pi payments, you're not just adopting a new payment method – you're joining a revolutionary digital economy. Pi Network aims to create the world's most accessible cryptocurrency, and OpenPay is here to make it practical for everyday business use.
+Visible on the marketplace grid, detail page, dashboard, and store pages.
 
-Ready to start accepting Pi? [Sign up for OpenPay Merchant](https://openpy.space/) and transform your business today.
-    `
+## Buy & Resale Listings
+
+Buy with **OpenPay balance**, **Virtual Card**, or **Pi** (in Pi Browser). Virtual card details are masked behind an 👁️ eye toggle — screenshot/screen-record protection. Owners can **list for resale** at any price, edit the price anytime, or cancel. Auto-receipt with reference, method, masked card, Pi TxID.
+
+## Gifting NFTs
+
+Send any NFT you own to another OpenPay user by **@username**. Add a personal message — recipient sees a celebratory burst on delivery.
+
+## Creator Store Profile
+
+**Where:** \`/web3/nft/store/settings\`
+
+Build a Stripe/PayPal-grade storefront for your collection:
+- Custom **handle** (your URL: \`/web3/nft/store/<handle>\`)
+- Display name, bio, banner image, avatar
+- Category (collectibles, art, music, gaming, photography, etc.)
+- Social links: **Website · Twitter/X · Instagram · Facebook · YouTube · Telegram · Discord · Public email**
+- Verified badge for trusted creators
+- "Feature my NFTs" toggle for marketing showcase
+
+## Followers & Following
+
+**Follow / Unfollow** any store with one tap. Stats grid shows **Followers** and **Following** counts. Tap either count to open a list of users — see their avatar, name, bio, verified badge, and jump directly to their store.
+
+## Storefront Page
+
+Every store page shows:
+- Store value, NFTs collected, NFTs created, followers, following
+- Tabs: **Collected · Created · Activity · Offers**
+- Grid or list view
+- All linked socials with icon shortcuts
+- One-tap share / copy store ID
+
+## Smooth, Always-Fresh Marketplace
+
+Pull-to-refresh + auto-refresh when you scroll to the bottom. Skeleton loaders — never a long blank screen. Search across NFTs, stores, and creators.
+
+## Transparent History (OpenLedger)
+
+Each NFT detail page shows the full chain of mints, sales, gifts, and resales — with timestamps and amounts. Public, immutable, audit-friendly.
+
+## Pi Network Integration
+
+- **Pi Ad Network rewarded ads** play before Pi authentication on \`/auth\`
+- Mining activation via rewarded ads
+- Pi payments inside the marketplace for any NFT priced in Pi
+- Optimized UX when running inside Pi Browser (email sign-in is hidden there; outside Pi Browser email + Apple sign-in are available)
+
+## Security & Trust
+
+Row-level security on every NFT table. Auction escrow + automatic outbid refunds. Virtual card masking on detail/buy modals. No client-side admin checks — all role enforcement server-side. 2FA, MPIN, and account locking carry over from OpenPay core.
+
+## Mobile-First, PWA-Ready
+
+Floating bottom nav on the dashboard. Smooth bottom-sheet modals (buy, gift, list, auction, bid, follow list). Works in Pi Browser, mobile Safari, Chrome, and as an installed PWA.
+
+## Roadmap
+
+- Bundled drops
+- Creator analytics dashboard upgrades
+- NFT-gated content
+- Cross-store collabs
+- Open marketplace API for third-party apps
+
+**Try it now:** open OpenPay → menu → **NFT Marketplace** → 🔥 Mint or browse.
+    `,
+    cta: {
+      text: "Enter NFT Marketplace",
+      link: "https://openpy.space/web3"
+    }
   },
   {
     id: "core-wallet-features-guide",
+    slug: "openpay-dashboard",
     title: "Complete Guide to OpenPay Core Wallet Features",
-    date: "Feb 22, 2026",
+    date: "Jul 10, 2026",
     author: "OpenPay Team",
     category: "Guide",
     desc: "Master OpenPay's core wallet features: Express Send, QR payments, invoices, activity tracking, currency conversion, and security tools.",
+    meta: "Balance, quick actions, recommendations, and a floating nav — everything a Pi wallet needs on one screen.",
+    tags: ["dashboard", "ux", "wallet"],
+    hero: "One screen. Every action a Pioneer needs.",
     content: `
 # Complete Guide to OpenPay Core Wallet Features
 
@@ -218,15 +305,92 @@ Comprehensive security features with Pi-auth sign-in, device controls, and dispu
 OpenPay's core wallet features provide the foundation for seamless Pi transactions, whether you're managing personal finances or running a business. Each tool is designed with security, transparency, and user experience in mind.
 
 [Start using OpenPay today](https://openpy.space/) and experience the future of digital payments.
-    `
+    `,
+    cta: {
+      text: "Open dashboard",
+      link: "https://openpy.space/auth/dashboard"
+    }
+  },
+  {
+    id: "openpay-launches-merchant-pos",
+    slug: "openpay-pos-terminal",
+    title: "OpenPay Launches Merchant POS for Pi Payments",
+    date: "Jul 9, 2026",
+    author: "OpenPay Team",
+    category: "Product",
+    desc: "Introducing the OpenPay Merchant POS — accept Pi payments in-store and online with a full dashboard, refund management, and transaction history.",
+    meta: "Turn any phone into a Pi-accepting POS terminal with QR checkout and instant receipts.",
+    tags: ["pos", "retail", "qr"],
+    hero: "Your phone is your terminal.",
+    content: `
+# OpenPay Launches Merchant POS for Pi Payments
+
+We're thrilled to announce the launch of OpenPay's Merchant Point of Sale (POS) system, bringing Pi payments to businesses worldwide. This comprehensive solution enables merchants to accept Pi payments both in-store and online with ease.
+
+## What is OpenPay Merchant POS?
+
+OpenPay Merchant POS is a complete payment solution designed specifically for businesses wanting to accept Pi Network's native currency. The system includes:
+
+- **In-store POS terminal** with QR code generation and scanning
+- **Online payment gateway** for e-commerce integration
+- **Merchant dashboard** with real-time analytics
+- **Transaction history** and detailed reporting
+- **Refund management** system
+- **Multi-currency support** for automatic conversion
+
+## Key Features
+
+### 1. Seamless Integration
+Our POS system integrates seamlessly with existing business operations. Whether you run a retail store, restaurant, or online shop, OpenPay Merchant POS adapts to your needs.
+
+### 2. Real-time Analytics
+Track your daily revenue, transaction counts, and payment trends through our intuitive dashboard. Get insights into customer behavior and payment patterns.
+
+### 3. Easy Refunds
+Process refunds and cancellations with just a few clicks from the merchant dashboard. No complicated procedures or long waiting times.
+
+### 4. Multi-location Support
+Manage multiple store locations and merchant wallets from a single account. Perfect for growing businesses and franchises.
+
+## Getting Started
+
+Getting started with OpenPay Merchant POS is simple:
+
+1. **Create a merchant account** on OpenPay
+2. **Verify your business** documentation
+3. **Set up your POS terminal** or integrate the online gateway
+4. **Start accepting Pi payments** immediately
+
+## Benefits for Merchants
+
+- **Lower transaction fees** compared to traditional payment processors
+- **Access to the growing Pi ecosystem** and its user base
+- **Instant settlement** to your merchant wallet
+- **No chargebacks** - blockchain transactions are final
+- **Global reach** - accept payments from anywhere in the world
+
+## Join the Pi Economy
+
+By accepting Pi payments, you're not just adopting a new payment method – you're joining a revolutionary digital economy. Pi Network aims to create the world's most accessible cryptocurrency, and OpenPay is here to make it practical for everyday business use.
+
+Ready to start accepting Pi? [Sign up for OpenPay Merchant](https://openpy.space/) and transform your business today.
+    `,
+    cta: {
+      text: "Open POS",
+      link: "https://openpy.space/auth/merchant-pos"
+    }
   },
   {
     id: "utility-apps-ecommerce-guide",
+    slug: "openpay-utility-apps",
     title: "OpenPay Utility Apps: Complete E-commerce Solution",
-    date: "Feb 21, 2026",
+    date: "Jul 8, 2026",
     author: "OpenPay Team",
     category: "Product",
     desc: "Explore OpenPay's utility apps: Merchant POS, Payment Links, Virtual Cards, and more for complete payment solutions.",
+    meta: "From POS to payment links—every tool you need to run a Pi-powered business.",
+    tags: ["ecommerce", "pos", "tools"],
+    hero: "Your complete payment toolkit.",
     content: `
 # OpenPay Utility Apps: Complete E-commerce Solution
 
@@ -243,7 +407,7 @@ Transform any device into a powerful point-of-sale terminal with QR-based checko
 - **Multi-device support** for counters and mobile sales
 - **Offline capability** with sync when online
 
-### Ideal For:
+### Use Cases:
 - Retail stores and boutiques
 - Restaurants and cafes
 - Pop-up shops and markets
@@ -262,7 +426,7 @@ Transform any device into a powerful point-of-sale terminal with QR-based checko
 
 Create shareable payment links for remote checkout, perfect for services, digital products, and online invoicing.
 
-### Link Features:
+### Key Features:
 - **Customizable amounts** and descriptions
 - **Shareable across platforms** (chat, email, social)
 - **Real-time status tracking** in your portal
@@ -276,20 +440,34 @@ Create shareable payment links for remote checkout, perfect for services, digita
 - Online course enrollment
 - Donation collections
 
+### How It Works:
+1. Navigate to Payment Links in your dashboard
+2. Set amount, description, and optional due date
+3. Generate unique payment link
+4. Share link via chat, email, or social media
+5. Receive automatic notification when paid
+
 **Create Link:** [Payment Links](https://openpy.space/auth/payment-links/create)
 
 ## Merchant Onboarding - Business Setup
 
 Configure your business profile, product catalog, and payout preferences to accept payments across all OpenPay flows.
 
-### Onboarding Features:
+### Key Features:
 - **Business profile** with branding options
 - **Product catalog** management
 - **Payout preferences** and banking setup
 - **Tax configuration** and compliance
 - **Multi-location support** for chains
 
-### Setup Process:
+### Use Cases:
+- New merchant registration
+- Business expansion to new locations
+- Catalog updates and pricing changes
+- Payout method configuration
+- Compliance and verification
+
+### How It Works:
 1. **Business Information**: Add company details, logo, and branding
 2. **Product Catalog**: Upload items with prices and descriptions
 3. **Payment Settings**: Configure accepted currencies and fees
@@ -302,66 +480,55 @@ Configure your business profile, product catalog, and payout preferences to acce
 
 Configure virtual cards for online spending with spend routing and transaction controls.
 
-### Card Features:
+### Key Features:
 - **Virtual card numbers** for secure online purchases
 - **Spend limits** and category controls
 - **Transaction notifications** in real-time
 - **Integration** with major payment networks
 - **Automatic conversion** from Pi to fiat
 
-### Benefits:
-- **Enhanced security** with one-time use numbers
-- **Global acceptance** at online merchants
-- **Budget control** through spend limits
-- **Clean records** with detailed transaction data
+### Use Cases:
+- Online shopping at global merchants
+- Subscription service payments
+- Supplier and vendor payments
+- Controlled employee spending
+- Secure one-time purchases
+
+### How It Works:
+1. Request virtual card from your dashboard
+2. Set spend limits and category restrictions
+3. Use card details at checkout for online purchases
+4. Transactions auto-convert from Pi to fiat
+5. Monitor spending in real-time with notifications
 
 **Manage Card:** [Virtual Card](https://openpy.space/auth/virtual-card)
 
-## Public Wallet Pay - Simple Payment Pages
+## Developer Tools - API Integration
 
-Share a public payment page for direct wallet payments without full catalog setup.
+Integrate OpenPay's payment capabilities directly into your applications with comprehensive developer tools and APIs.
 
-### Public Payment Features:
-- **Simple payment interface** for quick transactions
-- **Customizable branding** and messaging
-- **Direct wallet-to-wallet** transfers
-- **Automatic receipts** and confirmations
-- **Mobile-optimized** design
+### Key Features:
+- **RESTful API** for payment processing
+- **Webhook notifications** for real-time updates
+- **Sandbox environment** for testing
+- **Comprehensive documentation** and code samples
+- **SDK support** for popular frameworks
 
-### Perfect For:
-- Tip jars and donations
-- Quick "pay me" scenarios
-- Simple service payments
-- Event registrations
-- Community contributions
+### Use Cases:
+- Custom e-commerce integrations
+- Mobile app payment flows
+- Automated billing systems
+- Third-party platform integration
+- Custom checkout experiences
 
-**Accept Payments:** [Public Wallet Pay](https://openpy.space/auth/public-payment)
+### How It Works:
+1. **API Registration**: Obtain API keys from developer portal
+2. **Authentication**: Implement secure API authentication
+3. **Integration**: Build payment flows using REST endpoints
+4. **Testing**: Use sandbox environment for development
+5. **Deployment**: Go live with production credentials
 
-## OpenPay Official - Feature Overview
-
-Explore the complete overview of all OpenPay supported flows and capabilities.
-
-### Overview Includes:
-- **Feature directory** with descriptions
-- **Integration guides** for each tool
-- **Use case recommendations**
-- **Technical documentation** links
-- **Best practices** and tips
-
-**View Overview:** [OpenPay Official](https://openpy.space/auth/openpay-official)
-
-## OpenApp Directory - Pi Ecosystem
-
-Discover applications and services in the broader Pi Network ecosystem that integrate with OpenPay.
-
-### Directory Features:
-- **App categories** for easy browsing
-- **Integration status** with OpenPay
-- **User reviews** and ratings
-- **Developer resources** and APIs
-- **Trending apps** and new releases
-
-**Explore Directory:** [OpenApp Directory](https://openapp7296.pinet.com/)
+**Developer Resources:** [API Documentation](https://openpy.space/auth/developer-docs)
 
 ## Integration Benefits
 
@@ -393,34 +560,40 @@ Built-in security across all utilities:
 2. **Set up Payment Links** for remote sales
 3. **Configure Merchant POS** for in-person transactions
 4. **Create Virtual Card** for online purchases
-5. **Explore Public Payment** for simple scenarios
+5. **Explore Developer Tools** for custom needs
 
 ### For Service Providers:
 1. **Set up Payment Links** for client billing
 2. **Configure Invoicing** for professional services
-3. **Use Public Wallet Pay** for quick payments
+3. **Use Virtual Card** for supplier payments
 4. **Leverage QR codes** for in-person meetings
-5. **Integrate with website** using payment links
+5. **Integrate with website** using API tools
 
 ### For E-commerce:
 1. **Complete full onboarding** with product catalog
-2. **Integrate payment links** into checkout flow
+2. **Integrate payment APIs** into checkout flow
 3. **Set up virtual cards** for supplier payments
-4. **Configure notifications** for order management
+4. **Configure webhooks** for order management
 5. **Use analytics** for business insights
 
 OpenPay's utility apps provide everything you need to run a modern business in the Pi ecosystem. Each tool is designed to work independently or as part of a comprehensive payment solution.
-
-[Start exploring OpenPay utilities](https://openpy.space/) and transform how you handle payments today.
-    `
+    `,
+    cta: {
+      text: "Explore utilities",
+      link: "https://openpy.space/auth/openpay-official"
+    }
   },
   {
     id: "merchant-portal-complete-guide",
+    slug: "openpay-merchant-portal",
     title: "OpenPay Merchant Portal: Complete Business Management",
-    date: "Feb 19, 2026",
+    date: "Jul 7, 2026",
     author: "OpenPay Team",
     category: "Guide",
     desc: "Master the OpenPay Merchant Portal: product management, analytics, checkout flows, and business operations.",
+    meta: "Products, analytics, checkout, and orders—manage your Pi business from one dashboard.",
+    tags: ["portal", "analytics", "business"],
+    hero: "Your business command center.",
     content: `
 # OpenPay Merchant Portal: Complete Business Management
 
@@ -660,15 +833,23 @@ Extend your portal capabilities with powerful API access and third-party integra
 The OpenPay Merchant Portal provides everything you need to run a successful business in the Pi ecosystem. From product management to customer relationships, every tool is designed to help you grow and succeed.
 
 [Start your merchant journey](https://openpy.space/) and unlock the full potential of Pi payments for your business.
-    `
+    `,
+    cta: {
+      text: "Open portal",
+      link: "https://openpy.space/auth/merchant-products"
+    }
   },
   {
     id: "security-trust-comprehensive-guide",
+    slug: "openpay-security-trust",
     title: "Security & Trust: OpenPay's Complete Protection Framework",
-    date: "Feb 18, 2026",
+    date: "Jul 6, 2026",
     author: "OpenPay Team",
     category: "Security",
     desc: "Learn about OpenPay's comprehensive security features: Pi-auth, transaction PIN, disputes, compliance, and trust mechanisms.",
+    meta: "Pi-auth, PIN protection, disputes, and compliance—your Pi is always secure.",
+    tags: ["security", "trust", "protection"],
+    hero: "Built on trust. Secured by design.",
     content: `
 # Security & Trust: OpenPay's Complete Protection Framework
 
@@ -902,15 +1083,23 @@ Comprehensive legal documentation and policies to protect users and ensure fair 
 OpenPay's comprehensive security framework ensures that your Pi transactions are protected at every level. From authentication to dispute resolution, every feature is designed with your security and peace of mind in mind.
 
 [Secure your account today](https://openpy.space/) and experience the confidence that comes with robust protection.
-    `
+    `,
+    cta: {
+      text: "Secure account",
+      link: "https://openpy.space/auth/confirm-pin"
+    }
   },
   {
     id: "notifications-growth-complete-guide",
+    slug: "openpay-notifications-growth",
     title: "Notifications & Growth: OpenPay's Engagement Ecosystem",
-    date: "Feb 17, 2026",
+    date: "Jul 5, 2026",
     author: "OpenPay Team",
     category: "Update",
     desc: "Explore OpenPay's notification system, announcements, affiliate program, and Pi Ad Network for user engagement and business growth.",
+    meta: "Stay informed with real-time alerts, affiliate rewards, and growth tools.",
+    tags: ["notifications", "growth", "engagement"],
+    hero: "Never miss a beat. Always grow.",
     content: `
 # Notifications & Growth: OpenPay's Engagement Ecosystem
 
@@ -1109,15 +1298,23 @@ Promote your products, services, or OpenPay integrations to the Pi community thr
 OpenPay's notification and growth ecosystem provides everything you need to stay informed, expand your reach, and succeed in the Pi economy. Whether you're an individual user, merchant, or developer, these tools help you maximize your OpenPay experience.
 
 [Start growing with OpenPay](https://openpy.space/) and join thousands of users building the future of digital payments.
-    `
+    `,
+    cta: {
+      text: "Start growing",
+      link: "https://openpy.space/auth/notifications"
+    }
   },
   {
     id: "wallet-profile-settings-guide",
+    slug: "openpay-wallet-profile",
     title: "Wallet, Profile, and Settings: Complete User Management",
-    date: "Feb 16, 2026",
+    date: "Jul 4, 2026",
     author: "OpenPay Team",
     category: "Guide",
     desc: "Master OpenPay's dashboard, profile management, settings configuration, contacts, and QR scanner for complete user control.",
+    meta: "Dashboard, profile, settings, contacts, and QR scanner—full control at your fingertips.",
+    tags: ["dashboard", "profile", "settings"],
+    hero: "Your wallet. Your way.",
     content: `
 # Wallet, Profile, and Settings: Complete User Management
 
@@ -1329,15 +1526,23 @@ The built-in QR scanner provides seamless integration between physical and digit
 OpenPay's comprehensive user management tools provide everything you need to control your account experience, from basic profile setup to advanced security and privacy configurations.
 
 [Customize your OpenPay experience](https://openpy.space/) and take full control of your digital payment journey.
-    `
+    `,
+    cta: {
+      text: "Customize profile",
+      link: "https://openpy.space/auth/dashboard"
+    }
   },
   {
     id: "topup-funding-complete-guide",
+    slug: "openpay-topup-funding",
     title: "Top Up & Funding: Complete Guide to Adding Funds",
-    date: "Feb 14, 2026",
+    date: "Jul 3, 2026",
     author: "OpenPay Team",
     category: "Guide",
     desc: "Learn all ways to fund your OpenPay wallet: Apple Pay, Google Pay, Stripe, PayPal, credit/debit cards, USDC/USDT, Venmo, and regional options.",
+    meta: "Apple Pay, Google Pay, cards, crypto, and more—fund your wallet however you prefer.",
+    tags: ["funding", "topup", "payments"],
+    hero: "Add funds. Any way you want.",
     content: `
 # Top Up & Funding: Complete Guide to Adding Funds
 
@@ -1623,15 +1828,23 @@ Access localized payment methods tailored to specific regions and markets.
 OpenPay's comprehensive funding options ensure you can add funds conveniently, securely, and cost-effectively, regardless of your location or preferred payment method.
 
 [Fund your wallet today](https://openpy.space/) and experience seamless Pi transactions.
-    `
+    `,
+    cta: {
+      text: "Add funds",
+      link: "https://openpy.space/auth/topup"
+    }
   },
   {
     id: "virtual-card-checkout-guide",
+    slug: "openpay-virtual-card-checkout",
     title: "Virtual Card & Checkout: Complete Payment Solution",
-    date: "Feb 13, 2026",
+    date: "Jul 2, 2026",
     author: "OpenPay Team",
     category: "Product",
     desc: "Master OpenPay's virtual cards, hosted checkout, public payments, and thank-you pages for complete e-commerce integration.",
+    meta: "Virtual cards, hosted checkout, and public payments—complete e-commerce in one place.",
+    tags: ["virtual-card", "checkout", "ecommerce"],
+    hero: "Spend Pi anywhere online.",
     content: `
 # Virtual Card & Checkout: Complete Payment Solution
 
@@ -1870,15 +2083,23 @@ Accept direct wallet payments without full e-commerce setup, perfect for donatio
 OpenPay's virtual card and checkout solutions provide everything you need to accept payments online, whether you're running a full e-commerce operation or need simple payment acceptance for specific use cases.
 
 [Start accepting payments](https://openpy.space/) and unlock the full potential of digital commerce with Pi.
-    `
+    `,
+    cta: {
+      text: "Get virtual card",
+      link: "https://openpy.space/auth/virtual-card"
+    }
   },
   {
     id: "developer-api-complete-guide",
+    slug: "openpay-developer-api",
     title: "Developer & API: Complete Integration Guide",
-    date: "Feb 12, 2026",
+    date: "Jul 1, 2026",
     author: "OpenPay Team",
     category: "Guide",
     desc: "Master OpenPay's API documentation, POS integration, merchant portal APIs, and developer tools for seamless application integration.",
+    meta: "RESTful APIs, webhooks, sandbox, and docs—build Pi payments into any app.",
+    tags: ["api", "developer", "integration"],
+    hero: "Build with Pi. Ship with confidence.",
     content: `
 # Developer & API: Complete Integration Guide
 
@@ -2184,15 +2405,23 @@ Receive real-time notifications about payment events and account activities thro
 OpenPay's developer tools and APIs provide everything needed to build robust, secure, and scalable payment solutions. Whether you're building a simple payment button or a comprehensive e-commerce platform, our APIs and documentation support your development journey.
 
 [Start developing with OpenPay](https://openpy.space/) and join thousands of developers building the future of Pi payments.
-    `
+    `,
+    cta: {
+      text: "View API docs",
+      link: "https://openpy.space/auth/openpay-api-docs"
+    }
   },
   {
     id: "ecosystem-whitepapers-guide",
+    slug: "openpay-ecosystem-whitepapers",
     title: "Ecosystem & Whitepapers: OpenPay's Strategic Vision",
-    date: "Feb 11, 2026",
+    date: "Jun 30, 2026",
     author: "OpenPay Team",
     category: "Insight",
     desc: "Explore OpenPay's whitepapers, Pi Network integration, regulatory compliance, and strategic vision for the future of digital payments.",
+    meta: "Whitepapers, compliance, and vision—deep insights into OpenPay's future.",
+    tags: ["whitepaper", "ecosystem", "vision"],
+    hero: "The future of Pi payments, documented.",
     content: `
 # Ecosystem & Whitepapers: OpenPay's Strategic Vision
 
@@ -2441,15 +2670,23 @@ Comprehensive overview of OpenPay's mission, capabilities, current limitations, 
 OpenPay's comprehensive documentation and strategic vision provide a clear roadmap for the future of Pi-powered digital payments. Through technical innovation, regulatory compliance, and ecosystem development, we're building the foundation for the next generation of financial services.
 
 [Explore our vision](https://openpy.space/) and join us in shaping the future of digital commerce.
-    `
+    `,
+    cta: {
+      text: "Read whitepapers",
+      link: "https://openpy.space/auth/pi-whitepaper"
+    }
   },
   {
     id: "earn-4.50-apy-pi-savings",
+    slug: "openpay-savings-apy",
     title: "How to Earn 4.50% APY on Your Pi with OpenPay Savings",
-    date: "Feb 15, 2026",
+    date: "Jun 29, 2026",
     author: "OpenPay Team",
     category: "Guide",
     desc: "Learn how to move your Pi from your wallet to savings and start earning competitive yield with OpenPay's built-in savings feature.",
+    meta: "Earn 4.50% APY on your Pi with daily compounding and no lock-up periods.",
+    tags: ["savings", "apy", "earnings"],
+    hero: "Let your Pi work for you.",
     content: `
 # How to Earn 4.50% APY on Your Pi with OpenPay Savings
 
@@ -2533,15 +2770,23 @@ There's no minimum balance - start earning from your first PI in savings.
 Ready to put your Pi to work? [Open your OpenPay Savings account](https://openpy.space/) and start earning 4.50% APY on your digital assets.
 
 Remember, while past performance doesn't guarantee future results, OpenPay Savings provides a reliable way to grow your Pi holdings in the evolving digital economy.
-    `
+    `,
+    cta: {
+      text: "Start earning",
+      link: "https://openpy.space/auth/savings"
+    }
   },
   {
     id: "introducing-virtual-cards",
+    slug: "openpay-virtual-cards-launch",
     title: "Introducing OpenPay Virtual Cards",
-    date: "Feb 10, 2026",
+    date: "Jun 25, 2026",
     author: "OpenPay Team",
     category: "Product",
     desc: "Your OpenPay virtual card is now live. Linked to your Pi balance, you can spend Pi anywhere that accepts digital payments.",
+    meta: "Spend Pi anywhere online with instant virtual cards linked to your balance.",
+    tags: ["virtual-card", "spending", "launch"],
+    hero: "Your Pi, now spendable anywhere.",
     content: `
 # Introducing OpenPay Virtual Cards
 
@@ -2641,15 +2886,23 @@ We're working on:
 Ready to experience the future of crypto spending? [Activate your OpenPay Virtual Card](https://openpy.space/) today and join thousands of users already spending Pi globally.
 
 The OpenPay Virtual Card represents a significant step forward in cryptocurrency adoption, making Pi as easy to spend as traditional money while maintaining the benefits of digital currency.
-    `
+    `,
+    cta: {
+      text: "Get virtual card",
+      link: "https://openpy.space/auth/virtual-card"
+    }
   },
   {
     id: "170-currencies-support",
+    slug: "openpay-170-currencies",
     title: "OpenPay Now Supports 170+ Currencies",
-    date: "Feb 5, 2026",
+    date: "Jun 20, 2026",
     author: "OpenPay Team",
     category: "Update",
     desc: "We've expanded our currency conversion to support over 170 global currencies, making Pi truly borderless for users worldwide.",
+    meta: "Convert Pi to 170+ currencies with real-time rates and global bank withdrawals.",
+    tags: ["currency", "global", "conversion"],
+    hero: "Pi without borders.",
     content: `
 # OpenPay Now Supports 170+ Currencies
 
@@ -2793,15 +3046,23 @@ Experience global Pi transactions with 170+ currency support:
 This currency expansion marks a significant milestone in our mission to make Pi the world's most accessible cryptocurrency. Whether you're sending money home, paying international suppliers, or expanding your business globally, OpenPay's multi-currency support makes it possible.
 
 Join us in building a truly borderless financial future powered by Pi Network.
-    `
+    `,
+    cta: {
+      text: "Convert currency",
+      link: "https://openpy.space/auth/currency-converter"
+    }
   },
   {
     id: "pi-network-openpay-future",
+    slug: "pi-network-openpay-future",
     title: "Pi Network & OpenPay: The Future of Web3 Commerce",
-    date: "Jan 28, 2026",
+    date: "Jun 15, 2026",
     author: "OpenPay Team",
     category: "Insight",
     desc: "A deep dive into how OpenPay is building the payment layer for Pi Network's ecosystem and what it means for the future of decentralized commerce.",
+    meta: "Building the payment layer for Pi Network's vision of accessible crypto commerce.",
+    tags: ["pi-network", "web3", "future"],
+    hero: "The future of money is here.",
     content: `
 # Pi Network & OpenPay: The Future of Web3 Commerce
 
@@ -2987,7 +3248,11 @@ This isn't just about technology – it's about creating economic opportunity, f
 The future of Web3 commerce is being built today, and you're invited to be part of it.
 
 [Join OpenPay](https://openpy.space/) and help us build the future of money.
-    `
+    `,
+    cta: {
+      text: "Join OpenPay",
+      link: "https://openpy.space/"
+    }
   }
 ];
 
@@ -3042,7 +3307,7 @@ const BlogPostDetail = () => {
               <h1 className="text-4xl md:text-5xl font-bold text-foreground mt-4 mb-4 leading-tight">
                 {post.title}
               </h1>
-              <div className="flex items-center gap-6 text-sm text-muted-foreground">
+              <div className="flex items-center gap-6 text-sm text-muted-foreground mb-4">
                 <div className="flex items-center gap-2">
                   <User size={14} />
                   {post.author}
@@ -3051,6 +3316,30 @@ const BlogPostDetail = () => {
                   <Calendar size={14} />
                   {post.date}
                 </div>
+              </div>
+              
+              {/* Hero Copy */}
+              <div className="bg-gradient-to-r from-accent/10 to-purple-500/10 rounded-xl p-6 mb-6 border border-border">
+                <p className="text-xl font-semibold text-foreground italic">
+                  "{post.hero}"
+                </p>
+              </div>
+              
+              {/* Meta Description */}
+              <p className="text-muted-foreground text-base mb-4">
+                {post.meta}
+              </p>
+              
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {post.tags.map((tag, index) => (
+                  <span 
+                    key={index}
+                    className="text-xs font-medium px-3 py-1 rounded-full bg-secondary text-foreground"
+                  >
+                    #{tag}
+                  </span>
+                ))}
               </div>
             </div>
 
@@ -3186,16 +3475,16 @@ const BlogPostDetail = () => {
               className="mt-16 text-center bg-gradient-to-r from-accent/10 to-purple-500/10 rounded-2xl p-8 border border-border"
             >
               <h2 className="text-2xl font-bold text-foreground mb-4">
-                Ready to experience OpenPay?
+                Ready to experience this feature?
               </h2>
               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Join thousands of users who are already using OpenPay for fast, secure Pi payments worldwide.
+                {post.meta}
               </p>
               <a 
-                href="https://openpy.space/"
+                href={post.cta.link}
                 className="inline-flex items-center gap-2 px-8 py-3 bg-accent text-white rounded-full font-semibold hover:opacity-90 transition-opacity"
               >
-                Get Started Free <ArrowRight size={16} />
+                {post.cta.text} <ArrowRight size={16} />
               </a>
             </motion.div>
           </motion.div>
