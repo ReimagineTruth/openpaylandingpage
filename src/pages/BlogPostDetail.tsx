@@ -57,6 +57,19 @@ const BlogPostDetail = () => {
     fetchPost();
   }, [id]);
 
+  // Function to clean markdown formatting for better display
+  const cleanMarkdown = (text: string) => {
+    return text
+      // Remove inline markdown symbols but keep the text
+      .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold markers
+      .replace(/\*(.*?)\*/g, '$1') // Remove italic markers
+      .replace(/`([^`]+)`/g, '$1') // Remove code markers
+      .replace(/~~(.*?)~~/g, '$1') // Remove strikethrough markers
+      // Clean up extra whitespace
+      .replace(/\s+/g, ' ')
+      .trim();
+  };
+
   const getFallbackPosts = (): BlogPost[] => [
   {
     id: "openpay-telegram-mini-app",
@@ -3458,7 +3471,7 @@ The future of Web3 commerce is being built today, and you're invited to be part 
                   {post.content.split('\n\n').map((paragraph, index) => {
                     if (paragraph.startsWith('#')) {
                       const level = paragraph.match(/^#+/)?.[0].length || 1;
-                      const text = paragraph.replace(/^#+\s*/, '');
+                      const text = cleanMarkdown(paragraph.replace(/^#+\s*/, ''));
                       const HeadingTag = `h${Math.min(level, 3)}` as keyof JSX.IntrinsicElements;
                       return (
                         <HeadingTag 
@@ -3474,13 +3487,17 @@ The future of Web3 commerce is being built today, and you're invited to be part 
                       );
                     }
                     
+                    // Handle list items (both single and multi-line)
                     if (paragraph.startsWith('-') || paragraph.startsWith('*')) {
+                      const listItems = paragraph.split('\n').filter(line => line.trim().startsWith('-') || line.trim().startsWith('*'));
                       return (
                         <ul key={index} className="space-y-2 my-4">
-                          <li className="flex items-start gap-3 text-foreground/90 text-base">
-                            <span className="text-accent mt-1">•</span>
-                            <span className="flex-1">{paragraph.replace(/^[-*]\s*/, '')}</span>
-                          </li>
+                          {listItems.map((item, itemIndex) => (
+                            <li key={itemIndex} className="flex items-start gap-3 text-foreground/90 text-base">
+                              <span className="text-accent mt-1">•</span>
+                              <span className="flex-1">{cleanMarkdown(item.replace(/^[-*]\s*/, ''))}</span>
+                            </li>
+                          ))}
                         </ul>
                       );
                     }
@@ -3570,7 +3587,7 @@ The future of Web3 commerce is being built today, and you're invited to be part 
                                     target="_blank"
                                     rel="noopener noreferrer"
                                   >
-                                    {linkMatch[1]}
+                                    {cleanMarkdown(linkMatch[1])}
                                     <ArrowRight size={14} />
                                   </a>
                                 );
@@ -3584,12 +3601,12 @@ The future of Web3 commerce is being built today, and you're invited to be part 
                                   target="_blank"
                                   rel="noopener noreferrer"
                                 >
-                                  {linkMatch[1]}
+                                  {cleanMarkdown(linkMatch[1])}
                                   <ArrowRight size={12} />
                                 </a>
                               );
                             }
-                            return part;
+                            return cleanMarkdown(part);
                           })}
                         </p>
                       );
@@ -3633,7 +3650,7 @@ The future of Web3 commerce is being built today, and you're invited to be part 
                                 </a>
                               );
                             }
-                            return part;
+                            return cleanMarkdown(part);
                           })}
                         </p>
                       );
@@ -3641,7 +3658,7 @@ The future of Web3 commerce is being built today, and you're invited to be part 
 
                     return (
                       <p key={index} className="mb-4 text-foreground/90 leading-relaxed text-base">
-                        {paragraph}
+                        {cleanMarkdown(paragraph)}
                       </p>
                     );
                   })}
