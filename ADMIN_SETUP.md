@@ -34,7 +34,7 @@ cp .env.example .env
 2. Edit `.env` and add your Supabase credentials:
 ```env
 VITE_SUPABASE_URL=your-supabase-project-url
-VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+VITE_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
 VITE_ADMIN_EMAIL=admin@openpy.space
 VITE_ADMIN_PASSWORD=your-secure-password
 ```
