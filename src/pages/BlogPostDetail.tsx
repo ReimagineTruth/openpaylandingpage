@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft, Calendar, User, ArrowRight } from "lucide-react";
+import { supabase } from "@/utils/supabase";
 
 interface BlogPost {
   id: string;
@@ -16,13 +18,133 @@ interface BlogPost {
   tags: string[];
   hero: string;
   content: string;
-  cta: {
-    text: string;
-    link: string;
-  };
+  cta_text: string;
+  cta_link: string;
 }
 
-const blogPosts: BlogPost[] = [
+const BlogPostDetail = () => {
+  const { id } = useParams<{ id: string }>();
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchPost() {
+      try {
+        // Try to fetch from Supabase first
+        const { data, error } = await supabase
+          .from('blog_posts')
+          .select('*')
+          .or(`slug.eq.${id},id.eq.${id}`)
+          .single();
+
+        if (error) {
+          console.error('Error fetching post:', error);
+          // Fallback to hardcoded data
+          const fallbackPost = getFallbackPosts().find(p => p.id === id || p.slug === id);
+          setPost(fallbackPost || null);
+        } else if (data) {
+          setPost(data);
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        const fallbackPost = getFallbackPosts().find(p => p.id === id || p.slug === id);
+        setPost(fallbackPost || null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchPost();
+  }, [id]);
+
+  const getFallbackPosts = (): BlogPost[] => [
+  {
+    id: "openpay-telegram-mini-app",
+    slug: "openpay-telegram-mini-app",
+    title: "OpenPay Now Available as a Telegram Mini App",
+    date: "Jul 11, 2026",
+    author: "OpenPay Team",
+    category: "Product",
+    desc: "Access OpenPay directly inside Telegram via our Mini App for seamless, fast, and secure payments right where conversations happen.",
+    meta: "Seamless, fast, and secure payments right where conversations happen.",
+    tags: ["telegram", "mini-app", "payments", "web3"],
+    hero: "The Future of Payments is Here",
+    content: `
+# OpenPay Now Available as a Telegram Mini App
+
+We're excited to announce a major milestone for OpenPay — you can now access OpenPay directly inside Telegram via our Mini App! 🎉
+
+This launch brings seamless, fast, and secure payments right to where conversations happen.
+
+## What is the OpenPay Telegram Mini App?
+
+The OpenPay Telegram Bot Mini App allows users to:
+
+- 💸 Send and receive payments instantly
+- 🔗 Generate payment links with ease
+- 🛍 Accept payments for products and services
+- 📊 Manage transactions securely in one place
+
+All of this happens without leaving Telegram, making payments more convenient than ever.
+
+## Why This Matters
+
+Telegram is one of the fastest-growing messaging platforms in the world. By integrating OpenPay into Telegram, we're unlocking:
+
+- Frictionless payments within chats
+- Faster onboarding for new users
+- Better accessibility for global users
+- A true Web3 payment experience inside messaging apps
+
+This is a big step toward making decentralized payments part of everyday life.
+
+## Fast, Secure & User-Friendly
+
+OpenPay is built with a focus on:
+
+- 🔒 Security-first transactions
+- ⚡ Real-time processing
+- 🌐 Cross-platform accessibility
+- 👤 Simple and intuitive user experience
+
+Whether you're a freelancer, seller, or everyday user — OpenPay makes transactions effortless.
+
+## Get Started Now
+
+👉 [Launch the OpenPay Telegram Mini App](https://t.me/openpayofficialbot)
+
+## Explore More
+
+📰 [Read the Blog](https://openpy.space/blog/)
+
+🛒 [Explore NFT Collection](https://openpy.space/web3/nft/store)
+
+🌐 [OpenPay Mainnet](https://openpy.space)
+
+💙 [TOP2 Testnet](http://openpaydphh0643.pinet.com/)
+
+## Documentation & Resources
+
+📖 [Pi Whitepaper](http://minepi.com/white-paper/)
+
+📖 [OpenPay Whitepaper](https://openpy.space/whitepaper)
+
+📊 [Pitch Deck](https://openpy.space/pitch-deck)
+
+## Stay Connected
+
+Follow us for updates, releases, and ecosystem growth:
+droplinkpi.space/@openpay
+
+## The Future of Payments is Here
+
+With the launch of the Telegram Mini App, OpenPay is taking another step toward building a borderless, decentralized payment ecosystem.
+
+We're just getting started — and we're excited to have you with you. 💙
+    `,
+    cta_text: "Launch Telegram Mini App",
+    cta_link: "https://t.me/openpayofficialbot"
+  },
   {
     id: "openpay-nft-marketplace",
     slug: "openpay-nft-marketplace",
@@ -144,10 +266,8 @@ Floating bottom nav on the dashboard. Smooth bottom-sheet modals (buy, gift, lis
 
 **Try it now:** open OpenPay → menu → **NFT Marketplace** → 🔥 Mint or browse.
     `,
-    cta: {
-      text: "Enter NFT Marketplace",
-      link: "https://openpy.space/web3"
-    }
+    cta_text: "Enter NFT Marketplace",
+    cta_link: "https://openpy.space/web3"
   },
   {
     id: "core-wallet-features-guide",
@@ -306,10 +426,8 @@ OpenPay's core wallet features provide the foundation for seamless Pi transactio
 
 [Start using OpenPay today](https://openpy.space/) and experience the future of digital payments.
     `,
-    cta: {
-      text: "Open dashboard",
-      link: "https://openpy.space/auth/dashboard"
-    }
+    cta_text: "Open dashboard",
+    cta_link: "https://openpy.space/auth/dashboard"
   },
   {
     id: "openpay-launches-merchant-pos",
@@ -375,10 +493,8 @@ By accepting Pi payments, you're not just adopting a new payment method – you'
 
 Ready to start accepting Pi? [Sign up for OpenPay Merchant](https://openpy.space/) and transform your business today.
     `,
-    cta: {
-      text: "Open POS",
-      link: "https://openpy.space/auth/merchant-pos"
-    }
+    cta_text: "Open POS",
+    cta_link: "https://openpy.space/auth/merchant-pos"
   },
   {
     id: "utility-apps-ecommerce-guide",
@@ -578,10 +694,8 @@ Built-in security across all utilities:
 
 OpenPay's utility apps provide everything you need to run a modern business in the Pi ecosystem. Each tool is designed to work independently or as part of a comprehensive payment solution.
     `,
-    cta: {
-      text: "Explore utilities",
-      link: "https://openpy.space/auth/openpay-official"
-    }
+    cta_text: "Explore utilities",
+    cta_link: "https://openpy.space/auth/openpay-official"
   },
   {
     id: "merchant-portal-complete-guide",
@@ -834,10 +948,8 @@ The OpenPay Merchant Portal provides everything you need to run a successful bus
 
 [Start your merchant journey](https://openpy.space/) and unlock the full potential of Pi payments for your business.
     `,
-    cta: {
-      text: "Open portal",
-      link: "https://openpy.space/auth/merchant-products"
-    }
+    cta_text: "Open portal",
+    cta_link: "https://openpy.space/auth/merchant-products"
   },
   {
     id: "security-trust-comprehensive-guide",
@@ -1084,10 +1196,8 @@ OpenPay's comprehensive security framework ensures that your Pi transactions are
 
 [Secure your account today](https://openpy.space/) and experience the confidence that comes with robust protection.
     `,
-    cta: {
-      text: "Secure account",
-      link: "https://openpy.space/auth/confirm-pin"
-    }
+    cta_text: "Secure account",
+    cta_link: "https://openpy.space/auth/confirm-pin"
   },
   {
     id: "notifications-growth-complete-guide",
@@ -1299,10 +1409,8 @@ OpenPay's notification and growth ecosystem provides everything you need to stay
 
 [Start growing with OpenPay](https://openpy.space/) and join thousands of users building the future of digital payments.
     `,
-    cta: {
-      text: "Start growing",
-      link: "https://openpy.space/auth/notifications"
-    }
+    cta_text: "Start growing",
+    cta_link: "https://openpy.space/auth/notifications"
   },
   {
     id: "wallet-profile-settings-guide",
@@ -1527,10 +1635,8 @@ OpenPay's comprehensive user management tools provide everything you need to con
 
 [Customize your OpenPay experience](https://openpy.space/) and take full control of your digital payment journey.
     `,
-    cta: {
-      text: "Customize profile",
-      link: "https://openpy.space/auth/dashboard"
-    }
+    cta_text: "Customize profile",
+    cta_link: "https://openpy.space/auth/dashboard"
   },
   {
     id: "topup-funding-complete-guide",
@@ -1829,10 +1935,8 @@ OpenPay's comprehensive funding options ensure you can add funds conveniently, s
 
 [Fund your wallet today](https://openpy.space/) and experience seamless Pi transactions.
     `,
-    cta: {
-      text: "Add funds",
-      link: "https://openpy.space/auth/topup"
-    }
+    cta_text: "Add funds",
+    cta_link: "https://openpy.space/auth/topup"
   },
   {
     id: "virtual-card-checkout-guide",
@@ -2084,10 +2188,8 @@ OpenPay's virtual card and checkout solutions provide everything you need to acc
 
 [Start accepting payments](https://openpy.space/) and unlock the full potential of digital commerce with Pi.
     `,
-    cta: {
-      text: "Get virtual card",
-      link: "https://openpy.space/auth/virtual-card"
-    }
+    cta_text: "Get virtual card",
+    cta_link: "https://openpy.space/auth/virtual-card"
   },
   {
     id: "developer-api-complete-guide",
@@ -2406,10 +2508,8 @@ OpenPay's developer tools and APIs provide everything needed to build robust, se
 
 [Start developing with OpenPay](https://openpy.space/) and join thousands of developers building the future of Pi payments.
     `,
-    cta: {
-      text: "View API docs",
-      link: "https://openpy.space/auth/openpay-api-docs"
-    }
+    cta_text: "View API docs",
+    cta_link: "https://openpy.space/auth/openpay-api-docs"
   },
   {
     id: "ecosystem-whitepapers-guide",
@@ -2671,10 +2771,8 @@ OpenPay's comprehensive documentation and strategic vision provide a clear roadm
 
 [Explore our vision](https://openpy.space/) and join us in shaping the future of digital commerce.
     `,
-    cta: {
-      text: "Read whitepapers",
-      link: "https://openpy.space/auth/pi-whitepaper"
-    }
+    cta_text: "Read whitepapers",
+    cta_link: "https://openpy.space/auth/pi-whitepaper"
   },
   {
     id: "earn-4.50-apy-pi-savings",
@@ -2771,10 +2869,8 @@ Ready to put your Pi to work? [Open your OpenPay Savings account](https://openpy
 
 Remember, while past performance doesn't guarantee future results, OpenPay Savings provides a reliable way to grow your Pi holdings in the evolving digital economy.
     `,
-    cta: {
-      text: "Start earning",
-      link: "https://openpy.space/auth/savings"
-    }
+    cta_text: "Start earning",
+    cta_link: "https://openpy.space/auth/savings"
   },
   {
     id: "introducing-virtual-cards",
@@ -2887,10 +2983,8 @@ Ready to experience the future of crypto spending? [Activate your OpenPay Virtua
 
 The OpenPay Virtual Card represents a significant step forward in cryptocurrency adoption, making Pi as easy to spend as traditional money while maintaining the benefits of digital currency.
     `,
-    cta: {
-      text: "Get virtual card",
-      link: "https://openpy.space/auth/virtual-card"
-    }
+    cta_text: "Get virtual card",
+    cta_link: "https://openpy.space/auth/virtual-card"
   },
   {
     id: "170-currencies-support",
@@ -3047,10 +3141,8 @@ This currency expansion marks a significant milestone in our mission to make Pi 
 
 Join us in building a truly borderless financial future powered by Pi Network.
     `,
-    cta: {
-      text: "Convert currency",
-      link: "https://openpy.space/auth/currency-converter"
-    }
+    cta_text: "Convert currency",
+    cta_link: "https://openpy.space/auth/currency-converter"
   },
   {
     id: "pi-network-openpay-future",
@@ -3249,23 +3341,33 @@ The future of Web3 commerce is being built today, and you're invited to be part 
 
 [Join OpenPay](https://openpy.space/) and help us build the future of money.
     `,
-    cta: {
-      text: "Join OpenPay",
-      link: "https://openpy.space/"
-    }
+    cta_text: "Join OpenPay",
+    cta_link: "https://openpy.space/"
   }
-];
+  ];
 
-const BlogPostDetail = () => {
-  const { id } = useParams<{ id: string }>();
-  const post = blogPosts.find(p => p.id === id);
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <section className="pt-24 pb-12 px-6">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+            </div>
+          </div>
+        </section>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!post) {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <section className="pt-28 pb-16 px-6">
-          <div className="max-w-4xl mx-auto text-center">
+        <section className="pt-24 pb-12 px-6">
+          <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl font-bold text-foreground mb-4">Blog post not found</h1>
             <Link to="/blog" className="inline-flex items-center gap-2 text-accent hover:opacity-80">
               <ArrowLeft size={16} /> Back to blog
@@ -3278,64 +3380,65 @@ const BlogPostDetail = () => {
   }
 
   const categoryColor: Record<string, string> = {
-    Product: "bg-accent/10 text-accent",
-    Guide: "bg-green-100 text-green-700",
-    Update: "bg-orange-100 text-orange-700",
-    Insight: "bg-purple-100 text-purple-700",
-    Security: "bg-red-100 text-red-700",
+    Product: "bg-gradient-to-r from-accent/20 to-accent/10 text-accent border border-accent/30",
+    Guide: "bg-gradient-to-r from-green-500/20 to-green-500/10 text-green-600 border border-green-500/30",
+    Update: "bg-gradient-to-r from-orange-500/20 to-orange-500/10 text-orange-600 border border-orange-500/30",
+    Insight: "bg-gradient-to-r from-purple-500/20 to-purple-500/10 text-purple-600 border border-purple-500/30",
+    Security: "bg-gradient-to-r from-red-500/20 to-red-500/10 text-red-600 border border-red-500/30",
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <section className="pt-28 pb-16 px-6">
-        <div className="max-w-4xl mx-auto">
+      <section className="pt-24 pb-12 px-6">
+        <div className="max-w-3xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             {/* Back button */}
             <Link 
               to="/blog" 
-              className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground mb-8 transition-colors"
+              className="inline-flex items-center gap-2 text-foreground/60 hover:text-accent mb-8 transition-colors font-medium"
             >
-              <ArrowLeft size={16} /> Back to blog
+              <ArrowLeft size={18} /> Back to blog
             </Link>
 
             {/* Article header */}
             <div className="mb-8">
-              <span className={`text-[10px] font-semibold px-2 py-1 rounded-full ${categoryColor[post.category] || "bg-secondary text-foreground"}`}>
-                {post.category}
-              </span>
-              <h1 className="text-4xl md:text-5xl font-bold text-foreground mt-4 mb-4 leading-tight">
-                {post.title}
-              </h1>
-              <div className="flex items-center gap-6 text-sm text-muted-foreground mb-4">
-                <div className="flex items-center gap-2">
-                  <User size={14} />
-                  {post.author}
+              <div className="flex items-center gap-3 mb-6">
+                <span className={`text-xs font-bold px-4 py-2 rounded-full ${categoryColor[post.category] || "bg-secondary text-foreground border border-border"} uppercase tracking-wider`}>
+                  {post.category}
+                </span>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <User size={16} className="text-accent" />
+                  <span className="font-medium">{post.author}</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Calendar size={14} />
-                  {post.date}
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Calendar size={16} className="text-accent" />
+                  <span className="font-medium">{post.date}</span>
                 </div>
               </div>
               
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6 leading-tight bg-gradient-to-r from-foreground via-foreground to-foreground/80 bg-clip-text text-transparent">
+                {post.title}
+              </h1>
+              
               {/* Hero Copy */}
-              <div className="bg-gradient-to-r from-accent/10 to-purple-500/10 rounded-xl p-6 mb-6 border border-border">
-                <p className="text-xl font-semibold text-foreground italic">
+              <div className="bg-gradient-to-r from-accent/20 via-purple-500/20 to-accent/20 rounded-2xl p-6 mb-6 border border-accent/30 shadow-lg">
+                <p className="text-xl md:text-2xl font-bold text-foreground leading-relaxed">
                   "{post.hero}"
                 </p>
               </div>
               
               {/* Meta Description */}
-              <p className="text-muted-foreground text-base mb-4">
+              <p className="text-base text-foreground/80 mb-6 leading-relaxed font-medium">
                 {post.meta}
               </p>
               
               {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-3">
                 {post.tags.map((tag, index) => (
                   <span 
                     key={index}
-                    className="text-xs font-medium px-3 py-1 rounded-full bg-secondary text-foreground"
+                    className="text-sm font-semibold px-4 py-2 rounded-full bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors"
                   >
                     #{tag}
                   </span>
@@ -3350,8 +3453,8 @@ const BlogPostDetail = () => {
               transition={{ delay: 0.2 }}
               className="prose prose-lg max-w-none"
             >
-              <div className="bg-card rounded-2xl border border-border p-8 md:p-12">
-                <div className="text-muted-foreground text-lg leading-relaxed space-y-4">
+              <div className="bg-gradient-to-br from-card to-background rounded-3xl border border-border p-6 md:p-8 shadow-xl">
+                <div className="text-foreground text-base leading-relaxed space-y-4">
                   {post.content.split('\n\n').map((paragraph, index) => {
                     if (paragraph.startsWith('#')) {
                       const level = paragraph.match(/^#+/)?.[0].length || 1;
@@ -3361,7 +3464,9 @@ const BlogPostDetail = () => {
                         <HeadingTag 
                           key={index} 
                           className={`font-bold text-foreground mt-8 mb-4 ${
-                            level === 1 ? 'text-3xl' : level === 2 ? 'text-2xl' : 'text-xl'
+                            level === 1 ? 'text-2xl md:text-3xl bg-gradient-to-r from-accent to-purple-500 bg-clip-text text-transparent' : 
+                            level === 2 ? 'text-xl md:text-2xl text-foreground' : 
+                            'text-lg md:text-xl text-foreground/90'
                           }`}
                         >
                           {text}
@@ -3371,21 +3476,24 @@ const BlogPostDetail = () => {
                     
                     if (paragraph.startsWith('-') || paragraph.startsWith('*')) {
                       return (
-                        <li key={index} className="ml-4">
-                          {paragraph.replace(/^[-*]\s*/, '')}
-                        </li>
+                        <ul key={index} className="space-y-2 my-4">
+                          <li className="flex items-start gap-3 text-foreground/90 text-base">
+                            <span className="text-accent mt-1">•</span>
+                            <span className="flex-1">{paragraph.replace(/^[-*]\s*/, '')}</span>
+                          </li>
+                        </ul>
                       );
                     }
 
                     if (paragraph.match(/^\|.*\|$/)) {
                       return (
-                        <div key={index} className="overflow-x-auto my-6">
-                          <table className="w-full border-collapse border border-border rounded-lg">
+                        <div key={index} className="overflow-x-auto my-6 rounded-xl border border-border">
+                          <table className="w-full border-collapse">
                             <tbody>
                               {paragraph.split('\n').filter(row => row.includes('|')).map((row, rowIndex) => (
-                                <tr key={rowIndex} className="border-b border-border">
+                                <tr key={rowIndex} className="border-b border-border last:border-b-0">
                                   {row.split('|').filter(cell => cell.trim()).map((cell, cellIndex) => (
-                                    <td key={cellIndex} className="border border-border px-4 py-2 text-sm">
+                                    <td key={cellIndex} className="border-r border-border last:border-r-0 px-4 py-3 text-xs text-foreground/90 font-medium">
                                       {cell.trim()}
                                     </td>
                                   ))}
@@ -3399,19 +3507,129 @@ const BlogPostDetail = () => {
 
                     if (paragraph.includes('[') && paragraph.includes(']')) {
                       return (
-                        <p key={index} className="mb-4">
+                        <p key={index} className="mb-6 text-foreground/90 leading-relaxed">
                           {paragraph.split(/(\[.*?\]\(.*?\))/g).map((part, partIndex) => {
                             const linkMatch = part.match(/\[(.*?)\]\((.*?)\)/);
                             if (linkMatch) {
+                              const isImportantLink = linkMatch[2].includes('t.me') || 
+                                                      linkMatch[2].includes('openpy.space') ||
+                                                      linkMatch[1].toLowerCase().includes('launch') ||
+                                                      linkMatch[1].toLowerCase().includes('get started');
+                              
+                              if (isImportantLink) {
+                                return (
+                                  <a 
+                                    key={partIndex}
+                                    href={linkMatch[2]}
+                                    className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg font-semibold hover:bg-accent/90 hover:scale-105 transition-all shadow-md hover:shadow-lg"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {linkMatch[1]}
+                                    <ArrowRight size={16} />
+                                  </a>
+                                );
+                              }
+                              
                               return (
                                 <a 
                                   key={partIndex}
                                   href={linkMatch[2]}
-                                  className="text-accent hover:underline"
+                                  className="inline-flex items-center gap-1 text-accent hover:text-accent/80 font-semibold underline decoration-accent/30 hover:decoration-accent/60 underline-offset-4 transition-all hover:bg-accent/5 px-2 py-1 rounded"
                                   target="_blank"
                                   rel="noopener noreferrer"
                                 >
                                   {linkMatch[1]}
+                                  <ArrowRight size={14} />
+                                </a>
+                              );
+                            }
+                            return part;
+                          })}
+                        </p>
+                      );
+                    }
+
+                    if (paragraph.includes('[') && paragraph.includes(']')) {
+                      return (
+                        <p key={index} className="mb-4 text-foreground/90 leading-relaxed text-base">
+                          {paragraph.split(/(\[.*?\]\(.*?\))/g).map((part, partIndex) => {
+                            const linkMatch = part.match(/\[(.*?)\]\((.*?)\)/);
+                            if (linkMatch) {
+                              const isImportantLink = linkMatch[2].includes('t.me') || 
+                                                      linkMatch[2].includes('openpy.space') ||
+                                                      linkMatch[1].toLowerCase().includes('launch') ||
+                                                      linkMatch[1].toLowerCase().includes('get started');
+                              
+                              if (isImportantLink) {
+                                return (
+                                  <a 
+                                    key={partIndex}
+                                    href={linkMatch[2]}
+                                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent text-white rounded-lg font-semibold hover:bg-accent/90 hover:scale-105 transition-all shadow-md hover:shadow-lg text-sm"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {linkMatch[1]}
+                                    <ArrowRight size={14} />
+                                  </a>
+                                );
+                              }
+                              
+                              return (
+                                <a 
+                                  key={partIndex}
+                                  href={linkMatch[2]}
+                                  className="inline-flex items-center gap-1 text-accent hover:text-accent/80 font-semibold underline decoration-accent/30 hover:decoration-accent/60 underline-offset-4 transition-all hover:bg-accent/5 px-2 py-1 rounded text-sm"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {linkMatch[1]}
+                                  <ArrowRight size={12} />
+                                </a>
+                              );
+                            }
+                            return part;
+                          })}
+                        </p>
+                      );
+                    }
+
+                    // Handle plain URLs that aren't in markdown format
+                    const urlRegex = /(https?:\/\/[^\s]+)/g;
+                    if (urlRegex.test(paragraph) && !paragraph.includes('[')) {
+                      return (
+                        <p key={index} className="mb-4 text-foreground/90 leading-relaxed text-base">
+                          {paragraph.split(urlRegex).map((part, partIndex) => {
+                            if (part.match(urlRegex)) {
+                              const isImportantLink = part.includes('t.me') || 
+                                                      part.includes('openpy.space');
+                              
+                              if (isImportantLink) {
+                                return (
+                                  <a 
+                                    key={partIndex}
+                                    href={part}
+                                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent text-white rounded-lg font-semibold hover:bg-accent/90 hover:scale-105 transition-all shadow-md hover:shadow-lg ml-2 text-sm"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    {part.replace(/^https?:\/\//, '')}
+                                    <ArrowRight size={14} />
+                                  </a>
+                                );
+                              }
+                              
+                              return (
+                                <a 
+                                  key={partIndex}
+                                  href={part}
+                                  className="inline-flex items-center gap-1 text-accent hover:text-accent/80 font-semibold underline decoration-accent/30 hover:decoration-accent/60 underline-offset-4 transition-all hover:bg-accent/5 px-2 py-1 rounded ml-2 text-sm"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {part.replace(/^https?:\/\//, '')}
+                                  <ArrowRight size={12} />
                                 </a>
                               );
                             }
@@ -3422,7 +3640,7 @@ const BlogPostDetail = () => {
                     }
 
                     return (
-                      <p key={index} className="mb-4">
+                      <p key={index} className="mb-4 text-foreground/90 leading-relaxed text-base">
                         {paragraph}
                       </p>
                     );
@@ -3436,30 +3654,30 @@ const BlogPostDetail = () => {
               initial={{ opacity: 0, y: 20 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ delay: 0.4 }}
-              className="mt-16"
+              className="mt-12"
             >
-              <h2 className="text-2xl font-bold text-foreground mb-6">Related Articles</h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                {blogPosts
-                  .filter(p => p.id !== post.id && p.category === post.category)
+              <h2 className="text-2xl font-bold text-foreground mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">Related Articles</h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                {getFallbackPosts()
+                  .filter(p => (p.id !== post.id && p.slug !== post.id) && p.category === post.category)
                   .slice(0, 2)
                   .map((relatedPost) => (
                     <Link 
                       key={relatedPost.id}
-                      to={`/blog/${relatedPost.id}`}
-                      className="bg-card rounded-xl border border-border p-6 hover:border-accent/30 hover:shadow-card transition-all group"
+                      to={`/blog/${relatedPost.id || relatedPost.slug}`}
+                      className="bg-gradient-to-br from-card to-background rounded-xl border border-border p-5 hover:border-accent/50 hover:shadow-lg transition-all group"
                     >
-                      <span className={`text-[10px] font-semibold px-2 py-1 rounded-full ${categoryColor[relatedPost.category] || "bg-secondary text-foreground"}`}>
+                      <span className={`text-xs font-bold px-2 py-1 rounded-full ${categoryColor[relatedPost.category] || "bg-secondary text-foreground border border-border"} uppercase tracking-wider`}>
                         {relatedPost.category}
                       </span>
-                      <h3 className="font-bold text-foreground mt-3 mb-2 group-hover:text-accent transition-colors">
+                      <h3 className="font-bold text-foreground mt-3 mb-2 text-base group-hover:text-accent transition-colors leading-tight">
                         {relatedPost.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
+                      <p className="text-sm text-foreground/80 mb-3 line-clamp-2 leading-relaxed">
                         {relatedPost.desc}
                       </p>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <Calendar size={12} />
+                      <div className="flex items-center gap-2 text-xs text-foreground/60">
+                        <Calendar size={12} className="text-accent" />
                         {relatedPost.date}
                       </div>
                     </Link>
@@ -3472,19 +3690,20 @@ const BlogPostDetail = () => {
               initial={{ opacity: 0, y: 20 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ delay: 0.6 }}
-              className="mt-16 text-center bg-gradient-to-r from-accent/10 to-purple-500/10 rounded-2xl p-8 border border-border"
+              className="mt-12 text-center bg-gradient-to-r from-accent/20 via-purple-500/20 to-accent/20 rounded-2xl p-8 border-2 border-accent/30 shadow-xl relative overflow-hidden"
             >
-              <h2 className="text-2xl font-bold text-foreground mb-4">
+              <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-purple-500/10 rounded-2xl -z-10"></div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
                 Ready to experience this feature?
               </h2>
-              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              <p className="text-base text-foreground/80 mb-6 max-w-2xl mx-auto leading-relaxed">
                 {post.meta}
               </p>
               <a 
-                href={post.cta.link}
-                className="inline-flex items-center gap-2 px-8 py-3 bg-accent text-white rounded-full font-semibold hover:opacity-90 transition-opacity"
+                href={post.cta_link}
+                className="inline-flex items-center gap-3 px-8 py-3 bg-accent text-white rounded-full font-bold text-base hover:bg-accent/90 hover:scale-105 transition-all shadow-lg hover:shadow-xl"
               >
-                {post.cta.text} <ArrowRight size={16} />
+                {post.cta_text} <ArrowRight size={18} />
               </a>
             </motion.div>
           </motion.div>
