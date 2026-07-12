@@ -3136,7 +3136,6 @@ Developers can access our currency conversion API for:
 
 We're continuously adding support for:
 - **Additional cryptocurrencies**
-- **Central Bank Digital Currencies** (CBDCs)
 - **Regional payment systems**
 - **Alternative currencies**
 
@@ -3288,7 +3287,6 @@ Businesses adopting OpenPay gain:
 
 ### Long-term Ambition (2029+)
 - **Build complete financial ecosystem** around Pi
-- **Enable central bank digital currency** (CBDC) integration
 - **Develop AI-powered financial services**
 - **Create global payment standard** for Web3
 
