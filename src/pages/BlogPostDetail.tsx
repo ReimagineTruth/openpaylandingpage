@@ -72,6 +72,287 @@ const BlogPostDetail = () => {
 
   const getFallbackPosts = (): BlogPost[] => [
   {
+    id: "openledger-public-explorer",
+    slug: "openledger-public-explorer",
+    title: "OpenLedger: The Public Explorer for the OpenPay Ecosystem",
+    date: "Jul 23, 2026",
+    author: "OpenPay Team",
+    category: "Product",
+    desc: "A complete guide to every feature on the live, transparent ledger for OpenPay and OpenPay Pro — sealed on a SHA-256 hash chain and updated in near real time.",
+    meta: "The public transaction explorer and audit layer for OpenPay and OpenPay Pro.",
+    tags: ["openledger", "explorer", "audit", "web3", "transparency"],
+    hero: "Live ledger. SHA-256 hash chain. Immutable audit.",
+    content: `
+# OpenLedger: The Public Explorer for the OpenPay Ecosystem
+
+*A complete guide to every feature on the live, transparent ledger for OpenPay and OpenPay Pro.*
+
+OpenLedger is the public transaction explorer and audit layer for the OpenPay ecosystem. It turns every payment, swap, stake, NFT sale, and merchant settlement into something anyone can search, verify, and explore — sealed on a **SHA-256 hash chain** and updated in near real time.
+
+Whether you are a user checking a wallet, a merchant tracking volume, or a builder integrating the public API, OpenLedger is the single pane of glass for network activity across OpenPay and OpenPay Pro.
+
+## 1. Live Dashboard
+
+The home page is the pulse of the network.
+
+**What you get**
+
+- **Hero search** — jump straight into any tx hash, wallet, merchant, token, or NFT
+- **Network stats at a glance** — total transactions, volume, wallets, KYC-verified users, NFT sales, swaps, OpenPay txs, and stakes
+- **14-day volume chart** — daily volume across all sources
+- **Transaction-type breakdown** — pie view of payments, transfers, swaps, stakes, NFT activity, deposits, withdrawals, and refunds
+- **Recent transactions** — live feed that refreshes automatically
+
+OpenLedger surfaces activity from both **OpenPay** and **OpenPay Pro**, so the dashboard reflects the full ecosystem — not a single app silo.
+
+## 2. Transaction Explorer
+
+The Explorer is the full history browser for the ledger.
+
+- Paginated browse of the entire transaction history
+- Search by **hash**, **wallet address**, **merchant**, **token**, or **NFT**
+- Unified results across transactions, wallets, and merchants
+- **Realtime updates** — new ledger inserts invalidate caches so the feed stays fresh
+
+From the Explorer you can open any transaction or wallet detail page for a deeper look.
+
+## 3. Transaction Detail & Hash-Chain Verification
+
+Every transaction has a dedicated detail page (\`/tx/:hash\`).
+
+**You can inspect**
+
+- Source platform (OpenPay / OpenPay Pro)
+- Type, status, amount, currency, and network fee
+- From / to addresses with quick copy
+- Merchant link (when applicable)
+- Block number and timestamps
+- Metadata (including NFT-related media, sanitized for safety)
+
+**Trust layer**
+
+Each entry is sealed with **SHA-256**, chained to its predecessor, and treated as immutable. The detail view highlights hash-chain verification so auditors and users can confirm integrity — not just read a database row.
+
+## 4. Wallet Explorer
+
+Wallet pages (\`/wallet/:address\`) turn an address into a readable activity profile.
+
+- Wallet identity and activity summary
+- Incoming and outgoing transaction lists
+- Aggregated in/out totals
+- Copyable address and chronological history
+
+Ideal for checking counterparties, reviewing personal activity, or auditing merchant settlement wallets.
+
+## 5. Tokens
+
+The Tokens section tracks assets active on the OpenPay ledger — including **OUSD**, **OPEN**, **PI**, and other ecosystem tokens.
+
+**Token list**
+
+- Symbol and name
+- Price (USD) and 24h change
+- 24h volume, holders, and transfer count
+- Live refresh as ledger activity updates
+
+**Token detail** (\`/tokens/:symbol\`)
+
+- Price, volume, holders, and transfer stats
+- Recent token-related transactions
+- Realtime token updates
+
+## 6. OUSD Stablecoin Hub
+
+OUSD is OpenPay's stable asset, pegged as:
+
+> **1 OUSD = 1 PI = $1.00**
+
+- Live peg display and 30-day price chart
+- 24h volume and transaction count
+- Holder and transfer metrics
+- Context for merchant settlement, NFT sales, and swaps denominated in OUSD
+
+## 7. Staking Analytics
+
+The Stake page aggregates staking activity across the ledger.
+
+- Stake transaction feed (typed \`stake\` rows plus legacy transfer/payment rows classified as stakes)
+- Volume and activity charts over recent windows
+- Stake-specific transaction table for audit and review
+
+Staking is treated as a first-class ledger event — visible, searchable, and chartable like payments or swaps.
+
+## 8. KYC Metrics
+
+OpenLedger includes a public KYC metrics view for ecosystem transparency.
+
+- Verified users and verification rate
+- Application status breakdown (approved / pending / rejected)
+- Period comparisons (e.g. change vs prior window)
+- Daily KYC trend charts
+
+This helps the community see how identity verification is progressing across OpenPay without exposing private personal data.
+
+## 9. NFT Collections
+
+OpenLedger indexes NFT collections, mints, sales, and transfers.
+
+**Collection index**
+
+- Grid or list view (preference saved locally)
+- Collection name, supply, owners, floor price, and volume
+- Cover art with safe media handling
+
+**Collection detail** (\`/nft/:slug\`)
+
+- Collection metadata and creator
+- Supply, owners, floor, and volume
+- Related ledger activity for that collection
+
+NFT commerce on OpenPay is not a black box — sales and mints land on the same public ledger as payments.
+
+## 10. Merchants Directory
+
+Merchants accepting OpenPay / OpenPay Pro payments are browsable and measurable.
+
+- Total merchants, verified count, and aggregate volume
+- Merchant cards with category, description, sales, and volume
+- Verified badges for trusted businesses
+
+**Merchant detail** (\`/merchants/:id\`)
+
+- Profile and verification status
+- Sales / volume stats
+- Linked payment history on the ledger
+
+## 11. Analytics
+
+The Analytics page goes beyond headline stats into trends and rankings.
+
+- 30-day volume, transactions, NFT sales, and swaps
+- Swap detection that accounts for note-based currency conversions as well as typed swap rows
+- Top wallets by transaction count
+- Top merchants by volume
+- Top tokens by activity
+
+## 12. Universal Search
+
+Search is woven through the Dashboard and Explorer.
+
+- Transaction hashes
+- Wallet addresses
+- Merchants (id or name)
+- Tokens
+- NFTs
+
+One query routes you into the Explorer with matching results — no need to know which table or page to open first.
+
+## 13. Realtime Ledger Updates
+
+OpenLedger listens for new \`ledger_transactions\` inserts and refreshes dependent views.
+
+- Dashboard and Explorer stay current without manual reload
+- Token pages update as activity lands
+- Admin monitoring reflects fresh ingestion quickly
+
+Combined with periodic refetch intervals, the UI feels like a live terminal for the network.
+
+## 14. Public API
+
+OpenLedger exposes public HTTP endpoints so builders can integrate without scraping the UI.
+
+- \`/api/public/ledger/record\` — Signed ingestion of a single transaction
+- \`/api/public/ledger/bulk\` — Bulk ledger ingest
+- \`/api/public/transactions\` — Transaction listing / query
+- \`/api/public/transaction/:hash\` — Single transaction lookup
+- \`/api/public/wallet/:address\` — Wallet activity
+- \`/api/public/token/:symbol\` — Token stats
+- \`/api/public/nft/:slug\` — NFT collection data
+- \`/api/public/merchant/:id\` — Merchant profile
+- \`/api/public/analytics\` — Aggregate analytics
+- \`/api/public/hooks/sync-all\` — Sync orchestration hook
+
+Ingestion endpoints verify **OpenPay signatures** and log API access for auditability.
+
+## 15. Signed Ingestion & Integrations
+
+External platforms (OpenPay / OpenPay Pro and configured integrations) can push activity into the ledger securely.
+
+- Signature verification on webhook/API payloads
+- Typed transaction recording via database RPC
+- Integration configs (base URL, API key, enabled flag)
+- Manual sync with success / failure counts
+- Sync status timestamps and error reporting
+
+## 16. Admin Panel (Staff)
+
+Authenticated staff get an Admin Panel for operations and oversight. Roles include \`super_admin\`, \`auditor\`, and \`support\`.
+
+- Live recent transactions monitor
+- **Fraud alerts** review
+- **API logs** (endpoints, status, latency, errors)
+- **Audit logs** for administrative actions
+- **Integrations panel** — configure sources and trigger syncs
+- **CSV export** for offline analysis
+
+## 17. Authentication & Access Control
+
+OpenLedger uses Supabase auth with role-based access.
+
+- Sign-in via the OpenPay ecosystem (\`openpy.space\`)
+- Session-aware nav (Admin link, sign out)
+- Protected \`/admin\` route for authenticated staff
+- Row-level security on sensitive tables
+- Public read surfaces for ledger transparency
+- Privileged write paths for ingestion and admin ops
+
+## 18. Theme, UX & Ecosystem Links
+
+- Light / dark theme toggle
+- Mobile-first navigation with a slide-out menu
+- Route progress indicator during navigation
+- Copy buttons for hashes and addresses
+- Status, source, type, and verify badges for scannable tables
+- Footer links into the wider OpenPay ecosystem: Pi Browser, Telegram Mini App, OpenApp, Blog, whitepaper, pitch deck, OpenNFT Marketplace
+
+## Transaction Types Covered
+
+- \`payment\` — User/merchant payments
+- \`transfer\` — Wallet-to-wallet transfers
+- \`swap\` — Token / currency swaps (including note-detected conversions)
+- \`stake\` — Staking events
+- \`nft_mint\` — NFT minting
+- \`nft_sale\` — NFT marketplace sales
+- \`merchant_payment\` — Merchant settlement flows
+- \`deposit\` — Deposits onto the ledger
+- \`withdrawal\` — Withdrawals
+- \`refund\` — Reversals / refunds
+
+Statuses include **pending**, **confirmed**, **failed**, and **reversed**. Sources: **OpenPay** and **OpenPay Pro**.
+
+## Why OpenLedger Matters
+
+1. **Transparency** — anyone can search and verify network activity
+2. **Integrity** — SHA-256 hash chaining makes the record tamper-evident
+3. **Composability** — public APIs let builders build on top of the ledger
+4. **Accountability** — merchants, KYC progress, volume, and staking are measurable in public
+5. **Realtime awareness** — the explorer updates as the network moves
+
+OpenLedger is not just a UI over a database. It is the **public audit layer** for OpenPay — the place where volume becomes verifiable, wallets become inspectable, and every sealed transaction can be traced.
+
+## Explore More
+
+- [openpy.space/ledger](https://openpy.space/ledger)
+- [openpy.space](https://openpy.space)
+- [Telegram Mini App](https://t.me/openpayofficialbot)
+- [OpenLedger site](https://www.openpyledger.space/)
+
+*OpenLedger — live ledger · SHA-256 hash chain · immutable audit for the OpenPay ecosystem.*
+    `,
+    cta_text: "Open OpenLedger",
+    cta_link: "https://www.openpyledger.space/"
+  },
+  {
     id: "openpay-telegram-mini-app",
     slug: "openpay-telegram-mini-app",
     title: "OpenPay Now Available as a Telegram Mini App",
