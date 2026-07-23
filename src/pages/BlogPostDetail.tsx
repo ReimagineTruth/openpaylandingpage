@@ -72,6 +72,261 @@ const BlogPostDetail = () => {
 
   const getFallbackPosts = (): BlogPost[] => [
   {
+    id: "openpay-home-dashboard-ui-refresh",
+    slug: "openpay-home-dashboard-ui-refresh",
+    title: "OpenPay Home Dashboard: New UI/UX for Every Money Moment",
+    date: "Jul 25, 2026",
+    author: "OpenPay Team",
+    category: "Update",
+    desc: "A guided look at the refreshed home experience — Wallet, Savings, Credit, Loans, Cards, Buy, Swap, Mining, Analytics, and OpenNFT — in one place.",
+    meta: "The refreshed OpenPay home dashboard: balances up front, modules in reach, deeper tools one step away.",
+    tags: ["openpay", "dashboard", "wallet", "ui", "ux"],
+    hero: "Your balance is the center. Your next action is one tap away.",
+    content: `
+# OpenPay Home Dashboard: New UI/UX for Every Money Moment
+
+*A guided look at the refreshed home experience — Wallet, Savings, Credit, Loans, Cards, Buy, Swap, Mining, Analytics, and OpenNFT — in one place.*
+
+---
+
+The OpenPay home dashboard is where your Pi financial life starts. The new UI/UX brings every core action into a clear, tap-first layout: balances up front, quick modules in reach, and deeper tools one step away — without turning the screen into a cluttered control panel.
+
+Whether you want to check a balance, earn yield, borrow, spend with a card, convert currency, or explore NFTs, the home dashboard is designed as **one composition**: greet you, show what matters, then route you into the right module.
+
+---
+
+## What's new in the home experience
+
+**Designed for clarity**
+
+- Greeting + identity at the top (\`Good morning\` / username)
+- Live balance with currency selector (Pi and 170+ currencies)
+- Personal vs merchant wallet switch when you need both modes
+- Horizontal module strip for fast navigation
+- Soft cards, clear hierarchy, and mobile-first spacing
+
+**Built for trust**
+
+- Hide-balance toggle for privacy in public
+- Bank-grade cues: MPIN, biometric, and Pi Auth
+- Instant feedback after send, receive, and top-up actions
+
+The result feels like a modern fintech home — calm, scannable, and Pi-native — not a wall of widgets.
+
+---
+
+## 1. Wallet
+
+**Your complete Pi financial overview**
+
+Wallet is the default home tab. It surfaces your balance, account identity, and the actions you use most: pay, receive, and top up.
+
+**What you can do**
+
+- View real-time Pi balance (with fiat equivalents)
+- Switch between **Personal wallet** and **Merchant wallet**
+- Copy your OpenPay account / address
+- Jump into recent activity
+- Open a virtual card from the wallet context
+
+Wallet is the hub. Everything else branches from here.
+
+---
+
+## 2. Savings
+
+**Earn yield without leaving the app**
+
+Savings turns idle Pi into a growth balance.
+
+**Highlights**
+
+- **4.50% estimated APY** on savings
+- Clear split between wallet balance and savings balance
+- Simple **Deposit** / **Withdraw** flows
+- No complicated DeFi jargon on the home path
+
+From the home dashboard, Savings is one tap away — activate yield, then return to everyday spending.
+
+---
+
+## 3. Credit
+
+**Flexible credit, tied to your OpenPay account**
+
+Credit sits beside Wallet and Savings so borrowing capacity and credit products are visible in the same financial picture — not buried in a separate menu.
+
+**What it supports**
+
+- Credit-oriented balances and limits in context of your wallet
+- A natural path into card and loan products
+- Clear status so you always know what's available vs what's owed
+
+Credit keeps the "money you can use" story next to the money you already hold.
+
+---
+
+## 4. Loans
+
+**Pi-backed borrowing, made readable**
+
+Loans brings borrowing into the same dashboard language as balances and savings.
+
+**At a glance**
+
+- Available-to-borrow amount
+- Configurable loan amount
+- Transparent interest (e.g. **3.5% APR** on product preview)
+- Estimated repayment before you confirm
+
+The UI prioritizes understanding first: how much you can borrow, what it costs, and what you'll repay — then the action.
+
+---
+
+## 5. Cards
+
+**Spend Pi online with a virtual card**
+
+Cards connects your OpenPay balance to everyday online spend.
+
+**Features**
+
+- OpenPay **virtual card** linked to your Pi balance
+- Cardholder details and secure card presentation
+- Quick open from Wallet ("Open Virtual Card")
+- Designed for global online use without awkward conversion steps
+
+From home, Cards is a first-class destination — spend is as close as send and receive.
+
+---
+
+## 6. Buy
+
+**Fund your wallet the simple way**
+
+Buy is the home shortcut for adding value into OpenPay when you're ready to top up or acquire assets for use across the ecosystem.
+
+**Why it's on home**
+
+- Reduces friction between "I need balance" and "I'm ready to pay"
+- Keeps funding next to Wallet, Swap, and Spend flows
+- Fits the same mobile card pattern as other modules
+
+Buy closes the loop: fund → hold → spend or earn.
+
+---
+
+## 7. Swap
+
+**Convert across Pi and 170+ currencies**
+
+Swap is OpenPay's conversion surface — competitive FX rates and a clean path between assets and currencies you actually use.
+
+**What you get**
+
+- Pi ↔ global currency conversion
+- Stablecoin / DeFi-aligned swap paths in the broader OpenPay stack (including OUSD utility)
+- Rates and amounts shown clearly before confirm
+- Home access so conversion isn't a buried settings action
+
+When payments span currencies, Swap keeps the home dashboard useful worldwide.
+
+---
+
+## 8. Mining
+
+**Participate in ecosystem rewards**
+
+Mining on the home dashboard points you into OpenPay's participation and reward surfaces — from liquidity-style programs in the wider OUSD / DeFi roadmap to ecosystem earning flows tied to the Pi Network experience.
+
+**Home intent**
+
+- Make earning paths discoverable, not hidden
+- Sit Mining next to Savings and Analytics so "earn" and "measure" stay connected
+- Keep reward participation one tap from the main balance view
+
+Mining extends the dashboard beyond payments into ongoing participation.
+
+---
+
+## 9. Analytics
+
+**See how your money and markets move**
+
+Analytics turns activity into insight — for personal overview and merchant-grade reporting when you're in business mode.
+
+**Useful views**
+
+- Balance and activity trends
+- Market / rate context for conversions
+- Merchant portal analytics when operating a business (volume, payments, customers)
+- NFT market analytics when you're collecting or selling on OpenNFT
+
+Analytics answers the home-dashboard question: *what's happening with my money?*
+
+---
+
+## 10. OpenNFT
+
+**Create, trade, and collect NFTs with Pi**
+
+OpenNFT is the marketplace module on the home map — mint, buy, sell, and showcase digital assets powered by Pi Network, with wallet connection built in.
+
+**What you can do**
+
+- Browse categories (art, gaming, music, collectibles, utility, membership, and more)
+- Mint without heavy technical setup
+- Connect your OpenPay wallet to manage NFTs in one place
+- Track prices and trends with market analytics
+- Trade across a Pi-first collecting experience
+
+From home, OpenNFT is not a side link — it's part of the same financial OS as Wallet and Swap.
+
+---
+
+## How the modules work together
+
+| Goal | Start on home with… |
+|------|---------------------|
+| Check balance & pay | **Wallet** |
+| Earn yield | **Savings** |
+| Access credit capacity | **Credit** |
+| Borrow against Pi | **Loans** |
+| Spend online | **Cards** |
+| Add funds / acquire | **Buy** |
+| Convert currency | **Swap** |
+| Join reward flows | **Mining** |
+| Understand activity | **Analytics** |
+| Collect & trade NFTs | **OpenNFT** |
+
+The new UI/UX is not ten separate apps. It's one home that routes you into the right money moment in a tap.
+
+---
+
+## Design principles behind the refresh
+
+1. **One job per surface** — each module has a clear purpose and a short path back home
+2. **Balance first** — you always know what you hold before you act
+3. **Mobile-native** — large targets, horizontal module strip, readable cards
+4. **Privacy by default** — hide balance when you need it
+5. **Ecosystem continuity** — personal wallet, merchant tools, and OpenNFT share the same OpenPay identity
+
+---
+
+## Try the new home dashboard
+
+Open OpenPay, sign in with Pi Auth, and land on the refreshed home:
+
+**Wallet · Savings · Credit · Loans · Cards · Buy · Swap · Mining · Analytics · OpenNFT**
+
+Your balance is the center. Your next action is one tap away.
+
+Explore more: [openpy.space](https://openpy.space) · [OpenNFT Marketplace](https://openpy.space/web3/nft) · [OpenLedger](https://openpy.space/ledger)
+    `,
+    cta_text: "Open OpenPay",
+    cta_link: "https://openpy.space"
+  },
+  {
     id: "openledger-dashboard-ui-refresh",
     slug: "openledger-dashboard-ui-refresh",
     title: "OpenLedger Dashboard: A Fresh UI/UX for the Live Ledger",
