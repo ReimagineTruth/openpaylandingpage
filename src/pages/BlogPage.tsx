@@ -37,6 +37,7 @@ const BlogPage = () => {
   }, []);
 
   const getFallbackPosts = () => [
+    { id: "openledger-public-explorer", title: "OpenLedger: The Public Explorer for the OpenPay Ecosystem", date: "Jul 23, 2026", author: "OpenPay Team", category: "Product", desc: "A complete guide to every feature on the live, transparent ledger for OpenPay and OpenPay Pro — sealed on a SHA-256 hash chain and updated in near real time.", hero: "Live ledger. SHA-256 hash chain. Immutable audit." },
     { id: "openpay-telegram-mini-app", title: "OpenPay Now Available as a Telegram Mini App", date: "Jul 11, 2026", author: "OpenPay Team", category: "Product", desc: "Access OpenPay directly inside Telegram via our Mini App for seamless, fast, and secure payments right where conversations happen.", hero: "The Future of Payments is Here" },
     { id: "openpay-nft-marketplace", title: "OpenPay NFT — Complete Feature Blog", date: "Jul 10, 2026", author: "OpenPay Team", category: "Product", desc: "A creator-first NFT marketplace built into OpenPay. Mint, sell, auction, gift, chat, and run your own store — all from one app, on web and inside Pi Browser.", hero: "Your NFT studio. Your global stage." },
     { id: "core-wallet-features-guide", title: "Complete Guide to OpenPay Core Wallet Features", date: "Jul 10, 2026", author: "OpenPay Team", category: "Guide", desc: "Master OpenPay's core wallet features: Express Send, QR payments, invoices, activity tracking, currency conversion, and security tools.", hero: "One screen. Every action a Pioneer needs." },
