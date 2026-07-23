@@ -348,7 +348,7 @@ OpenLedger is not just a UI over a database. It is the **public audit layer** fo
 - [OpenLedger site](https://www.openpyledger.space/)
 
 *OpenLedger — live ledger · SHA-256 hash chain · immutable audit for the OpenPay ecosystem.*
-    \`,
+    `,
     cta_text: "Open OpenLedger",
     cta_link: "https://www.openpyledger.space/"
   },
