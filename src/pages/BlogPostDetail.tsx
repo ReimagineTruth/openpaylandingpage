@@ -225,6 +225,8 @@ Open the [OpenLedger homepage](https://www.openpyledger.space/) and you'll land 
 
 Search something. Watch the stats settle. Follow a transaction. That's the new UI/UX in practice.
     `,
+    cta_text: "Open OpenLedger",
+    cta_link: "https://www.openpyledger.space/"
   },
   {
     id: "openledger-public-explorer",
