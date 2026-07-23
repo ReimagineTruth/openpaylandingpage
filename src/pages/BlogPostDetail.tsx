@@ -3769,12 +3769,36 @@ The future of Web3 commerce is being built today, and you're invited to be part 
                     // Handle list items (both single and multi-line)
                     if (paragraph.startsWith('-') || paragraph.startsWith('*')) {
                       const listItems = paragraph.split('\n').filter(line => line.trim().startsWith('-') || line.trim().startsWith('*'));
+                      const renderItem = (raw: string) => {
+                        const stripped = raw.replace(/^[-*]\s*/, '');
+                        if (stripped.includes('[') && stripped.includes('](')) {
+                          return stripped.split(/(\[.*?\]\(.*?\))/g).map((part, i) => {
+                            const m = part.match(/\[(.*?)\]\((.*?)\)/);
+                            if (m) {
+                              return (
+                                <a
+                                  key={i}
+                                  href={m[2]}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1 text-accent hover:text-accent/80 font-semibold underline decoration-accent/30 hover:decoration-accent/60 underline-offset-4 transition-all"
+                                >
+                                  {cleanMarkdown(m[1])}
+                                  <ArrowRight size={12} />
+                                </a>
+                              );
+                            }
+                            return cleanMarkdown(part);
+                          });
+                        }
+                        return cleanMarkdown(stripped);
+                      };
                       return (
                         <ul key={index} className="space-y-2 my-4">
                           {listItems.map((item, itemIndex) => (
                             <li key={itemIndex} className="flex items-start gap-3 text-foreground/90 text-base">
                               <span className="text-accent mt-1">•</span>
-                              <span className="flex-1">{cleanMarkdown(item.replace(/^[-*]\s*/, ''))}</span>
+                              <span className="flex-1">{renderItem(item)}</span>
                             </li>
                           ))}
                         </ul>
