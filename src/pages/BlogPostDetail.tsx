@@ -72,6 +72,163 @@ const BlogPostDetail = () => {
 
   const getFallbackPosts = (): BlogPost[] => [
   {
+    id: "openledger-dashboard-ui-refresh",
+    slug: "openledger-dashboard-ui-refresh",
+    title: "OpenLedger Dashboard: A Fresh UI/UX for the Live Ledger",
+    date: "Jul 24, 2026",
+    author: "OpenPay Team",
+    category: "Update",
+    desc: "How the new home experience makes network activity clearer, faster, and easier to explore — on desktop and mobile.",
+    meta: "A refreshed OpenLedger dashboard: focused hero, meaningful metrics, explanatory charts, and a live transaction feed.",
+    tags: ["openledger", "dashboard", "ui", "ux", "design"],
+    hero: "One composition. Live metrics. Real-time feed.",
+    content: `
+# OpenLedger Dashboard: A Fresh UI/UX for the Live Ledger
+
+*How the new home experience makes network activity clearer, faster, and easier to explore — on desktop and mobile.*
+
+---
+
+The OpenLedger dashboard is the first thing you see when you open the public explorer. It should feel like the pulse of the OpenPay ecosystem: live, trustworthy, and easy to scan — not a wall of widgets.
+
+We've refreshed the dashboard UI/UX so the homepage reads as one clear composition: search first, metrics that matter, charts that explain the mix, and a live transaction feed that stays current. Whether you're checking volume, verifying KYC coverage, or hunting a hash, the new design gets you there with less friction.
+
+---
+
+## Designed as one composition
+
+The new dashboard opens with a focused hero — not a dense control panel.
+
+**What you see first**
+
+- A soft primary gradient card with subtle depth and glow
+- A **Live ledger · SHA-256 hash chain** badge with a pulsing live indicator
+- A clear headline: *The public explorer for the OpenPay ecosystem*
+- One supporting line of context
+- A large **search bar** ready for a hash, wallet, merchant, token, or NFT
+
+The goal is simple: brand and trust up front, then action. Search is the primary gesture. Everything else supports it.
+
+---
+
+## Metrics that reflect the network today
+
+The stats grid now surfaces eight signals that map to how OpenPay actually moves:
+
+| Stat | Why it matters |
+|------|----------------|
+| **Total Transactions** | Overall ledger activity |
+| **Total Volume** | Economic throughput in USD |
+| **Total Wallets** | Reach of the network |
+| **KYC Verified** | Trust layer, with verification rate |
+| **NFT Sales** | Marketplace momentum |
+| **Swaps** | Currency and asset conversions |
+| **OpenPay Tx** | Core OpenPay volume |
+| **Stake** | Staking activity across the ledger |
+
+**KYC Verified** and **Stake** are first-class dashboard metrics — not buried on secondary pages. Each card uses clear icons, compact formatting, and light hover lift so the grid feels interactive without becoming noisy.
+
+---
+
+## Charts that explain, not decorate
+
+Below the stats, the dashboard tells the story of the last two weeks in three views:
+
+1. **Daily volume** — a smooth area chart of network volume over 14 days
+2. **Transaction types** — a donut breakdown of payments, transfers, swaps, stakes, NFT sales, and more
+3. **OpenPay vs OpenPay Pro** — a stacked bar chart so you can see both products in one timeline
+
+Charts load with shimmer skeletons instead of empty boxes, then animate in so the page feels alive without distraction. Stake activity has its own color in the type mix, so staking is visible at a glance.
+
+---
+
+## A live feed that keeps up
+
+The **Latest Transactions** table sits where it belongs: after the overview, before ecosystem links.
+
+**UX details that matter**
+
+- Auto-refresh every few seconds so the feed stays near real time
+- Status, source, and type badges for fast scanning
+- Desktop table layout for dense browsing
+- Mobile card layout so hashes and amounts stay readable on small screens
+- Soft row entrance motion when new data settles in
+
+From here, one click takes you into the full Explorer for deeper history and filters.
+
+---
+
+## Polished motion and loading states
+
+The refresh isn't only about layout — it's about how the page *feels*.
+
+**Motion & feedback**
+
+- Staggered fade-up as hero → stats → charts → transactions → ecosystem appear
+- Chart entrance animations that settle quickly
+- Hover states on cards and ecosystem links that invite the next click
+- A top route progress bar during navigation
+- Respect for \`prefers-reduced-motion\` so decorative animation stays optional
+
+**Loading**
+
+- Skeleton stat cards
+- Shimmer chart placeholders
+- Table skeletons while recent txs load
+
+You never stare at a blank dashboard. The structure is there immediately; the numbers fill in.
+
+---
+
+## Built for phones, not just shrunk for them
+
+Mobile was treated as a first-class surface:
+
+- Compact hero padding and type so the search stays above the fold
+- Responsive **2 → 4** column stats grid
+- Transaction cards under small breakpoints instead of a cramped table
+- A hamburger **drawer nav** for Dashboard, Explorer, Tokens, OUSD, Stake, KYC, NFTs, Merchants, and Analytics
+- Sticky blurred header with dark/light theme toggle
+
+The same trust language — live ledger, SHA-256 hash chain — travels with you from desktop to phone.
+
+---
+
+## Dark mode and brand clarity
+
+OpenLedger keeps a consistent OpenPay blue primary across light and dark themes. Surfaces use soft borders and rounded cards that lift on hover. Mono styling is reserved for hashes and addresses, where precision matters. The result is a dashboard that feels like a product surface — calm, modern, and ecosystem-native — not a generic analytics template.
+
+---
+
+## Ecosystem links, in the right place
+
+After the live feed, the dashboard closes with OpenPay ecosystem destinations — Pi Browser, Telegram, whitepaper, NFT marketplace, and more. Putting them below latest transactions keeps the first screen focused on ledger activity, then opens the door to the wider network when you're ready.
+
+---
+
+## What's better for you
+
+| If you want… | The new dashboard helps by… |
+|--------------|-----------------------------|
+| Finding a tx or wallet fast | Putting search in the hero |
+| Understanding network health | Showing KYC, stake, volume, and wallets together |
+| Seeing OpenPay vs Pro | Stacking both sources in one chart |
+| Watching the chain live | Refreshing recent txs automatically |
+| Using OpenLedger on mobile | Card txs, drawer nav, and a tighter hero |
+| Trusting what you see | Framing the page around a live SHA-256 hash chain |
+
+---
+
+## Try it
+
+Open the [OpenLedger homepage](https://www.openpyledger.space/) and you'll land on the new dashboard: one composition, clearer metrics, smoother charts, and a live feed that keeps the OpenPay ecosystem readable in real time.
+
+Search something. Watch the stats settle. Follow a transaction. That's the new UI/UX in practice.
+    `,
+    cta_text: "Open OpenLedger",
+    cta_link: "https://www.openpyledger.space/"
+  },
+  {
     id: "openledger-public-explorer",
     slug: "openledger-public-explorer",
     title: "OpenLedger: The Public Explorer for the OpenPay Ecosystem",
