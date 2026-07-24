@@ -4,6 +4,7 @@ import FeaturesSection from "@/components/FeaturesSection";
 import AppShowcaseSection from "@/components/AppShowcaseSection";
 import AppShowcaseUI from "@/components/AppShowcaseUI";
 import NFTShowcaseSection from "@/components/NFTShowcaseSection";
+import OpenLedgerShowcaseSection from "@/components/OpenLedgerShowcaseSection";
 import SecuritySection from "@/components/SecuritySection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
@@ -17,6 +18,7 @@ const Index = () => {
       <AppShowcaseSection />
       <AppShowcaseUI />
       <NFTShowcaseSection />
+      <OpenLedgerShowcaseSection />
       <SecuritySection />
       <CTASection />
       <Footer />
