@@ -21,6 +21,7 @@ const Index = () => {
       <NFTShowcaseSection />
       <OpenLedgerShowcaseSection />
       <SecuritySection />
+      <EcosystemLinksSection />
       <CTASection />
       <Footer />
     </div>
