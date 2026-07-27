@@ -8,7 +8,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(var(--foreground)) 1px, transparent 0)", backgroundSize: "40px 40px" }} />
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-16 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         {/* Left content */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -20,13 +20,13 @@ const HeroSection = () => {
             <span className="text-xs font-semibold text-accent">Powered by Pi Network</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.05] mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.05] mb-6">
             The smarter way{" "}
             <br />
             to <span className="text-gradient">pay with Pi.</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-muted-foreground max-w-lg mb-10 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-lg mb-8 sm:mb-10 leading-relaxed">
             Send, receive, and manage Pi across 170+ currencies. Web3 payments made simple, fast, and secure.
           </p>
 
@@ -80,17 +80,17 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-8">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
             <div className="flex items-center gap-2">
-              <Shield size={16} className="text-accent" />
+              <Shield size={16} className="text-accent shrink-0" />
               <span className="text-sm text-muted-foreground">Bank-grade security</span>
             </div>
             <div className="flex items-center gap-2">
-              <Zap size={16} className="text-accent" />
+              <Zap size={16} className="text-accent shrink-0" />
               <span className="text-sm text-muted-foreground">Instant transfers</span>
             </div>
-            <div className="hidden sm:flex items-center gap-2">
-              <Globe size={16} className="text-accent" />
+            <div className="flex items-center gap-2">
+              <Globe size={16} className="text-accent shrink-0" />
               <span className="text-sm text-muted-foreground">170+ currencies</span>
             </div>
           </div>

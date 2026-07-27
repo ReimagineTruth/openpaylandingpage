@@ -13,10 +13,14 @@ const BlogPage = () => {
   useEffect(() => {
     async function fetchPosts() {
       try {
-        const { data, error } = await supabase
+        const query = supabase
           .from('blog_posts')
           .select('*')
           .order('date', { ascending: false });
+        const timeout = new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error('Supabase timeout')), 4000)
+        );
+        const { data, error } = await Promise.race([query, timeout]);
 
         if (error) {
           console.error('Error fetching posts:', error);
@@ -88,19 +92,19 @@ const BlogPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <section className="pt-24 pb-12 px-6">
+      <section className="pt-24 pb-12 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-8">
             <span className="text-xs font-semibold text-accent uppercase tracking-wider">Blog</span>
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mt-3 mb-4">
               News & <span className="text-gradient">updates</span>
             </h1>
-            <p className="text-muted-foreground text-base max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-base max-w-2xl mx-auto px-2">
               Stay up to date with the latest OpenPay product updates, guides, and Web3 insights.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
             {posts.map((post, i) => (
               <Link key={post.id || post.slug} to={`/blog/${post.id || post.slug}`}>
                 <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-gradient-to-br from-card to-background rounded-xl border border-border p-5 hover:border-accent/50 hover:shadow-lg transition-all cursor-pointer group h-full">

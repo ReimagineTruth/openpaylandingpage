@@ -30,12 +30,16 @@ const BlogPostDetail = () => {
   useEffect(() => {
     async function fetchPost() {
       try {
-        // Try to fetch from Supabase first
-        const { data, error } = await supabase
+        // Try to fetch from Supabase first (timeout so hung DNS doesn't block fallback)
+        const query = supabase
           .from('blog_posts')
           .select('*')
           .or(`slug.eq.${id},id.eq.${id}`)
           .single();
+        const timeout = new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error('Supabase timeout')), 4000)
+        );
+        const { data, error } = await Promise.race([query, timeout]);
 
         if (error) {
           console.error('Error fetching post:', error);
@@ -68,6 +72,78 @@ const BlogPostDetail = () => {
       // Clean up extra whitespace
       .replace(/\s+/g, ' ')
       .trim();
+  };
+
+  const isListLine = (line: string) => /^([-*]|\d+\.)\s+/.test(line.trim()) && !line.trim().startsWith('**');
+  const isHr = (text: string) => /^(-{3,}|\*{3,}|_{3,})\s*$/.test(text.trim());
+  const isTableSep = (row: string) => /^\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)+\|?\s*$/.test(row.trim());
+
+  const renderInline = (text: string, keyPrefix = 'i') => {
+    const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\)|https?:\/\/[^\s)]+)/g).filter(Boolean);
+    return parts.map((part, i) => {
+      const key = `${keyPrefix}-${i}`;
+      if (part.startsWith('`') && part.endsWith('`')) {
+        return (
+          <code key={key} className="px-1.5 py-0.5 rounded bg-secondary text-[0.85em] font-mono break-all">
+            {part.slice(1, -1)}
+          </code>
+        );
+      }
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return <strong key={key} className="font-semibold text-foreground">{part.slice(2, -2)}</strong>;
+      }
+      const mdLink = part.match(/^\[(.*?)\]\((.*?)\)$/);
+      if (mdLink) {
+        const [, label, href] = mdLink;
+        const isUrlLabel = /^https?:\/\//i.test(label) || label.length > 40;
+        const isCta =
+          !isUrlLabel &&
+          (href.includes('t.me') ||
+            href.includes('openpy.space') ||
+            label.toLowerCase().includes('launch') ||
+            label.toLowerCase().includes('get started') ||
+            label.toLowerCase().includes('try '));
+        if (isCta) {
+          return (
+            <a
+              key={key}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex max-w-full items-center gap-1.5 px-3 py-1.5 my-1 bg-accent text-white rounded-lg font-semibold hover:bg-accent/90 transition-all shadow-md text-sm break-words"
+            >
+              <span className="truncate">{cleanMarkdown(label)}</span>
+              <ArrowRight size={14} className="shrink-0" />
+            </a>
+          );
+        }
+        return (
+          <a
+            key={key}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline text-accent hover:text-accent/80 font-semibold underline decoration-accent/30 hover:decoration-accent/60 underline-offset-4 break-all"
+          >
+            {cleanMarkdown(label)}
+          </a>
+        );
+      }
+      if (/^https?:\/\//i.test(part)) {
+        return (
+          <a
+            key={key}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline text-accent hover:text-accent/80 font-semibold underline decoration-accent/30 underline-offset-4 break-all"
+          >
+            {part.replace(/^https?:\/\//, '')}
+          </a>
+        );
+      }
+      return <span key={key}>{part.replace(/\*(.*?)\*/g, '$1')}</span>;
+    });
   };
 
   const getFallbackPosts = (): BlogPost[] => [
@@ -4399,7 +4475,7 @@ The future of Web3 commerce is being built today, and you're invited to be part 
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <section className="pt-24 pb-12 px-6">
+        <section className="pt-24 pb-12 px-4 sm:px-6">
           <div className="max-w-3xl mx-auto">
             <div className="flex items-center justify-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
@@ -4415,9 +4491,9 @@ The future of Web3 commerce is being built today, and you're invited to be part 
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <section className="pt-24 pb-12 px-6">
+        <section className="pt-24 pb-12 px-4 sm:px-6">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl font-bold text-foreground mb-4">Blog post not found</h1>
+            <h1 className="text-2xl sm:text-4xl font-bold text-foreground mb-4">Blog post not found</h1>
             <Link to="/blog" className="inline-flex items-center gap-2 text-accent hover:opacity-80">
               <ArrowLeft size={16} /> Back to blog
             </Link>
@@ -4439,7 +4515,7 @@ The future of Web3 commerce is being built today, and you're invited to be part 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <section className="pt-24 pb-12 px-6">
+      <section className="pt-24 pb-12 px-4 sm:px-6">
         <div className="max-w-3xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             {/* Back button */}
@@ -4452,27 +4528,27 @@ The future of Web3 commerce is being built today, and you're invited to be part 
 
             {/* Article header */}
             <div className="mb-8">
-              <div className="flex items-center gap-3 mb-6">
-                <span className={`text-xs font-bold px-4 py-2 rounded-full ${categoryColor[post.category] || "bg-secondary text-foreground border border-border"} uppercase tracking-wider`}>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-6">
+                <span className={`text-xs font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full ${categoryColor[post.category] || "bg-secondary text-foreground border border-border"} uppercase tracking-wider`}>
                   {post.category}
                 </span>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <User size={16} className="text-accent" />
+                  <User size={16} className="text-accent shrink-0" />
                   <span className="font-medium">{post.author}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Calendar size={16} className="text-accent" />
+                  <Calendar size={16} className="text-accent shrink-0" />
                   <span className="font-medium">{post.date}</span>
                 </div>
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6 leading-tight bg-gradient-to-r from-foreground via-foreground to-foreground/80 bg-clip-text text-transparent">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 leading-tight bg-gradient-to-r from-foreground via-foreground to-foreground/80 bg-clip-text text-transparent">
                 {post.title}
               </h1>
               
               {/* Hero Copy */}
-              <div className="bg-gradient-to-r from-accent/20 via-purple-500/20 to-accent/20 rounded-2xl p-6 mb-6 border border-accent/30 shadow-lg">
-                <p className="text-xl md:text-2xl font-bold text-foreground leading-relaxed">
+              <div className="bg-gradient-to-r from-accent/20 via-purple-500/20 to-accent/20 rounded-2xl p-4 sm:p-6 mb-6 border border-accent/30 shadow-lg">
+                <p className="text-lg sm:text-xl md:text-2xl font-bold text-foreground leading-relaxed">
                   "{post.hero}"
                 </p>
               </div>
@@ -4483,11 +4559,11 @@ The future of Web3 commerce is being built today, and you're invited to be part 
               </p>
               
               {/* Tags */}
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 {post.tags.map((tag, index) => (
                   <span 
                     key={index}
-                    className="text-sm font-semibold px-4 py-2 rounded-full bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors"
+                    className="text-xs sm:text-sm font-semibold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors"
                   >
                     #{tag}
                   </span>
@@ -4502,78 +4578,92 @@ The future of Web3 commerce is being built today, and you're invited to be part 
               transition={{ delay: 0.2 }}
               className="prose prose-lg max-w-none"
             >
-              <div className="bg-gradient-to-br from-card to-background rounded-3xl border border-border p-6 md:p-8 shadow-xl">
-                <div className="text-foreground text-base leading-relaxed space-y-4">
+              <div className="bg-gradient-to-br from-card to-background rounded-2xl sm:rounded-3xl border border-border p-4 sm:p-6 md:p-8 shadow-xl overflow-hidden">
+                <div className="text-foreground text-base leading-relaxed space-y-4 break-words">
                   {post.content.split('\n\n').map((paragraph, index) => {
-                    if (paragraph.startsWith('#')) {
-                      const level = paragraph.match(/^#+/)?.[0].length || 1;
-                      const text = cleanMarkdown(paragraph.replace(/^#+\s*/, ''));
-                      const HeadingTag = `h${Math.min(level, 3)}` as keyof JSX.IntrinsicElements;
+                    const trimmed = paragraph.trim();
+                    if (!trimmed) return null;
+
+                    if (isHr(trimmed)) {
+                      return <hr key={index} className="my-6 border-border" />;
+                    }
+
+                    if (trimmed.startsWith('```')) {
+                      const code = trimmed.replace(/^```\w*\n?/, '').replace(/\n?```$/, '');
                       return (
-                        <HeadingTag 
-                          key={index} 
-                          className={`font-bold text-foreground mt-8 mb-4 ${
-                            level === 1 ? 'text-2xl md:text-3xl bg-gradient-to-r from-accent to-purple-500 bg-clip-text text-transparent' : 
-                            level === 2 ? 'text-xl md:text-2xl text-foreground' : 
-                            'text-lg md:text-xl text-foreground/90'
-                          }`}
-                        >
-                          {text}
-                        </HeadingTag>
+                        <pre key={index} className="my-4 overflow-x-auto rounded-xl border border-border bg-secondary/40 p-3 sm:p-4 text-xs sm:text-sm font-mono leading-relaxed">
+                          <code className="whitespace-pre">{code}</code>
+                        </pre>
                       );
                     }
-                    
-                    // Handle list items (both single and multi-line)
-                    if (paragraph.startsWith('-') || paragraph.startsWith('*')) {
-                      const listItems = paragraph.split('\n').filter(line => line.trim().startsWith('-') || line.trim().startsWith('*'));
-                      const renderItem = (raw: string) => {
-                        const stripped = raw.replace(/^[-*]\s*/, '');
-                        if (stripped.includes('[') && stripped.includes('](')) {
-                          return stripped.split(/(\[.*?\]\(.*?\))/g).map((part, i) => {
-                            const m = part.match(/\[(.*?)\]\((.*?)\)/);
-                            if (m) {
-                              return (
-                                <a
-                                  key={i}
-                                  href={m[2]}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1 text-accent hover:text-accent/80 font-semibold underline decoration-accent/30 hover:decoration-accent/60 underline-offset-4 transition-all"
-                                >
-                                  {cleanMarkdown(m[1])}
-                                  <ArrowRight size={12} />
-                                </a>
-                              );
-                            }
-                            return cleanMarkdown(part);
-                          });
-                        }
-                        return cleanMarkdown(stripped);
-                      };
+
+                    if (trimmed.startsWith('#')) {
+                      const lines = trimmed.split('\n');
+                      const headingLine = lines[0];
+                      const rest = lines.slice(1).join('\n').trim();
+                      const level = headingLine.match(/^#+/)?.[0].length || 1;
+                      const text = cleanMarkdown(headingLine.replace(/^#+\s*/, ''));
+                      const HeadingTag = `h${Math.min(level, 3)}` as keyof JSX.IntrinsicElements;
+                      return (
+                        <div key={index}>
+                          <HeadingTag 
+                            className={`font-bold text-foreground mt-6 sm:mt-8 mb-3 sm:mb-4 ${
+                              level === 1 ? 'text-xl sm:text-2xl md:text-3xl bg-gradient-to-r from-accent to-purple-500 bg-clip-text text-transparent' : 
+                              level === 2 ? 'text-lg sm:text-xl md:text-2xl text-foreground' : 
+                              'text-base sm:text-lg md:text-xl text-foreground/90'
+                            }`}
+                          >
+                            {text}
+                          </HeadingTag>
+                          {rest ? (
+                            <p className="mb-4 text-foreground/90 leading-relaxed text-base">
+                              {renderInline(rest, `hrest-${index}`)}
+                            </p>
+                          ) : null}
+                        </div>
+                      );
+                    }
+
+                    // Bullet / numbered lists — require space after marker so **bold** is not a list
+                    if (isListLine(trimmed.split('\n')[0])) {
+                      const listItems = trimmed.split('\n').filter((line) => isListLine(line));
                       return (
                         <ul key={index} className="space-y-2 my-4">
                           {listItems.map((item, itemIndex) => (
                             <li key={itemIndex} className="flex items-start gap-3 text-foreground/90 text-base">
-                              <span className="text-accent mt-1">•</span>
-                              <span className="flex-1">{renderItem(item)}</span>
+                              <span className="text-accent mt-1 shrink-0">•</span>
+                              <span className="flex-1 min-w-0">{renderInline(item.replace(/^([-*]|\d+\.)\s+/, ''), `li-${index}-${itemIndex}`)}</span>
                             </li>
                           ))}
                         </ul>
                       );
                     }
 
-                    if (paragraph.match(/^\|.*\|$/)) {
+                    if (trimmed.includes('|') && trimmed.split('\n').some((row) => row.includes('|'))) {
+                      const rows = trimmed
+                        .split('\n')
+                        .filter((row) => row.includes('|') && !isTableSep(row));
+                      if (rows.length === 0) return null;
                       return (
-                        <div key={index} className="overflow-x-auto my-6 rounded-xl border border-border">
-                          <table className="w-full border-collapse">
+                        <div key={index} className="-mx-1 sm:mx-0 overflow-x-auto my-6 rounded-xl border border-border">
+                          <table className="w-full min-w-[480px] border-collapse text-left">
                             <tbody>
-                              {paragraph.split('\n').filter(row => row.includes('|')).map((row, rowIndex) => (
-                                <tr key={rowIndex} className="border-b border-border last:border-b-0">
-                                  {row.split('|').filter(cell => cell.trim()).map((cell, cellIndex) => (
-                                    <td key={cellIndex} className="border-r border-border last:border-r-0 px-4 py-3 text-xs text-foreground/90 font-medium">
-                                      {cell.trim()}
-                                    </td>
-                                  ))}
+                              {rows.map((row, rowIndex) => (
+                                <tr
+                                  key={rowIndex}
+                                  className={`border-b border-border last:border-b-0 ${rowIndex === 0 ? 'bg-secondary/40' : ''}`}
+                                >
+                                  {row.split('|').filter((cell) => cell.trim()).map((cell, cellIndex) => {
+                                    const Cell = rowIndex === 0 ? 'th' : 'td';
+                                    return (
+                                      <Cell
+                                        key={cellIndex}
+                                        className="border-r border-border last:border-r-0 px-3 py-2.5 sm:px-4 sm:py-3 text-xs text-foreground/90 font-medium whitespace-nowrap"
+                                      >
+                                        {cleanMarkdown(cell.trim())}
+                                      </Cell>
+                                    );
+                                  })}
                                 </tr>
                               ))}
                             </tbody>
@@ -4582,143 +4672,9 @@ The future of Web3 commerce is being built today, and you're invited to be part 
                       );
                     }
 
-                    if (paragraph.includes('[') && paragraph.includes(']')) {
-                      return (
-                        <p key={index} className="mb-6 text-foreground/90 leading-relaxed">
-                          {paragraph.split(/(\[.*?\]\(.*?\))/g).map((part, partIndex) => {
-                            const linkMatch = part.match(/\[(.*?)\]\((.*?)\)/);
-                            if (linkMatch) {
-                              const isImportantLink = linkMatch[2].includes('t.me') || 
-                                                      linkMatch[2].includes('openpy.space') ||
-                                                      linkMatch[1].toLowerCase().includes('launch') ||
-                                                      linkMatch[1].toLowerCase().includes('get started');
-                              
-                              if (isImportantLink) {
-                                return (
-                                  <a 
-                                    key={partIndex}
-                                    href={linkMatch[2]}
-                                    className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg font-semibold hover:bg-accent/90 hover:scale-105 transition-all shadow-md hover:shadow-lg"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    {linkMatch[1]}
-                                    <ArrowRight size={16} />
-                                  </a>
-                                );
-                              }
-                              
-                              return (
-                                <a 
-                                  key={partIndex}
-                                  href={linkMatch[2]}
-                                  className="inline-flex items-center gap-1 text-accent hover:text-accent/80 font-semibold underline decoration-accent/30 hover:decoration-accent/60 underline-offset-4 transition-all hover:bg-accent/5 px-2 py-1 rounded"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {linkMatch[1]}
-                                  <ArrowRight size={14} />
-                                </a>
-                              );
-                            }
-                            return part;
-                          })}
-                        </p>
-                      );
-                    }
-
-                    if (paragraph.includes('[') && paragraph.includes(']')) {
-                      return (
-                        <p key={index} className="mb-4 text-foreground/90 leading-relaxed text-base">
-                          {paragraph.split(/(\[.*?\]\(.*?\))/g).map((part, partIndex) => {
-                            const linkMatch = part.match(/\[(.*?)\]\((.*?)\)/);
-                            if (linkMatch) {
-                              const isImportantLink = linkMatch[2].includes('t.me') || 
-                                                      linkMatch[2].includes('openpy.space') ||
-                                                      linkMatch[1].toLowerCase().includes('launch') ||
-                                                      linkMatch[1].toLowerCase().includes('get started');
-                              
-                              if (isImportantLink) {
-                                return (
-                                  <a 
-                                    key={partIndex}
-                                    href={linkMatch[2]}
-                                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent text-white rounded-lg font-semibold hover:bg-accent/90 hover:scale-105 transition-all shadow-md hover:shadow-lg text-sm"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    {cleanMarkdown(linkMatch[1])}
-                                    <ArrowRight size={14} />
-                                  </a>
-                                );
-                              }
-                              
-                              return (
-                                <a 
-                                  key={partIndex}
-                                  href={linkMatch[2]}
-                                  className="inline-flex items-center gap-1 text-accent hover:text-accent/80 font-semibold underline decoration-accent/30 hover:decoration-accent/60 underline-offset-4 transition-all hover:bg-accent/5 px-2 py-1 rounded text-sm"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {cleanMarkdown(linkMatch[1])}
-                                  <ArrowRight size={12} />
-                                </a>
-                              );
-                            }
-                            return cleanMarkdown(part);
-                          })}
-                        </p>
-                      );
-                    }
-
-                    // Handle plain URLs that aren't in markdown format
-                    const urlRegex = /(https?:\/\/[^\s]+)/g;
-                    if (urlRegex.test(paragraph) && !paragraph.includes('[')) {
-                      return (
-                        <p key={index} className="mb-4 text-foreground/90 leading-relaxed text-base">
-                          {paragraph.split(urlRegex).map((part, partIndex) => {
-                            if (part.match(urlRegex)) {
-                              const isImportantLink = part.includes('t.me') || 
-                                                      part.includes('openpy.space');
-                              
-                              if (isImportantLink) {
-                                return (
-                                  <a 
-                                    key={partIndex}
-                                    href={part}
-                                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent text-white rounded-lg font-semibold hover:bg-accent/90 hover:scale-105 transition-all shadow-md hover:shadow-lg ml-2 text-sm"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                  >
-                                    {part.replace(/^https?:\/\//, '')}
-                                    <ArrowRight size={14} />
-                                  </a>
-                                );
-                              }
-                              
-                              return (
-                                <a 
-                                  key={partIndex}
-                                  href={part}
-                                  className="inline-flex items-center gap-1 text-accent hover:text-accent/80 font-semibold underline decoration-accent/30 hover:decoration-accent/60 underline-offset-4 transition-all hover:bg-accent/5 px-2 py-1 rounded ml-2 text-sm"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {part.replace(/^https?:\/\//, '')}
-                                  <ArrowRight size={12} />
-                                </a>
-                              );
-                            }
-                            return cleanMarkdown(part);
-                          })}
-                        </p>
-                      );
-                    }
-
                     return (
                       <p key={index} className="mb-4 text-foreground/90 leading-relaxed text-base">
-                        {cleanMarkdown(paragraph)}
+                        {renderInline(trimmed, `p-${index}`)}
                       </p>
                     );
                   })}
@@ -4767,20 +4723,20 @@ The future of Web3 commerce is being built today, and you're invited to be part 
               initial={{ opacity: 0, y: 20 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ delay: 0.6 }}
-              className="mt-12 text-center bg-gradient-to-r from-accent/20 via-purple-500/20 to-accent/20 rounded-2xl p-8 border-2 border-accent/30 shadow-xl relative overflow-hidden"
+              className="mt-12 text-center bg-gradient-to-r from-accent/20 via-purple-500/20 to-accent/20 rounded-2xl p-5 sm:p-8 border-2 border-accent/30 shadow-xl relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-purple-500/10 rounded-2xl -z-10"></div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4">
                 Ready to experience this feature?
               </h2>
-              <p className="text-base text-foreground/80 mb-6 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-sm sm:text-base text-foreground/80 mb-6 max-w-2xl mx-auto leading-relaxed">
                 {post.meta}
               </p>
               <a 
                 href={post.cta_link}
-                className="inline-flex items-center gap-3 px-8 py-3 bg-accent text-white rounded-full font-bold text-base hover:bg-accent/90 hover:scale-105 transition-all shadow-lg hover:shadow-xl"
+                className="inline-flex max-w-full items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 bg-accent text-white rounded-full font-bold text-sm sm:text-base hover:bg-accent/90 hover:scale-105 transition-all shadow-lg hover:shadow-xl"
               >
-                {post.cta_text} <ArrowRight size={18} />
+                <span className="truncate">{post.cta_text}</span> <ArrowRight size={18} className="shrink-0" />
               </a>
             </motion.div>
           </motion.div>
