@@ -72,6 +72,146 @@ const BlogPostDetail = () => {
 
   const getFallbackPosts = (): BlogPost[] => [
   {
+    id: "openpay-third-party-integration",
+    slug: "openpay-third-party-integration",
+    title: "OpenPay Launches Third-Party Integration with OpenPay Auth & OpenPay Checkout",
+    date: "Jul 27, 2026",
+    author: "OpenPay Team",
+    category: "Product",
+    desc: "One Integration. Secure Authentication. Seamless Payments. OpenPay now supports third-party app integration via OAuth 2.0 and Checkout APIs.",
+    meta: "OpenPay launches OpenPay Auth (OAuth 2.0) and OpenPay Checkout for third-party apps — sign in with OpenPay and accept Pi payments in minutes.",
+    tags: ["OpenPay Auth", "OpenPay Checkout", "OAuth 2.0", "Partner API", "Developers", "Web3"],
+    hero: "One Account. One Checkout. Unlimited Possibilities.",
+    cta_text: "Read Partner API Docs",
+    cta_link: "https://openpy.space/partner-api",
+    content: `# OpenPay Launches Third-Party Integration with OpenPay Auth & OpenPay Checkout
+
+**One Integration. Secure Authentication. Seamless Payments.**
+
+We're excited to announce that OpenPay now supports third-party application integration, allowing developers to authenticate users and accept payments using OpenPay with just a few API calls.
+
+Whether you're building a marketplace, game, SaaS platform, creator tool, NFT marketplace, or Web3 application, OpenPay now provides a complete authentication and payment infrastructure.
+
+---
+
+## Sign in with OpenPay
+
+Users can now log in to any supported application using their OpenPay account through a secure OAuth 2.0 authentication flow.
+
+Instead of creating another username and password, users simply click **"Sign in with OpenPay"** and securely authorize your application.
+
+### Benefits
+
+* Secure OAuth 2.0 Authorization Code Flow
+* No password sharing with third-party applications
+* One OpenPay account across multiple apps
+* Fast and seamless onboarding
+* Permission-based account access
+
+During authorization, users can clearly see what information your application is requesting before granting access.
+
+---
+
+## OpenPay Checkout
+
+Developers can now integrate OpenPay Checkout to securely accept payments inside their applications.
+
+OpenPay Checkout supports:
+
+* Digital Products
+* SaaS Subscriptions
+* Premium Upgrades
+* NFT Purchases
+* Token Purchases
+* Donations
+* Creator Payments
+* In-App Purchases
+
+Each payment includes:
+
+* Secure authorization
+* Merchant verification
+* Payment confirmation
+* Automatic callback to your application
+
+---
+
+## How It Works
+
+1. User selects **Sign in with OpenPay**.
+2. OpenPay securely authenticates the user.
+3. The user grants permission to your application.
+4. Your backend receives an authorization code and exchanges it for an access token.
+5. Access the user's profile (name, username, avatar, and account number).
+6. Create payment requests using OpenPay Checkout and receive payment confirmations through callbacks or webhooks.
+
+---
+
+## Built for Developers
+
+OpenPay provides everything you need to integrate authentication and payments:
+
+* OAuth 2.0 Authentication
+* OpenPay Checkout API
+* REST APIs
+* Webhooks
+* Payment Callbacks
+* Secure Access Tokens
+* Merchant Accounts
+* Mobile & Web Support
+* Easy Integration
+
+---
+
+## Developer Documentation
+
+Ready to integrate OpenPay into your application?
+
+[Partner API Documentation](https://openpy.space/partner-api)
+
+Learn how to integrate:
+
+* OpenPay Authentication
+* OAuth 2.0
+* Checkout API
+* Payment API
+* Webhooks
+* SDKs & Examples
+* API Reference
+
+---
+
+## Explore OpenLedger
+
+Discover the decentralized infrastructure powering the OpenPay ecosystem.
+
+[openpyledger.space](https://openpyledger.space)
+
+---
+
+## OpenPay Ecosystem
+
+* [Try OpenPay (Pi Browser)](https://openpy.space)
+* [OpenLedger](https://openpyledger.space)
+* [OpenApp](https://openappdev.space)
+* [Read Our Blogs](https://www.openpy.space/blog)
+* [OpenPay Telegram Mini App](https://t.me/openpayofficial)
+* [External Browser Sign-in](https://openpy.space/signin)
+* [Follow Us](https://droplinkpi.space/@openpay)
+* [OpenPay Whitepaper](https://openpy.space/whitepaper)
+* [OpenPay Pitch Deck](https://openpy.space/pitch-deck)
+* [OpenNFT Marketplace](https://openpy.space/web3/nft)
+
+---
+
+## Build with OpenPay
+
+OpenPay is building the next generation of Web3 authentication and payments. With **OpenPay Auth** and **OpenPay Checkout**, developers can integrate secure sign-in and seamless payments into their applications in minutes.
+
+**One Account. One Checkout. Unlimited Possibilities.** 🚀
+`
+  },
+  {
     id: "openpay-home-dashboard-ui-refresh",
     slug: "openpay-home-dashboard-ui-refresh",
     title: "OpenPay Home Dashboard: New UI/UX for Every Money Moment",
