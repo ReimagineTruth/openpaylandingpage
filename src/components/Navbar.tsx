@@ -20,6 +20,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-8">
           <a href="/#features" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Features</a>
           <a href="/#showcase" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">App</a>
+          <a href="/#openpay-pro" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Pro</a>
           <Link to="/blog" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
           <Link to="/merchant" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Business</Link>
           <Link to="/security" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Security</Link>
@@ -56,9 +57,11 @@ const Navbar = () => {
             <div className="px-6 py-4 flex flex-col gap-4">
               <a href="/#features" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>Features</a>
               <a href="/#showcase" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>App</a>
+              <a href="/#openpay-pro" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>OpenPay Pro</a>
               <Link to="/blog" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>Blog</Link>
               <Link to="/merchant" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>Business</Link>
               <Link to="/security" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>Security</Link>
+              <a href="https://openpaypro.space/" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-accent" onClick={() => setIsOpen(false)}>Launch OpenPay Pro</a>
               <a href="https://openpy.space/" className="px-4 py-2.5 text-sm font-semibold text-center text-accent-foreground bg-accent rounded-full">
                 Get Started
               </a>

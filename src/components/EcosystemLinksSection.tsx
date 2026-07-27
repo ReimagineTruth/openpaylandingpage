@@ -10,7 +10,8 @@ import {
   BookOpen, 
   BarChart3, 
   Image as ImageIcon,
-  ArrowUpRight
+  ArrowUpRight,
+  Sparkles,
 } from "lucide-react";
 
 type EcoLink = {
@@ -29,6 +30,14 @@ const links: EcoLink[] = [
     description: "Try it today in the Pi Browser — the full OpenPay experience.",
     url: "https://openpy.space",
     badge: "Pi Browser",
+    category: "app",
+  },
+  {
+    icon: Sparkles,
+    title: "OpenPay Pro",
+    description: "Premium Web3 wallet for OUSD, tokens, and NFTs — sign in with Pi or OpenPay.",
+    url: "https://openpaypro.space/",
+    badge: "Pro",
     category: "app",
   },
   {

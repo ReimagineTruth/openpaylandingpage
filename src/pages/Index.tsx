@@ -5,6 +5,7 @@ import AppShowcaseSection from "@/components/AppShowcaseSection";
 import AppShowcaseUI from "@/components/AppShowcaseUI";
 import NFTShowcaseSection from "@/components/NFTShowcaseSection";
 import OpenLedgerShowcaseSection from "@/components/OpenLedgerShowcaseSection";
+import OpenPayProShowcaseSection from "@/components/OpenPayProShowcaseSection";
 import SecuritySection from "@/components/SecuritySection";
 import EcosystemLinksSection from "@/components/EcosystemLinksSection";
 import CTASection from "@/components/CTASection";
@@ -20,6 +21,7 @@ const Index = () => {
       <AppShowcaseUI />
       <NFTShowcaseSection />
       <OpenLedgerShowcaseSection />
+      <OpenPayProShowcaseSection />
       <SecuritySection />
       <EcosystemLinksSection />
       <CTASection />

@@ -1,7 +1,47 @@
 import { Link } from "react-router-dom";
 import openPayLogo from "@/assets/openpay-logo.jpg";
 
+type FooterLink = {
+  label: string;
+  to?: string;
+  href?: string;
+};
+
 const Footer = () => {
+  const columns: { title: string; links: FooterLink[] }[] = [
+    {
+      title: "Product",
+      links: [
+        { label: "Wallet", to: "/wallet" },
+        { label: "OpenPay Pro", href: "https://openpaypro.space/" },
+        { label: "Savings", to: "/savings" },
+        { label: "Virtual Cards", to: "/cards" },
+        { label: "Loans", to: "/loans" },
+        { label: "Merchant POS", to: "/merchant" },
+        { label: "Payments", to: "/payments" },
+      ],
+    },
+    {
+      title: "Company",
+      links: [
+        { label: "About", to: "/about" },
+        { label: "Blog", to: "/blog" },
+        { label: "Careers", to: "/careers" },
+        { label: "Security", to: "/security" },
+        { label: "Feedback", to: "/feedback" },
+      ],
+    },
+    {
+      title: "Legal",
+      links: [
+        { label: "Privacy Policy", to: "/privacy" },
+        { label: "Terms of Service", to: "/terms" },
+        { label: "Compliance", to: "/compliance" },
+        { label: "GDPR", to: "/gdpr" },
+      ],
+    },
+  ];
+
   return (
     <footer className="border-t border-border py-12 px-6">
       <div className="max-w-7xl mx-auto grid md:grid-cols-5 gap-8">
@@ -21,46 +61,26 @@ const Footer = () => {
           </div>
         </div>
 
-        {[
-          {
-            title: "Product",
-            links: [
-              { label: "Wallet", to: "/wallet" },
-              { label: "Savings", to: "/savings" },
-              { label: "Virtual Cards", to: "/cards" },
-              { label: "Loans", to: "/loans" },
-              { label: "Merchant POS", to: "/merchant" },
-              { label: "Payments", to: "/payments" },
-            ]
-          },
-          {
-            title: "Company",
-            links: [
-              { label: "About", to: "/about" },
-              { label: "Blog", to: "/blog" },
-              { label: "Careers", to: "/careers" },
-              { label: "Security", to: "/security" },
-              { label: "Feedback", to: "/feedback" },
-            ]
-          },
-          {
-            title: "Legal",
-            links: [
-              { label: "Privacy Policy", to: "/privacy" },
-              { label: "Terms of Service", to: "/terms" },
-              { label: "Compliance", to: "/compliance" },
-              { label: "GDPR", to: "/gdpr" },
-            ]
-          },
-        ].map((col) => (
+        {columns.map((col) => (
           <div key={col.title}>
             <h4 className="text-sm font-semibold text-foreground mb-4">{col.title}</h4>
             <ul className="space-y-2">
               {col.links.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.to} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                    {link.label}
-                  </Link>
+                  {link.href ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link to={link.to!} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -71,6 +91,9 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto mt-10 pt-6 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
         <p className="text-xs text-muted-foreground">© 2026 OpenPay. All rights reserved. Powered by Pi Network.</p>
         <div className="flex items-center gap-4">
+          <a href="https://openpaypro.space/" target="_blank" rel="noopener noreferrer" className="text-xs text-muted-foreground font-semibold hover:text-accent transition-colors">
+            OpenPay Pro →
+          </a>
           <a href="https://openpy.space/" className="text-xs text-accent font-semibold hover:opacity-80 transition-opacity">
             Launch App →
           </a>
