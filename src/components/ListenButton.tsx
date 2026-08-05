@@ -24,7 +24,7 @@ const ListenButton = ({ getText, label = "Listen", variant = "light", className 
       <button
         type="button"
         onClick={() => toggle(getText())}
-        aria-label={status === "playing" ? "Pause audio" : "Listen to this page"}
+        aria-label={status === "playing" ? "Pause audio" : label}
         className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${base}`}
       >
         {status === "loading" ? (
