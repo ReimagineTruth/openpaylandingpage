@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ListenButton from "@/components/ListenButton";
 import { ArrowLeft, Calendar, User, ArrowRight } from "lucide-react";
 import { supabase } from "@/utils/supabase";
 
