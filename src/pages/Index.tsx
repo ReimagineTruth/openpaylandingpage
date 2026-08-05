@@ -19,12 +19,14 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <FeaturesSection />
+      <FeatureHighlightsSection />
       <AppShowcaseSection />
       <AppShowcaseUI />
       <NFTShowcaseSection />
       <OpenLedgerShowcaseSection />
       <OpenPayProShowcaseSection />
       <SecuritySection />
+      <FeatureDirectorySection />
       <EcosystemLinksSection />
       <CTASection />
       <Footer />
