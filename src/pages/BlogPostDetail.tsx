@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ListenButton from "@/components/ListenButton";
 import { ArrowLeft, Calendar, User, ArrowRight } from "lucide-react";
 import { supabase } from "@/utils/supabase";
 
@@ -4534,9 +4535,15 @@ The future of Web3 commerce is being built today, and you're invited to be part 
               {post.title}
             </h1>
 
-            <p className="mt-6 text-base sm:text-lg text-muted-foreground">
-              <span className="italic">{post.author}</span> · {post.date}
-            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
+              <p className="text-base sm:text-lg text-muted-foreground">
+                <span className="italic">{post.author}</span> · {post.date}
+              </p>
+              <ListenButton
+                label="Listen to article"
+                getText={() => `${post.title}. ${post.hero}. ${post.meta}. ${post.content}`}
+              />
+            </div>
 
             <div className="mt-6 flex flex-wrap gap-2">
               <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-3.5 py-1.5 text-sm font-semibold text-foreground/70">
