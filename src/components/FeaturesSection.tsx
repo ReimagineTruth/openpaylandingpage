@@ -21,7 +21,7 @@ const features = [
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.06 } },
+  show: { transition: { staggerChildren: 0.05 } },
 };
 
 const item = {
@@ -31,20 +31,22 @@ const item = {
 
 const FeaturesSection = () => {
   return (
-    <section id="features" className="py-24 px-6">
+    <section id="features" className="py-20 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="max-w-3xl mb-12"
         >
-          <span className="text-sm font-semibold text-accent uppercase tracking-wider">Features</span>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mt-3 mb-4">
+          <span className="inline-block px-4 py-2 rounded-full bg-card shadow-card text-xs font-semibold text-foreground mb-6">
+            Features
+          </span>
+          <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-foreground leading-[0.95]">
             Everything you need,<br />
-            <span className="text-gradient">in one wallet.</span>
+            <span className="text-accent">in one wallet.</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg mt-6 max-w-xl">
             From instant payments to virtual cards, OpenPay gives you the complete fintech experience — powered by Pi Network.
           </p>
         </motion.div>
@@ -54,21 +56,34 @@ const FeaturesSection = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
         >
-          {features.map((f) => (
-            <motion.div
-              key={f.title}
-              variants={item}
-              className="group bg-card rounded-2xl p-6 border border-border hover:shadow-card hover:border-accent/30 transition-all duration-300"
-            >
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent-gradient group-hover:text-primary-foreground transition-all duration-300">
-                <f.icon size={22} className="text-accent group-hover:text-primary-foreground transition-colors" />
-              </div>
-              <h3 className="text-base font-semibold text-foreground mb-2">{f.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-            </motion.div>
-          ))}
+          {features.map((f, i) => {
+            const dark = i % 7 === 3;
+            return (
+              <motion.div
+                key={f.title}
+                variants={item}
+                className={`group rounded-4xl p-7 transition-all duration-300 hover:-translate-y-1 ${
+                  dark ? "surface-ink" : "bg-card shadow-card"
+                }`}
+              >
+                <div
+                  className={`w-12 h-12 rounded-full flex items-center justify-center mb-6 ${
+                    dark ? "bg-primary-foreground/10" : "surface-tint"
+                  }`}
+                >
+                  <f.icon size={20} className={dark ? "text-primary-foreground" : "text-accent"} />
+                </div>
+                <h3 className={`text-lg font-bold mb-2 ${dark ? "text-primary-foreground" : "text-foreground"}`}>
+                  {f.title}
+                </h3>
+                <p className={`text-sm leading-relaxed ${dark ? "text-primary-foreground/60" : "text-muted-foreground"}`}>
+                  {f.desc}
+                </p>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>
