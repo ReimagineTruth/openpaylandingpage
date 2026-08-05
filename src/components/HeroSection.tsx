@@ -25,6 +25,9 @@ const HeroSection = () => {
             One wallet for Pi and 170+ currencies. Web3 payments made simple, fast and secure.
           </p>
 
+          <div className="mt-6 flex justify-center">
+            <ListenButton label="Listen to this page" getText={() => PAGE_SCRIPT} />
+
           <div className="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="https://openpy.space/"
