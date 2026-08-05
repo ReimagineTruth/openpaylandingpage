@@ -27,6 +27,8 @@ const HeroSection = () => {
 
           <div className="mt-6 flex justify-center">
             <ListenButton label="Listen to this page" getText={() => PAGE_SCRIPT} />
+          </div>
+
 
           <div className="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
             <a
