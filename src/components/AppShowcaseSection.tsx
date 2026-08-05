@@ -49,7 +49,7 @@ const AppShowcaseSection = () => {
   const languages = ["English", "Español", "Français", "Deutsch", "中文", "日本語", "한국어", "العربية", "हिन्दी", "Português", "Русский", "Bahasa"];
 
   return (
-    <section id="showcase" className="py-24 px-6 bg-secondary/30">
+    <section id="app-preview" className="py-24 px-6 bg-secondary/30">
       <div className="max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
           <span className="text-sm font-semibold text-accent uppercase tracking-wider">App Preview</span>
