@@ -3,6 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import FeatureHighlightsSection from "@/components/FeatureHighlightsSection";
 import FeatureDirectorySection from "@/components/FeatureDirectorySection";
+import ScreenTourSection from "@/components/ScreenTourSection";
 import AppShowcaseSection from "@/components/AppShowcaseSection";
 import AppShowcaseUI from "@/components/AppShowcaseUI";
 import NFTShowcaseSection from "@/components/NFTShowcaseSection";
