@@ -1,5 +1,13 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Shield, Zap, Globe } from "lucide-react";
+import ListenButton from "@/components/ListenButton";
+
+const PAGE_SCRIPT = `Welcome to OpenPay. Send, spend and save. One wallet for Pi and over 170 currencies — Web3 payments made simple, fast and secure.
+OpenPay lets you move Pi in an instant, anywhere in the world. Send and receive Pi in seconds, pay by QR code, accept payments in store with Merchant POS, share payment links and buttons, and spend your balance online with a virtual card.
+Earn with savings at four point five zero percent APY, track daily mining and rewards, explore the OpenNFT marketplace, and build with the OpenPay developer APIs.
+Every transaction is sealed on OpenLedger, our public explorer secured by a SHA-256 hash chain, so anyone can verify network activity in real time.
+Your security comes first: Pi authentication, transaction PIN, dispute protection and full compliance. Get started free at openpy dot space.`;
+
 
 const HeroSection = () => {
   return (
