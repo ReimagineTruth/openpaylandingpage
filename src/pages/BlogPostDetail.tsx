@@ -4504,13 +4504,8 @@ The future of Web3 commerce is being built today, and you're invited to be part 
     );
   }
 
-  const categoryColor: Record<string, string> = {
-    Product: "bg-gradient-to-r from-accent/20 to-accent/10 text-accent border border-accent/30",
-    Guide: "bg-gradient-to-r from-green-500/20 to-green-500/10 text-green-600 border border-green-500/30",
-    Update: "bg-gradient-to-r from-orange-500/20 to-orange-500/10 text-orange-600 border border-orange-500/30",
-    Insight: "bg-gradient-to-r from-purple-500/20 to-purple-500/10 text-purple-600 border border-purple-500/30",
-    Security: "bg-gradient-to-r from-red-500/20 to-red-500/10 text-red-600 border border-red-500/30",
-  };
+
+
 
   const categoryDot: Record<string, string> = {
     Product: "bg-accent",
