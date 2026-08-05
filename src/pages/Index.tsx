@@ -21,7 +21,9 @@ const Index = () => {
       <HeroSection />
       <FeaturesSection />
       <FeatureHighlightsSection />
+      <ScreenTourSection />
       <AppShowcaseSection />
+
       <AppShowcaseUI />
       <NFTShowcaseSection />
       <OpenLedgerShowcaseSection />
