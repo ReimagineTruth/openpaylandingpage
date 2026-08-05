@@ -1,6 +1,8 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
+import FeatureHighlightsSection from "@/components/FeatureHighlightsSection";
+import FeatureDirectorySection from "@/components/FeatureDirectorySection";
 import AppShowcaseSection from "@/components/AppShowcaseSection";
 import AppShowcaseUI from "@/components/AppShowcaseUI";
 import NFTShowcaseSection from "@/components/NFTShowcaseSection";
@@ -17,12 +19,14 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <FeaturesSection />
+      <FeatureHighlightsSection />
       <AppShowcaseSection />
       <AppShowcaseUI />
       <NFTShowcaseSection />
       <OpenLedgerShowcaseSection />
       <OpenPayProShowcaseSection />
       <SecuritySection />
+      <FeatureDirectorySection />
       <EcosystemLinksSection />
       <CTASection />
       <Footer />
