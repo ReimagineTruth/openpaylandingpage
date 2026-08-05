@@ -1,35 +1,37 @@
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const CTASection = () => {
   return (
-    <section className="py-24 px-6">
-      <div className="max-w-4xl mx-auto">
+    <section className="py-16 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-hero rounded-3xl p-12 md:p-16 text-center relative overflow-hidden"
+          className="surface-ink rounded-5xl px-6 py-20 md:py-28 text-center relative overflow-hidden"
         >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary-foreground/5 rounded-full blur-3xl" />
-          <div className="relative z-10">
-            <h2 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-              Ready to pay with Pi?
+          <div className="absolute -top-24 -right-16 w-[420px] h-[420px] bg-accent/25 rounded-full blur-[120px]" />
+          <div className="absolute -bottom-32 -left-10 w-[380px] h-[380px] bg-cyan-accent/20 rounded-full blur-[120px]" />
+          <div className="relative z-10 max-w-3xl mx-auto">
+            <p className="text-sm font-semibold text-primary-foreground/60 mb-5">The money app powered by Pi</p>
+            <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-primary-foreground leading-[0.95] mb-8">
+              Ready to pay<br />with Pi?
             </h2>
-            <p className="text-lg text-primary-foreground/70 max-w-xl mx-auto mb-10">
-              Join thousands of users who trust OpenPay for fast, secure digital payments powered by Pi Network.
+            <p className="text-base sm:text-lg text-primary-foreground/60 max-w-lg mx-auto mb-10">
+              Join thousands who trust OpenPay for fast, secure digital payments across 170+ currencies.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
                 href="https://openpy.space/"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-accent bg-primary-foreground rounded-full hover:opacity-90 transition-opacity"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-foreground bg-primary-foreground rounded-full hover:opacity-90 transition-opacity"
               >
                 Create Free Account
-                <ArrowRight size={18} />
+                <ArrowUpRight size={18} />
               </a>
               <a
                 href="#features"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-primary-foreground border border-primary-foreground/30 rounded-full hover:bg-primary-foreground/10 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-primary-foreground bg-primary-foreground/10 rounded-full hover:bg-primary-foreground/20 transition-colors"
               >
                 Learn More
               </a>

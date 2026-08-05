@@ -57,6 +57,9 @@ export default {
         "paypal-blue": "hsl(var(--paypal-blue))",
         "paypal-dark": "hsl(var(--paypal-dark))",
         "paypal-light": "hsl(var(--paypal-light))",
+        ink: "hsl(var(--surface-ink))",
+        tint: "hsl(var(--surface-tint))",
+        sand: "hsl(var(--surface-sand))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -70,9 +73,12 @@ export default {
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius) - 0.5rem)",
+        sm: "calc(var(--radius) - 0.9rem)",
+        "4xl": "2rem",
+        "5xl": "2.5rem",
       },
+
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

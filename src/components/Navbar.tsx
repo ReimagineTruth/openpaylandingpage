@@ -4,65 +4,99 @@ import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import openPayLogo from "@/assets/openpay-logo.jpg";
 
+const links = [
+  { label: "Features", href: "/#features" },
+  { label: "App", href: "/#showcase" },
+  { label: "Pro", href: "/#openpay-pro" },
+];
+
+const routes = [
+  { label: "Blog", to: "/blog" },
+  { label: "Business", to: "/merchant" },
+  { label: "Security", to: "/security" },
+];
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2.5">
-          <img src={openPayLogo} alt="OpenPay" className="w-8 h-8 rounded-lg object-cover" />
-          <span className="text-xl font-bold text-foreground" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+    <nav className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 pt-3 sm:pt-5">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <Link to="/" className="flex items-center gap-2.5 shrink-0">
+          <img src={openPayLogo} alt="OpenPay" className="w-9 h-9 rounded-full object-cover" />
+          <span className="text-xl font-extrabold tracking-tight text-foreground">
             Open<span className="text-accent">Pay</span>
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8">
-          <a href="/#features" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Features</a>
-          <a href="/#showcase" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">App</a>
-          <a href="/#openpay-pro" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Pro</a>
-          <Link to="/blog" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
-          <Link to="/merchant" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Business</Link>
-          <Link to="/security" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Security</Link>
+        <div className="hidden lg:flex items-center gap-1 bg-card/90 backdrop-blur-xl rounded-full px-3 py-2 shadow-card">
+          {links.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              className="px-4 py-2 rounded-full text-sm font-semibold text-foreground/80 hover:bg-secondary hover:text-foreground transition-colors"
+            >
+              {l.label}
+            </a>
+          ))}
+          {routes.map((r) => (
+            <Link
+              key={r.label}
+              to={r.to}
+              className="px-4 py-2 rounded-full text-sm font-semibold text-foreground/80 hover:bg-secondary hover:text-foreground transition-colors"
+            >
+              {r.label}
+            </Link>
+          ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-2">
           <a
             href="https://openpy.space/"
-            className="px-5 py-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
+            className="px-5 py-2.5 rounded-full text-sm font-semibold text-foreground bg-card/90 backdrop-blur-xl shadow-card hover:bg-card transition-colors"
           >
             Log In
           </a>
           <a
             href="https://openpy.space/"
-            className="px-5 py-2.5 text-sm font-semibold text-accent-foreground bg-accent rounded-full hover:opacity-90 transition-opacity"
+            className="px-6 py-2.5 rounded-full text-sm font-semibold text-accent-foreground bg-accent hover:opacity-90 transition-opacity"
           >
-            Sign Up Free
+            Get Started
           </a>
         </div>
 
-        <button className="md:hidden text-foreground" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        <button
+          className="lg:hidden w-11 h-11 rounded-full bg-card shadow-card flex items-center justify-center text-foreground"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background border-b border-border"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="lg:hidden mt-3 max-w-7xl mx-auto bg-card rounded-4xl shadow-elevated overflow-hidden"
           >
-            <div className="px-6 py-4 flex flex-col gap-4">
-              <a href="/#features" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>Features</a>
-              <a href="/#showcase" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>App</a>
-              <a href="/#openpay-pro" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>OpenPay Pro</a>
-              <Link to="/blog" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>Blog</Link>
-              <Link to="/merchant" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>Business</Link>
-              <Link to="/security" className="text-sm font-medium text-muted-foreground" onClick={() => setIsOpen(false)}>Security</Link>
-              <a href="https://openpaypro.space/" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-accent" onClick={() => setIsOpen(false)}>Launch OpenPay Pro</a>
-              <a href="https://openpy.space/" className="px-4 py-2.5 text-sm font-semibold text-center text-accent-foreground bg-accent rounded-full">
+            <div className="px-6 py-5 flex flex-col gap-3">
+              {links.map((l) => (
+                <a key={l.label} href={l.href} className="text-sm font-semibold text-foreground/80" onClick={() => setIsOpen(false)}>
+                  {l.label}
+                </a>
+              ))}
+              {routes.map((r) => (
+                <Link key={r.label} to={r.to} className="text-sm font-semibold text-foreground/80" onClick={() => setIsOpen(false)}>
+                  {r.label}
+                </Link>
+              ))}
+              <a href="https://openpaypro.space/" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-accent" onClick={() => setIsOpen(false)}>
+                Launch OpenPay Pro
+              </a>
+              <a href="https://openpy.space/" className="mt-1 px-4 py-3 text-sm font-semibold text-center text-accent-foreground bg-accent rounded-full">
                 Get Started
               </a>
             </div>
