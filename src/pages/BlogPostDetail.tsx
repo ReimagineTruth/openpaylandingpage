@@ -4512,236 +4512,230 @@ The future of Web3 commerce is being built today, and you're invited to be part 
     Security: "bg-gradient-to-r from-red-500/20 to-red-500/10 text-red-600 border border-red-500/30",
   };
 
+  const categoryDot: Record<string, string> = {
+    Product: "bg-accent",
+    Guide: "bg-emerald-500",
+    Update: "bg-orange-500",
+    Insight: "bg-purple-500",
+    Security: "bg-red-500",
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <section className="pt-24 pb-12 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            {/* Back button */}
-            <Link 
-              to="/blog" 
-              className="inline-flex items-center gap-2 text-foreground/60 hover:text-accent mb-8 transition-colors font-medium"
+
+      {/* Article header */}
+      <section className="pt-32 md:pt-40 pb-8 px-5 sm:px-6">
+        <div className="max-w-[46rem] mx-auto">
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
+            <Link
+              to="/blog"
+              className="inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors"
             >
-              <ArrowLeft size={18} /> Back to blog
+              <ArrowLeft size={15} /> Blog
             </Link>
 
-            {/* Article header */}
-            <div className="mb-8">
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-6">
-                <span className={`text-xs font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full ${categoryColor[post.category] || "bg-secondary text-foreground border border-border"} uppercase tracking-wider`}>
-                  {post.category}
+            <h1 className="mt-8 text-[2.25rem] sm:text-5xl md:text-6xl font-bold text-foreground leading-[1.08] tracking-tight">
+              {post.title}
+            </h1>
+
+            <p className="mt-6 text-base sm:text-lg text-muted-foreground">
+              <span className="italic">{post.author}</span> · {post.date}
+            </p>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-3.5 py-1.5 text-sm font-semibold text-foreground/70">
+                <span className={`h-2 w-2 rounded-full ${categoryDot[post.category] || "bg-muted-foreground"}`} />
+                {post.category}
+              </span>
+              {post.tags.slice(0, 5).map((tag, index) => (
+                <span
+                  key={index}
+                  className="rounded-full bg-secondary px-3.5 py-1.5 text-sm font-semibold text-foreground/70"
+                >
+                  {tag}
                 </span>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <User size={16} className="text-accent shrink-0" />
-                  <span className="font-medium">{post.author}</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Calendar size={16} className="text-accent shrink-0" />
-                  <span className="font-medium">{post.date}</span>
-                </div>
-              </div>
-              
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 leading-tight bg-gradient-to-r from-foreground via-foreground to-foreground/80 bg-clip-text text-transparent">
-                {post.title}
-              </h1>
-              
-              {/* Hero Copy */}
-              <div className="bg-gradient-to-r from-accent/20 via-purple-500/20 to-accent/20 rounded-2xl p-4 sm:p-6 mb-6 border border-accent/30 shadow-lg">
-                <p className="text-lg sm:text-xl md:text-2xl font-bold text-foreground leading-relaxed">
-                  "{post.hero}"
-                </p>
-              </div>
-              
-              {/* Meta Description */}
-              <p className="text-base text-foreground/80 mb-6 leading-relaxed font-medium">
-                {post.meta}
-              </p>
-              
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 sm:gap-3">
-                {post.tags.map((tag, index) => (
-                  <span 
-                    key={index}
-                    className="text-xs sm:text-sm font-semibold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
+              ))}
             </div>
-
-            {/* Article content */}
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              transition={{ delay: 0.2 }}
-              className="prose prose-lg max-w-none"
-            >
-              <div className="bg-gradient-to-br from-card to-background rounded-2xl sm:rounded-3xl border border-border p-4 sm:p-6 md:p-8 shadow-xl overflow-hidden">
-                <div className="text-foreground text-base leading-relaxed space-y-4 break-words">
-                  {post.content.split('\n\n').map((paragraph, index) => {
-                    const trimmed = paragraph.trim();
-                    if (!trimmed) return null;
-
-                    if (isHr(trimmed)) {
-                      return <hr key={index} className="my-6 border-border" />;
-                    }
-
-                    if (trimmed.startsWith('```')) {
-                      const code = trimmed.replace(/^```\w*\n?/, '').replace(/\n?```$/, '');
-                      return (
-                        <pre key={index} className="my-4 overflow-x-auto rounded-xl border border-border bg-secondary/40 p-3 sm:p-4 text-xs sm:text-sm font-mono leading-relaxed">
-                          <code className="whitespace-pre">{code}</code>
-                        </pre>
-                      );
-                    }
-
-                    if (trimmed.startsWith('#')) {
-                      const lines = trimmed.split('\n');
-                      const headingLine = lines[0];
-                      const rest = lines.slice(1).join('\n').trim();
-                      const level = headingLine.match(/^#+/)?.[0].length || 1;
-                      const text = cleanMarkdown(headingLine.replace(/^#+\s*/, ''));
-                      const HeadingTag = `h${Math.min(level, 3)}` as keyof JSX.IntrinsicElements;
-                      return (
-                        <div key={index}>
-                          <HeadingTag 
-                            className={`font-bold text-foreground mt-6 sm:mt-8 mb-3 sm:mb-4 ${
-                              level === 1 ? 'text-xl sm:text-2xl md:text-3xl bg-gradient-to-r from-accent to-purple-500 bg-clip-text text-transparent' : 
-                              level === 2 ? 'text-lg sm:text-xl md:text-2xl text-foreground' : 
-                              'text-base sm:text-lg md:text-xl text-foreground/90'
-                            }`}
-                          >
-                            {text}
-                          </HeadingTag>
-                          {rest ? (
-                            <p className="mb-4 text-foreground/90 leading-relaxed text-base">
-                              {renderInline(rest, `hrest-${index}`)}
-                            </p>
-                          ) : null}
-                        </div>
-                      );
-                    }
-
-                    // Bullet / numbered lists — require space after marker so **bold** is not a list
-                    if (isListLine(trimmed.split('\n')[0])) {
-                      const listItems = trimmed.split('\n').filter((line) => isListLine(line));
-                      return (
-                        <ul key={index} className="space-y-2 my-4">
-                          {listItems.map((item, itemIndex) => (
-                            <li key={itemIndex} className="flex items-start gap-3 text-foreground/90 text-base">
-                              <span className="text-accent mt-1 shrink-0">•</span>
-                              <span className="flex-1 min-w-0">{renderInline(item.replace(/^([-*]|\d+\.)\s+/, ''), `li-${index}-${itemIndex}`)}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      );
-                    }
-
-                    if (trimmed.includes('|') && trimmed.split('\n').some((row) => row.includes('|'))) {
-                      const rows = trimmed
-                        .split('\n')
-                        .filter((row) => row.includes('|') && !isTableSep(row));
-                      if (rows.length === 0) return null;
-                      return (
-                        <div key={index} className="-mx-1 sm:mx-0 overflow-x-auto my-6 rounded-xl border border-border">
-                          <table className="w-full min-w-[480px] border-collapse text-left">
-                            <tbody>
-                              {rows.map((row, rowIndex) => (
-                                <tr
-                                  key={rowIndex}
-                                  className={`border-b border-border last:border-b-0 ${rowIndex === 0 ? 'bg-secondary/40' : ''}`}
-                                >
-                                  {row.split('|').filter((cell) => cell.trim()).map((cell, cellIndex) => {
-                                    const Cell = rowIndex === 0 ? 'th' : 'td';
-                                    return (
-                                      <Cell
-                                        key={cellIndex}
-                                        className="border-r border-border last:border-r-0 px-3 py-2.5 sm:px-4 sm:py-3 text-xs text-foreground/90 font-medium whitespace-nowrap"
-                                      >
-                                        {cleanMarkdown(cell.trim())}
-                                      </Cell>
-                                    );
-                                  })}
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                      );
-                    }
-
-                    return (
-                      <p key={index} className="mb-4 text-foreground/90 leading-relaxed text-base">
-                        {renderInline(trimmed, `p-${index}`)}
-                      </p>
-                    );
-                  })}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Related posts */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.4 }}
-              className="mt-12"
-            >
-              <h2 className="text-2xl font-bold text-foreground mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">Related Articles</h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                {getFallbackPosts()
-                  .filter(p => (p.id !== post.id && p.slug !== post.id) && p.category === post.category)
-                  .slice(0, 2)
-                  .map((relatedPost) => (
-                    <Link 
-                      key={relatedPost.id}
-                      to={`/blog/${relatedPost.id || relatedPost.slug}`}
-                      className="bg-gradient-to-br from-card to-background rounded-xl border border-border p-5 hover:border-accent/50 hover:shadow-lg transition-all group"
-                    >
-                      <span className={`text-xs font-bold px-2 py-1 rounded-full ${categoryColor[relatedPost.category] || "bg-secondary text-foreground border border-border"} uppercase tracking-wider`}>
-                        {relatedPost.category}
-                      </span>
-                      <h3 className="font-bold text-foreground mt-3 mb-2 text-base group-hover:text-accent transition-colors leading-tight">
-                        {relatedPost.title}
-                      </h3>
-                      <p className="text-sm text-foreground/80 mb-3 line-clamp-2 leading-relaxed">
-                        {relatedPost.desc}
-                      </p>
-                      <div className="flex items-center gap-2 text-xs text-foreground/60">
-                        <Calendar size={12} className="text-accent" />
-                        {relatedPost.date}
-                      </div>
-                    </Link>
-                  ))}
-              </div>
-            </motion.div>
-
-            {/* CTA */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ delay: 0.6 }}
-              className="mt-12 text-center bg-gradient-to-r from-accent/20 via-purple-500/20 to-accent/20 rounded-2xl p-5 sm:p-8 border-2 border-accent/30 shadow-xl relative overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-purple-500/10 rounded-2xl -z-10"></div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-4">
-                Ready to experience this feature?
-              </h2>
-              <p className="text-sm sm:text-base text-foreground/80 mb-6 max-w-2xl mx-auto leading-relaxed">
-                {post.meta}
-              </p>
-              <a 
-                href={post.cta_link}
-                className="inline-flex max-w-full items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 bg-accent text-white rounded-full font-bold text-sm sm:text-base hover:bg-accent/90 hover:scale-105 transition-all shadow-lg hover:shadow-xl"
-              >
-                <span className="truncate">{post.cta_text}</span> <ArrowRight size={18} className="shrink-0" />
-              </a>
-            </motion.div>
           </motion.div>
         </div>
       </section>
+
+      {/* Hero band */}
+      <section className="px-5 sm:px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="rounded-4xl bg-gradient-to-br from-accent/15 to-accent/5 px-6 py-14 sm:px-12 sm:py-20 text-center">
+            <p className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground leading-[1.15] tracking-tight">
+              {post.hero}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Article body */}
+      <section className="px-5 sm:px-6 pt-12 pb-16">
+        <div className="max-w-[46rem] mx-auto">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}>
+            <p className="text-xl sm:text-2xl text-foreground/80 leading-[1.6] mb-10">{post.meta}</p>
+
+            <div className="text-foreground text-lg leading-[1.75] space-y-6 break-words">
+              {post.content.split('\n\n').map((paragraph, index) => {
+                const trimmed = paragraph.trim();
+                if (!trimmed) return null;
+
+                if (isHr(trimmed)) {
+                  return <hr key={index} className="my-10 border-border" />;
+                }
+
+                if (trimmed.startsWith('```')) {
+                  const code = trimmed.replace(/^```\w*\n?/, '').replace(/\n?```$/, '');
+                  return (
+                    <pre key={index} className="my-6 overflow-x-auto rounded-2xl bg-secondary p-4 sm:p-5 text-sm font-mono leading-relaxed">
+                      <code className="whitespace-pre">{code}</code>
+                    </pre>
+                  );
+                }
+
+                if (trimmed.startsWith('#')) {
+                  const lines = trimmed.split('\n');
+                  const headingLine = lines[0];
+                  const rest = lines.slice(1).join('\n').trim();
+                  const level = headingLine.match(/^#+/)?.[0].length || 1;
+                  const text = cleanMarkdown(headingLine.replace(/^#+\s*/, ''));
+                  const HeadingTag = `h${Math.min(level, 3)}` as keyof JSX.IntrinsicElements;
+                  return (
+                    <div key={index}>
+                      <HeadingTag
+                        className={`font-bold text-foreground tracking-tight ${
+                          level === 1
+                            ? 'text-3xl sm:text-4xl md:text-[2.75rem] leading-[1.15] mt-14 mb-5'
+                            : level === 2
+                            ? 'text-2xl sm:text-3xl md:text-4xl leading-[1.2] mt-12 mb-4'
+                            : 'text-xl sm:text-2xl leading-snug mt-10 mb-3'
+                        }`}
+                      >
+                        {text}
+                      </HeadingTag>
+                      {rest ? (
+                        <p className="text-lg text-foreground/80 leading-[1.75]">
+                          {renderInline(rest, `hrest-${index}`)}
+                        </p>
+                      ) : null}
+                    </div>
+                  );
+                }
+
+                // Bullet / numbered lists — require space after marker so **bold** is not a list
+                if (isListLine(trimmed.split('\n')[0])) {
+                  const listItems = trimmed.split('\n').filter((line) => isListLine(line));
+                  return (
+                    <ul key={index} className="space-y-3 my-6">
+                      {listItems.map((item, itemIndex) => (
+                        <li key={itemIndex} className="flex items-start gap-3 text-lg text-foreground/80 leading-[1.7]">
+                          <span className="mt-2.5 h-1.5 w-1.5 rounded-full bg-accent shrink-0" />
+                          <span className="flex-1 min-w-0">{renderInline(item.replace(/^([-*]|\d+\.)\s+/, ''), `li-${index}-${itemIndex}`)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  );
+                }
+
+                if (trimmed.includes('|') && trimmed.split('\n').some((row) => row.includes('|'))) {
+                  const rows = trimmed
+                    .split('\n')
+                    .filter((row) => row.includes('|') && !isTableSep(row));
+                  if (rows.length === 0) return null;
+                  return (
+                    <div key={index} className="-mx-1 sm:mx-0 overflow-x-auto my-8 rounded-2xl border border-border">
+                      <table className="w-full min-w-[480px] border-collapse text-left">
+                        <tbody>
+                          {rows.map((row, rowIndex) => (
+                            <tr
+                              key={rowIndex}
+                              className={`border-b border-border last:border-b-0 ${rowIndex === 0 ? 'bg-secondary' : ''}`}
+                            >
+                              {row.split('|').filter((cell) => cell.trim()).map((cell, cellIndex) => {
+                                const Cell = rowIndex === 0 ? 'th' : 'td';
+                                return (
+                                  <Cell
+                                    key={cellIndex}
+                                    className="border-r border-border last:border-r-0 px-4 py-3 text-sm text-foreground/80 font-medium whitespace-nowrap"
+                                  >
+                                    {cleanMarkdown(cell.trim())}
+                                  </Cell>
+                                );
+                              })}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                }
+
+                return (
+                  <p key={index} className="text-lg text-foreground/80 leading-[1.75]">
+                    {renderInline(trimmed, `p-${index}`)}
+                  </p>
+                );
+              })}
+            </div>
+          </motion.div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16 rounded-4xl surface-ink px-6 py-12 sm:px-12 sm:py-16 text-center"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold text-background leading-tight tracking-tight">
+              Ready to try it yourself?
+            </h2>
+            <p className="mt-4 text-lg text-background/70 leading-relaxed max-w-xl mx-auto">{post.meta}</p>
+            <a
+              href={post.cta_link}
+              className="mt-8 inline-flex max-w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 text-base font-bold text-accent-foreground hover:opacity-90 transition-opacity"
+            >
+              <span className="truncate">{post.cta_text}</span> <ArrowRight size={18} className="shrink-0" />
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Related posts */}
+      <section className="px-5 sm:px-6 pb-24">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground tracking-tight mb-8">Keep reading</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {getFallbackPosts()
+              .filter((p) => p.id !== post.id && p.slug !== post.id)
+              .sort((a) => (a.category === post.category ? -1 : 1))
+              .slice(0, 3)
+              .map((relatedPost) => (
+                <Link
+                  key={relatedPost.id}
+                  to={`/blog/${relatedPost.id || relatedPost.slug}`}
+                  className="group flex flex-col rounded-4xl bg-card border border-border p-5 hover:shadow-elevated transition-shadow"
+                >
+                  <div className="rounded-3xl bg-gradient-to-br from-accent/15 to-accent/5 aspect-[16/10] flex items-center justify-center p-6">
+                    <p className="text-lg font-bold text-foreground/75 text-center leading-snug tracking-tight">
+                      "{relatedPost.hero}"
+                    </p>
+                  </div>
+                  <h3 className="mt-5 px-1 text-xl font-bold text-foreground leading-[1.2] tracking-tight group-hover:text-accent transition-colors">
+                    {relatedPost.title}
+                  </h3>
+                  <div className="mt-4 px-1 flex items-center gap-2 text-xs text-muted-foreground">
+                    <Calendar size={13} />
+                    {relatedPost.date}
+                  </div>
+                </Link>
+              ))}
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
