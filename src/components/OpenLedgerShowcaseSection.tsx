@@ -122,7 +122,7 @@ const OpenLedgerShowcaseSection = () => {
         <div className="grid md:grid-cols-3 gap-6 mb-16">
           {features.map((f, i) => (
             <motion.div key={f.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="bg-card rounded-2xl border border-border p-6 shadow-card hover:border-accent/30 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-4">{f.icon}</div>
+              <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-4">{f.icon}</div>
               <h3 className="text-lg font-bold text-foreground mb-2">{f.title}</h3>
               <p className="text-muted-foreground text-sm">{f.description}</p>
             </motion.div>

@@ -62,7 +62,7 @@ const AppShowcaseSection = () => {
           {/* Interactive Dashboard / Wallet */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><BarChart3 size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><BarChart3 size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">Dashboard & Wallet</h3>
                 <p className="text-xs text-muted-foreground">Your complete Pi financial overview</p>
@@ -145,7 +145,7 @@ const AppShowcaseSection = () => {
           {/* Express Send */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><Send size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><Send size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">Express Send</h3>
                 <p className="text-xs text-muted-foreground">Send Pi instantly to anyone</p>
@@ -182,7 +182,7 @@ const AppShowcaseSection = () => {
           {/* Checkout Link - Detailed */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><Link2 size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><Link2 size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">Checkout Link</h3>
                 <p className="text-xs text-muted-foreground">Accept payments with shareable links</p>
@@ -254,7 +254,7 @@ const AppShowcaseSection = () => {
           {/* Merchant Portal Desktop View */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><Monitor size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><Monitor size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">Merchant Portal</h3>
                 <p className="text-xs text-muted-foreground">Desktop dashboard for businesses</p>
@@ -318,7 +318,7 @@ const AppShowcaseSection = () => {
           {/* Savings Interactive */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><PiggyBank size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><PiggyBank size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">Savings</h3>
                 <p className="text-xs text-muted-foreground">Earn 4.50% APY on your Pi</p>
@@ -354,7 +354,7 @@ const AppShowcaseSection = () => {
           {/* Merchant POS Interactive */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><Store size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><Store size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">Merchant POS</h3>
                 <p className="text-xs text-muted-foreground">Accept Pi payments in-store</p>
@@ -407,7 +407,7 @@ const AppShowcaseSection = () => {
           {/* Virtual Card */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><CreditCard size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><CreditCard size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">Virtual Card</h3>
                 <p className="text-xs text-muted-foreground">Spend Pi anywhere online</p>
@@ -447,7 +447,7 @@ const AppShowcaseSection = () => {
           {/* Request Payment QR with Real QR */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><QrCode size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><QrCode size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">Request Payment / QR</h3>
                 <p className="text-xs text-muted-foreground">Printable store QR code</p>
@@ -473,7 +473,7 @@ const AppShowcaseSection = () => {
           {/* Invoicing */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><FileText size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><FileText size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">Invoicing</h3>
                 <p className="text-xs text-muted-foreground">Professional invoices in seconds</p>
@@ -506,7 +506,7 @@ const AppShowcaseSection = () => {
           {/* 170+ Currency Selection */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><ArrowRightLeft size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><ArrowRightLeft size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">170+ Currencies</h3>
                 <p className="text-xs text-muted-foreground">Global currency conversion</p>
@@ -535,7 +535,7 @@ const AppShowcaseSection = () => {
           {/* Language Translation */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><Languages size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><Languages size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">Multi-Language</h3>
                 <p className="text-xs text-muted-foreground">Available in 12+ languages</p>
@@ -551,7 +551,7 @@ const AppShowcaseSection = () => {
           {/* Loans */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><HandCoins size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><HandCoins size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">Loans</h3>
                 <p className="text-xs text-muted-foreground">Pi-backed instant loans</p>
@@ -578,7 +578,7 @@ const AppShowcaseSection = () => {
           {/* OpenApp Integration */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><ShoppingBag size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><ShoppingBag size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">OpenApp Integration</h3>
                 <p className="text-xs text-muted-foreground">Pay for any utility via OpenPay</p>
@@ -613,7 +613,7 @@ const AppShowcaseSection = () => {
           {/* Security MPIN */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><Star size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><Star size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">MPIN Security</h3>
                 <p className="text-xs text-muted-foreground">Bank-grade protection</p>
@@ -643,7 +643,7 @@ const AppShowcaseSection = () => {
           {/* Desktop & Mobile Showcase */}
           <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="bg-card rounded-2xl border border-border p-8 shadow-card">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><Monitor size={18} className="text-accent" /></div>
+              <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><Monitor size={18} className="text-accent" /></div>
               <div>
                 <h3 className="text-lg font-bold text-foreground">Desktop & Mobile</h3>
                 <p className="text-xs text-muted-foreground">Use OpenPay on any device</p>
@@ -712,7 +712,7 @@ const AppShowcaseSection = () => {
             ].map((r, i) => (
               <motion.div key={r.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} whileHover={{ y: -4 }} className="bg-card rounded-2xl border border-border p-6 shadow-card hover:border-accent/40 hover:shadow-elevated transition-all duration-300">
                 <div className="flex justify-between items-start mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center"><r.icon size={18} className="text-accent" /></div>
+                  <div className="w-10 h-10 rounded-2xl bg-accent/10 flex items-center justify-center"><r.icon size={18} className="text-accent" /></div>
                   <span className="text-[10px] bg-accent/10 text-accent px-2 py-1 rounded-full font-semibold">{r.badge}</span>
                 </div>
                 <h4 className="font-bold text-foreground mb-2">{r.title}</h4>
