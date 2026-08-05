@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Smartphone, Download, Star, Shield, Zap, ArrowRight } from "lucide-react";
+import { Smartphone, Download, Star, Shield, Zap, ArrowRight, User, Send, ArrowDownToLine, CreditCard, Lock } from "lucide-react";
 
 const AppShowcaseUI = () => {
   return (
@@ -42,7 +42,7 @@ const AppShowcaseUI = () => {
                     <p className="text-white font-semibold text-sm">@openpay</p>
                   </div>
                   <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                    <span className="text-white text-xs">👤</span>
+                    <User size={14} className="text-white" />
                   </div>
                 </div>
                 
@@ -54,12 +54,12 @@ const AppShowcaseUI = () => {
 
                 <div className="grid grid-cols-3 gap-2 mb-4">
                   {[
-                    { icon: "💸", label: "Send" },
-                    { icon: "📥", label: "Receive" },
-                    { icon: "💳", label: "Cards" },
+                    { icon: Send, label: "Send" },
+                    { icon: ArrowDownToLine, label: "Receive" },
+                    { icon: CreditCard, label: "Cards" },
                   ].map((item) => (
                     <div key={item.label} className="bg-white/10 rounded-xl p-3 text-center">
-                      <span className="text-2xl">{item.icon}</span>
+                      <item.icon size={20} className="text-white mx-auto" />
                       <p className="text-white text-xs mt-1">{item.label}</p>
                     </div>
                   ))}
@@ -107,7 +107,7 @@ const AppShowcaseUI = () => {
                 <div className="bg-secondary/50 rounded-2xl p-4 mb-4">
                   <p className="text-muted-foreground text-xs mb-2">Send to</p>
                   <div className="flex items-center gap-3 bg-background rounded-xl p-3 border border-border">
-                    <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-lg">👤</div>
+                    <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent"><User size={18} /></div>
                     <div className="flex-1">
                       <p className="text-foreground text-sm font-medium">sarah_pi</p>
                       <p className="text-muted-foreground text-xs">@sarah_pi</p>
@@ -186,7 +186,7 @@ const AppShowcaseUI = () => {
 
                 <div className="mt-4 p-3 bg-accent/5 rounded-xl border border-accent/10">
                   <p className="text-accent text-xs text-center font-medium">
-                    🔒 Secure payment powered by OpenPay
+                    <Lock size={11} className="inline-block mr-1 -mt-0.5" /> Secure payment powered by OpenPay
                   </p>
                 </div>
               </div>
@@ -222,7 +222,7 @@ const AppShowcaseUI = () => {
               transition={{ delay: index * 0.1 }}
               className="bg-card rounded-2xl border border-border p-6 shadow-card"
             >
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-4">
                 {feature.icon}
               </div>
               <h3 className="text-lg font-bold text-foreground mb-2">{feature.title}</h3>

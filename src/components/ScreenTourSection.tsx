@@ -186,7 +186,7 @@ const posMock = (
             <Check className="w-5 h-5 text-accent-foreground" />
           </div>
           <div>
-            <p className="text-xs font-bold text-foreground">Paid ✓</p>
+            <p className="text-xs font-bold text-foreground inline-flex items-center gap-1">Paid <Check size={11} /></p>
             <p className="text-[10px] text-muted-foreground">Waiting… → settled</p>
           </div>
         </div>
@@ -379,7 +379,7 @@ const securityMock = (
         <span className="text-muted-foreground">→</span>
         <span className="px-3 py-1.5 rounded-full bg-card text-muted-foreground">In Review</span>
         <span className="text-muted-foreground">→</span>
-        <span className="px-3 py-1.5 rounded-full bg-accent text-accent-foreground">Verified ✓</span>
+        <span className="px-3 py-1.5 rounded-full bg-accent text-accent-foreground inline-flex items-center gap-1">Verified <Check size={11} /></span>
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Gem, Wallet, ArrowRight, Sparkles, Shield, TrendingUp, Link2, Image as ImageIcon } from "lucide-react";
+import { Gem, Wallet, ArrowRight, Sparkles, Shield, TrendingUp, Link2, Image as ImageIcon, Award, Palette, Ticket } from "lucide-react";
 
 const NFTShowcaseSection = () => {
   return (
@@ -27,7 +27,7 @@ const NFTShowcaseSection = () => {
               title: "Pi Pioneer Badge",
               creator: "@openpay",
               price: "π50.00",
-              image: "🎖️",
+              image: Award,
               category: "Badge",
               likes: 234,
             },
@@ -35,7 +35,7 @@ const NFTShowcaseSection = () => {
               title: "Digital Art Collection",
               creator: "@artist_pi",
               price: "π150.00",
-              image: "🎨",
+              image: Palette,
               category: "Art",
               likes: 567,
             },
@@ -43,7 +43,7 @@ const NFTShowcaseSection = () => {
               title: "Membership Pass",
               creator: "@openpay",
               price: "π100.00",
-              image: "🎫",
+              image: Ticket,
               category: "Utility",
               likes: 892,
             },
@@ -51,7 +51,7 @@ const NFTShowcaseSection = () => {
               title: "Rare Gem",
               creator: "@collector",
               price: "π500.00",
-              image: "💎",
+              image: Gem,
               category: "Collectible",
               likes: 1203,
             },
@@ -68,9 +68,9 @@ const NFTShowcaseSection = () => {
                 <motion.div
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ duration: 0.3 }}
-                  className="text-8xl"
+                  className="text-accent"
                 >
-                  {nft.image}
+                  <nft.image size={96} strokeWidth={1} />
                 </motion.div>
                 <div className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm rounded-full px-2 py-1">
                   <span className="text-white text-xs font-medium">{nft.category}</span>
@@ -136,7 +136,7 @@ const NFTShowcaseSection = () => {
               transition={{ delay: index * 0.1 }}
               className="bg-card rounded-2xl border border-border p-6 shadow-card hover:border-accent/30 transition-colors"
             >
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-4">
+              <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mb-4">
                 {feature.icon}
               </div>
               <h3 className="text-lg font-bold text-foreground mb-2">{feature.title}</h3>
