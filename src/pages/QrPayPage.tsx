@@ -90,7 +90,7 @@ const QrPayPage = () => {
                 <OpenPayBadge />
               </div>
               <p className="text-[72px] sm:text-[88px] lg:text-[96px] font-extrabold tracking-[-0.055em] text-[#1d1d1f] leading-[0.9]">
-                OpenPay
+                Open<span className="text-accent">Pay</span>
               </p>
               <h1 className="mt-4 text-[28px] sm:text-[34px] font-extrabold tracking-[-0.045em] text-[#1d1d1f] leading-[1.15]">
                 Create a checkout.

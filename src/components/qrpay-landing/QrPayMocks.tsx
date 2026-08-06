@@ -12,7 +12,9 @@ export function OpenPayBadge({ size = "md", light = false }: { size?: "sm" | "md
       <span className={`${logo} rounded-full border-[1.5px] ${light ? "border-white" : "border-[#1d1d1f]"} flex items-center justify-center font-bold leading-none`}>
         O
       </span>
-      <span className={`${text} tracking-[-0.03em]`}>OpenPay</span>
+      <span className={`${text} tracking-[-0.03em]`}>
+        Open<span className={light ? "text-white" : "text-accent"}>Pay</span>
+      </span>
     </span>
   );
 }

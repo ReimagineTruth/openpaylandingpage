@@ -14,6 +14,7 @@ const Footer = () => {
       links: [
         { label: "Wallet", to: "/wallet" },
         { label: "OpenPay Pro", href: "https://openpaypro.space/" },
+        { label: "OpenUSD", to: "/openusd" },
         { label: "Savings", to: "/savings" },
         { label: "Virtual Cards", to: "/cards" },
         { label: "Loans", to: "/loans" },

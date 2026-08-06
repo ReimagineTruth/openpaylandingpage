@@ -12,6 +12,7 @@ const links = [
 
 const routes = [
   { label: "QR Pay", to: "/qr-pay" },
+  { label: "OpenUSD", to: "/openusd" },
   { label: "Blog", to: "/blog" },
   { label: "Business", to: "/merchant" },
   { label: "Security", to: "/security" },

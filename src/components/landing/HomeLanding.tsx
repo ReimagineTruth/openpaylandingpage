@@ -22,8 +22,11 @@ import {
   SharePhoneMock,
   SuccessPhoneMock,
 } from "@/components/qrpay-landing/QrPayMocks";
+import { OusdMark, OusdWalletMock } from "@/components/landing/OusdMocks";
 
 const APP = "https://openpy.space";
+const PRO = "https://openpaypro.space";
+const AUTHPI = `${PRO}/authpi`;
 
 const fade = (reduce: boolean | null, delay = 0) =>
   reduce
@@ -99,6 +102,7 @@ const FEATURES = [
   { label: "Send", href: `${APP}/auth/send` },
   { label: "Receive", href: `${APP}/auth/receive` },
   { label: "QR Pay", href: `${APP}/qr-pay`, to: "/qr-pay" },
+  { label: "OpenUSD", href: `${PRO}/openusd`, to: "/openusd" },
   { label: "Merchant POS", href: `${APP}/auth/merchant-pos` },
   { label: "Top-Up", href: `${APP}/auth/top-up` },
   { label: "Virtual Card", href: `${APP}/auth/virtual-card` },
@@ -140,8 +144,8 @@ const HomeLanding = () => {
               <div className="flex justify-center lg:justify-start mb-5">
                 <OpenPayBadge />
               </div>
-              <p className="text-[64px] sm:text-[80px] lg:text-[88px] font-extrabold tracking-[-0.055em] leading-[0.9]">
-                OpenPay
+              <p className="text-[64px] sm:text-[80px] lg:text-[88px] font-extrabold tracking-[-0.055em] leading-[0.9] text-[#0F172A]">
+                Open<span className="text-accent">Pay</span>
               </p>
               <h1 className="mt-4 text-[26px] sm:text-[32px] font-extrabold tracking-[-0.045em] leading-[1.15]">
                 Your Pi wallet for send, sell, and settle
@@ -365,6 +369,53 @@ const HomeLanding = () => {
         </div>
       </Section>
 
+      {/* OpenUSD */}
+      <Section
+        id="ousd"
+        eyebrow="OpenUSD · OUSD"
+        title="Meet OpenUSD — OpenPay’s dollar on the open network"
+        caption="Hold, send, and settle in OUSD across OpenPay Pro. Top up with Pi at a live π price — swap majors, Spot, and Perpetuals against the same $1 rail."
+      >
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
+          <OusdWalletMock />
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <OusdMark size="lg" />
+              <div>
+                <p className="text-[15px] font-extrabold tracking-tight text-[#0F172A]">
+                  Open<span className="text-[#3B82F6]">Pay</span> · OpenUSD
+                </p>
+                <p className="text-[13px] font-semibold text-slate-500">Beside Pi as a core Pro asset</p>
+              </div>
+            </div>
+            <ul className="space-y-3">
+              {[
+                "Spend and send like cash to @usernames and Pro addresses",
+                "One Pro wallet for OUSD, Pi, majors, and OpenTokens",
+                "Partners: TradingView · CoinGecko · MoonPay · Solana Pay · Circle",
+                "Partner API and OpenLedger speak the same dollar unit",
+              ].map((line) => (
+                <li key={line} className="flex gap-3 text-[15px] text-slate-500">
+                  <Check className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" strokeWidth={2.5} />
+                  {line}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href={AUTHPI}
+                className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-[#3B82F6] text-white text-[15px] font-semibold active:scale-[0.98] transition-transform"
+              >
+                Get OUSD in OpenPay Pro <ArrowRight size={16} />
+              </a>
+              <Link to="/openusd" className="h-12 px-5 inline-flex items-center text-[15px] font-semibold text-[#3B82F6]">
+                Full OpenUSD showcase →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </Section>
+
       {/* 8. Grow */}
       <Section
         id="grow"
@@ -533,9 +584,10 @@ const HomeLanding = () => {
             </a>
             <div className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[13px] font-semibold text-[#3B82F6]">
               <a href={`${APP}/qr-pay`}>QR Pay</a>
+              <Link to="/openusd">OpenUSD</Link>
               <a href={`${APP}/web3/nft`}>NFT</a>
               <a href={`${APP}/ai`}>AI</a>
-              <a href="http://openpaypro.space/website" target="_blank" rel="noopener noreferrer">
+              <a href={`${PRO}/website`} target="_blank" rel="noopener noreferrer">
                 OpenPay Pro
               </a>
             </div>

@@ -11,6 +11,7 @@ import CardsPage from "./pages/CardsPage";
 import LoansPage from "./pages/LoansPage";
 import MerchantPage from "./pages/MerchantPage";
 import QrPayPage from "./pages/QrPayPage";
+import OpenUsdPage from "./pages/OpenUsdPage";
 import PaymentsPage from "./pages/PaymentsPage";
 import SecurityPage from "./pages/SecurityPage";
 import AboutPage from "./pages/AboutPage";
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/loans" element={<LoansPage />} />
             <Route path="/merchant" element={<MerchantPage />} />
             <Route path="/qr-pay" element={<QrPayPage />} />
+            <Route path="/openusd" element={<OpenUsdPage />} />
             <Route path="/payments" element={<PaymentsPage />} />
             <Route path="/security" element={<SecurityPage />} />
             <Route path="/about" element={<AboutPage />} />

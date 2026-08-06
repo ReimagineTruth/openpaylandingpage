@@ -54,7 +54,9 @@ export function AuthCardMock() {
       <div className="flex justify-center mb-3">
         <OpenPayBadge />
       </div>
-      <p className="text-[22px] font-extrabold tracking-[-0.04em] text-[#0F172A]">OpenPay</p>
+      <p className="text-[22px] font-extrabold tracking-[-0.04em] text-[#0F172A]">
+        Open<span className="text-accent">Pay</span>
+      </p>
       <p className="mt-1 text-[13px] text-slate-500">Sign in to your wallet</p>
       <a
         href="https://openpy.space/auth"
