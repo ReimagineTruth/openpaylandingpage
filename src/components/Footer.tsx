@@ -18,6 +18,7 @@ const Footer = () => {
         { label: "Virtual Cards", to: "/cards" },
         { label: "Loans", to: "/loans" },
         { label: "Merchant POS", to: "/merchant" },
+        { label: "QR Pay", to: "/qr-pay" },
         { label: "Payments", to: "/payments" },
       ],
     },

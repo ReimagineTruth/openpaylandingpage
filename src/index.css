@@ -136,3 +136,73 @@
     stroke-linejoin: round;
   }
 }
+
+/* OpenPay QR Pay landing — product-aligned tokens */
+.qrp-page {
+  --qrp-ink: #1d1d1f;
+  --qrp-accent: #007aff;
+  --qrp-ok: #34c759;
+  --qrp-muted: #86868b;
+  --qrp-canvas: #eef1f6;
+  --qrp-body: #6e6e73;
+  --qrp-group: #f2f2f7;
+  background: var(--qrp-canvas);
+  color: var(--qrp-ink);
+}
+
+.qrp-mesh {
+  background:
+    radial-gradient(ellipse 70% 50% at 8% 12%, rgba(0, 122, 255, 0.18), transparent 55%),
+    radial-gradient(ellipse 55% 45% at 92% 8%, rgba(120, 90, 255, 0.12), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 88% 88%, rgba(52, 199, 89, 0.12), transparent 50%),
+    radial-gradient(ellipse 45% 35% at 10% 90%, rgba(255, 159, 10, 0.08), transparent 50%),
+    linear-gradient(180deg, #f7f8fb 0%, #eef1f6 55%, #e8ecf3 100%);
+}
+
+.qrp-hero {
+  min-height: min(100vh, 920px);
+}
+
+.qrp-section {
+  padding: 4.5rem 0;
+}
+
+.qrp-section-invert {
+  background: linear-gradient(180deg, #f7f8fb 0%, #eef1f6 100%);
+}
+
+.qrp-sheet {
+  background: #fff;
+  border-radius: 28px;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    0 24px 60px -20px rgba(29, 29, 31, 0.18);
+}
+
+@keyframes qrp-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
+.qrp-success-ring {
+  background: rgba(52, 199, 89, 0.25);
+  animation: qrp-ring 1.8s ease-out infinite;
+}
+
+.qrp-success-ring-delay {
+  animation-delay: 0.55s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qrp-success-ring,
+  .qrp-success-ring-delay {
+    animation: none;
+    opacity: 0;
+  }
+}

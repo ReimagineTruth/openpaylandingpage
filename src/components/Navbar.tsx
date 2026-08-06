@@ -6,11 +6,12 @@ import openPayLogo from "@/assets/openpay-logo.jpg";
 
 const links = [
   { label: "Features", href: "/#features" },
-  { label: "App", href: "/#showcase" },
-  { label: "Pro", href: "/#openpay-pro" },
+  { label: "Wallet", href: "/#wallet" },
+  { label: "Merchant", href: "/#merchant" },
 ];
 
 const routes = [
+  { label: "QR Pay", to: "/qr-pay" },
   { label: "Blog", to: "/blog" },
   { label: "Business", to: "/merchant" },
   { label: "Security", to: "/security" },
@@ -52,16 +53,16 @@ const Navbar = () => {
 
         <div className="hidden lg:flex items-center gap-2">
           <a
-            href="https://openpy.space/"
+            href="https://openpy.space/auth"
             className="px-5 py-2.5 rounded-full text-sm font-semibold text-foreground bg-card/90 backdrop-blur-xl shadow-card hover:bg-card transition-colors"
           >
             Log In
           </a>
           <a
-            href="https://openpy.space/"
-            className="px-6 py-2.5 rounded-full text-sm font-semibold text-accent-foreground bg-accent hover:opacity-90 transition-opacity"
+            href="https://openpy.space/auth"
+            className="px-6 py-2.5 rounded-full text-sm font-semibold text-accent-foreground bg-accent hover:opacity-90 active:scale-[0.98] transition-all"
           >
-            Get Started
+            Authenticate with Pi
           </a>
         </div>
 
@@ -96,8 +97,8 @@ const Navbar = () => {
               <a href="https://openpaypro.space/" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-accent" onClick={() => setIsOpen(false)}>
                 Launch OpenPay Pro
               </a>
-              <a href="https://openpy.space/" className="mt-1 px-4 py-3 text-sm font-semibold text-center text-accent-foreground bg-accent rounded-full">
-                Get Started
+              <a href="https://openpy.space/auth" className="mt-1 px-4 py-3 text-sm font-semibold text-center text-accent-foreground bg-accent rounded-full" onClick={() => setIsOpen(false)}>
+                Authenticate with Pi
               </a>
             </div>
           </motion.div>
