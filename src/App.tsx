@@ -23,6 +23,7 @@ import BlogPostDetail from "./pages/BlogPostDetail";
 import CompliancePage from "./pages/CompliancePage";
 import GDPRPage from "./pages/GDPRPage";
 import FeedbackPage from "./pages/FeedbackPage";
+import AppStorePreviewsPage from "./pages/AppStorePreviewsPage";
 import { AdminAuthProvider } from "./contexts/AdminAuthContext";
 import AdminLogin from "./pages/AdminLogin";
 import AdminLayout from "./components/AdminLayout";
@@ -63,6 +64,7 @@ const App = () => (
             <Route path="/compliance" element={<CompliancePage />} />
             <Route path="/gdpr" element={<GDPRPage />} />
             <Route path="/feedback" element={<FeedbackPage />} />
+            <Route path="/app-store-previews" element={<AppStorePreviewsPage />} />
             
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLogin />} />

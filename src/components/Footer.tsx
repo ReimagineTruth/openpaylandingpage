@@ -20,6 +20,7 @@ const Footer = () => {
         { label: "Loans", to: "/loans" },
         { label: "Merchant POS", to: "/merchant" },
         { label: "QR Pay", to: "/qr-pay" },
+        { label: "App Store Previews", to: "/app-store-previews" },
         { label: "Payments", to: "/payments" },
       ],
     },

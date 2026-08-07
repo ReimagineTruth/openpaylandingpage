@@ -23,6 +23,10 @@ import {
   SuccessPhoneMock,
 } from "@/components/qrpay-landing/QrPayMocks";
 import { OusdMark, OusdWalletMock } from "@/components/landing/OusdMocks";
+import AppStorePreviewsGallery, {
+  FeatureBulletsStrip,
+  TrustMerchantEarnStrips,
+} from "@/components/landing/AppStorePreviewsGallery";
 
 const APP = "https://openpy.space";
 const PRO = "https://openpaypro.space";
@@ -55,18 +59,18 @@ function Section({
 }) {
   const reduce = useReducedMotion();
   return (
-    <section id={id} className={`py-16 sm:py-20 ${invert ? "bg-[#F7F8FB]" : ""}`}>
+    <section id={id} className={`py-16 sm:py-20 ${invert ? "bg-white" : ""}`}>
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <motion.div {...fade(reduce)} className="max-w-2xl mb-10">
           {eyebrow && (
-            <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.12em] text-slate-400 mb-3">
+            <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.12em] text-[#8e8e93] mb-3">
               {eyebrow}
             </p>
           )}
-          <h2 className="text-[28px] sm:text-[36px] font-extrabold tracking-[-0.045em] text-[#0F172A] leading-[1.1]">
+          <h2 className="text-[28px] sm:text-[36px] font-extrabold tracking-[-0.045em] text-[#1d1d1f] leading-[1.1]">
             {title}
           </h2>
-          <p className="mt-3 text-[15px] sm:text-base text-slate-500 leading-relaxed">{caption}</p>
+          <p className="mt-3 text-[15px] sm:text-base text-[#8e8e93] leading-relaxed">{caption}</p>
         </motion.div>
         <motion.div {...fade(reduce, 0.06)}>{children}</motion.div>
       </div>
@@ -78,7 +82,7 @@ function BlueCta({ href, children }: { href: string; children: ReactNode }) {
   return (
     <a
       href={href}
-      className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-[#3B82F6] text-white text-[15px] font-semibold active:scale-[0.98] transition-transform hover:opacity-90"
+      className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-[#007AFF] text-white text-[15px] font-semibold active:scale-[0.98] transition-transform hover:opacity-90"
     >
       {children}
     </a>
@@ -96,29 +100,11 @@ function InkCta({ href, children }: { href: string; children: ReactNode }) {
   );
 }
 
-const FEATURES = [
-  { label: "Pi Auth", href: `${APP}/auth` },
-  { label: "Dashboard", href: `${APP}/auth/dashboard` },
-  { label: "Send", href: `${APP}/auth/send` },
-  { label: "Receive", href: `${APP}/auth/receive` },
-  { label: "QR Pay", href: `${APP}/qr-pay`, to: "/qr-pay" },
-  { label: "OpenUSD", href: `${PRO}/openusd`, to: "/openusd" },
-  { label: "Merchant POS", href: `${APP}/auth/merchant-pos` },
-  { label: "Top-Up", href: `${APP}/auth/top-up` },
-  { label: "Virtual Card", href: `${APP}/auth/virtual-card` },
-  { label: "Mining", href: `${APP}/auth/mining` },
-  { label: "OpenLedger", href: `${APP}/auth/ledger` },
-  { label: "OpenPay AI", href: `${APP}/ai` },
-  { label: "NFT", href: `${APP}/web3/nft` },
-  { label: "Developer API", href: `${APP}/auth/developer-dashboard` },
-  { label: "QR Pay API", href: `${APP}/qr-pay/api` },
-];
-
 const HomeLanding = () => {
   const reduce = useReducedMotion();
 
   return (
-    <div className="bg-[#EEF1F6] text-[#0F172A]">
+    <div className="bg-[#F2F2F7] text-[#1d1d1f]">
       {/* 1. Hero */}
       <section id="hero" className="relative overflow-hidden min-h-[min(100vh,900px)]">
         <div
@@ -126,10 +112,9 @@ const HomeLanding = () => {
           aria-hidden
           style={{
             background: `
-              radial-gradient(ellipse 70% 50% at 10% 15%, rgba(59,130,246,0.22), transparent 55%),
-              radial-gradient(ellipse 50% 40% at 90% 10%, rgba(120,90,255,0.12), transparent 50%),
+              radial-gradient(ellipse 70% 50% at 10% 15%, rgba(0,122,255,0.18), transparent 55%),
               radial-gradient(ellipse 45% 40% at 85% 85%, rgba(52,199,89,0.1), transparent 50%),
-              linear-gradient(180deg, #f7f8fb 0%, #eef1f6 55%, #e8ecf3 100%)
+              linear-gradient(180deg, #ffffff 0%, #F2F2F7 55%, #EBEEF5 100%)
             `,
           }}
         />
@@ -144,26 +129,30 @@ const HomeLanding = () => {
               <div className="flex justify-center lg:justify-start mb-5">
                 <OpenPayBadge />
               </div>
-              <p className="text-[64px] sm:text-[80px] lg:text-[88px] font-extrabold tracking-[-0.055em] leading-[0.9] text-[#0F172A]">
-                Open<span className="text-accent">Pay</span>
+              <p className="text-[64px] sm:text-[80px] lg:text-[88px] font-extrabold tracking-[-0.055em] leading-[0.9] text-[#1d1d1f]">
+                Open<span className="text-[#007AFF]">Pay</span>
               </p>
+              <p className="mt-2 text-[15px] font-semibold text-[#8e8e93]">Stable payments for the Pi economy.</p>
               <h1 className="mt-4 text-[26px] sm:text-[32px] font-extrabold tracking-[-0.045em] leading-[1.15]">
-                Your Pi wallet for send, sell, and settle
+                Every feature. One wallet.
               </h1>
-              <p className="mt-4 text-[15px] sm:text-base text-slate-500 leading-relaxed max-w-md mx-auto lg:mx-0">
-                Pay anyone with @username or QR. Run a store with POS and QR Pay. Fund with cards & crypto. Mint
-                NFTs. Ask OpenPay AI. One identity — your Pi.
+              <p className="mt-4 text-[15px] sm:text-base text-[#8e8e93] leading-relaxed max-w-md mx-auto lg:mx-0">
+                Hold OpenUSD, send with QR, mine rewards, spend with a Virtual Card, chat with OpenPay AI, and accept
+                payments with QR Pay & Merchant POS — 29 App Store–ready screens.
               </p>
               <div className="mt-7 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
                 <BlueCta href={`${APP}/auth`}>
-                  Authenticate with Pi <ArrowRight size={16} />
+                  Sign in with Pi <ArrowRight size={16} />
                 </BlueCta>
-                <a href="#features" className="h-12 px-5 inline-flex items-center text-[15px] font-semibold text-[#3B82F6]">
-                  Explore features
-                </a>
+                <Link
+                  to="/app-store-previews"
+                  className="h-12 px-5 inline-flex items-center text-[15px] font-semibold text-[#007AFF]"
+                >
+                  Open App Store Previews
+                </Link>
               </div>
-              <p className="mt-5 text-[12px] text-slate-400 max-w-lg mx-auto lg:mx-0">
-                Pi Auth · Receipts & OpenLedger · Merchant POS · QR Pay · Virtual Card · NFT · AI
+              <p className="mt-5 text-[12px] text-[#8e8e93] max-w-lg mx-auto lg:mx-0">
+                OUSD $1 peg · Live PI rates · KYC · Pi Browser · OpenPay Pro
               </p>
             </motion.div>
 
@@ -206,40 +195,29 @@ const HomeLanding = () => {
         </div>
       </Section>
 
-      {/* Features sitemap anchor */}
-      <section id="features" className="pb-4">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
-          <div className="flex flex-wrap gap-2 justify-center">
-            {FEATURES.map((f) =>
-              f.to ? (
-                <Link
-                  key={f.label}
-                  to={f.to}
-                  className="px-3.5 py-2 rounded-full bg-white border border-slate-200 text-[12px] font-semibold text-[#0F172A] hover:border-[#3B82F6]/40 transition-colors"
-                >
-                  {f.label}
-                </Link>
-              ) : (
-                <a
-                  key={f.label}
-                  href={f.href}
-                  className="px-3.5 py-2 rounded-full bg-white border border-slate-200 text-[12px] font-semibold text-[#0F172A] hover:border-[#3B82F6]/40 transition-colors"
-                >
-                  {f.label}
-                </a>
-              )
-            )}
-          </div>
+      {/* App Store feature previews */}
+      <Section
+        id="features"
+        eyebrow="App Store previews"
+        title="Every OpenPay feature — ready for the App Store"
+        caption="Browse exact product screens: Wallet, Assets, Send, QR Pay, Mining, KYC, OpenPay AI, OpenNFT, Merchant POS, and more. Filter by group."
+        invert
+      >
+        <AppStorePreviewsGallery limit={8} showMeta compact />
+        <div className="mt-12">
+          <FeatureBulletsStrip />
         </div>
-      </section>
+        <div className="mt-10">
+          <TrustMerchantEarnStrips />
+        </div>
+      </Section>
 
       {/* 3. Wallet */}
       <Section
         id="wallet"
         eyebrow="Wallet"
-        title="One screen. Every action a Pioneer needs."
-        caption="Balance up front. Send, receive, top-up, and scan one tap away — floating bottom nav on mobile."
-        invert
+        title="One dashboard for personal & merchant balances"
+        caption="Track OpenUSD, PI equivalent, Savings, Mining, and OpenPay Pro tokens. Send · Request · Top Up — one tap away."
       >
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-10">
           <DashboardPhoneMock />
@@ -570,23 +548,28 @@ const HomeLanding = () => {
               <OpenPayBadge />
             </div>
             <h2 className="mt-5 text-[26px] sm:text-[30px] font-extrabold tracking-[-0.045em] leading-tight">
-              OpenPay — wallet, merchant, and Web3 on Pi
+              See every OpenPay feature
             </h2>
-            <p className="mt-3 text-[15px] text-slate-500 leading-relaxed">
-              Sign in with Pi. Send and get paid with QR or @username. Run POS and QR Pay. Fund, spend, mine, mint,
-              and build — with receipts and OpenLedger.
+            <p className="mt-3 text-[15px] text-[#8e8e93] leading-relaxed">
+              29 exact App Store preview screens — Wallet, Payments, Mining, KYC, AI, NFT, and Merchant POS.
             </p>
+            <Link
+              to="/app-store-previews"
+              className="mt-7 flex items-center justify-center gap-2 w-full h-12 rounded-full bg-[#007AFF] text-white text-[15px] font-semibold active:scale-[0.98] transition-transform"
+            >
+              Open feature previews <ArrowRight size={16} />
+            </Link>
             <a
               href={`${APP}/auth`}
-              className="mt-7 flex items-center justify-center gap-2 w-full h-12 rounded-full bg-[#3B82F6] text-white text-[15px] font-semibold active:scale-[0.98] transition-transform"
+              className="mt-3 flex items-center justify-center gap-2 w-full h-12 rounded-full bg-[#1d1d1f] text-white text-[15px] font-semibold"
             >
-              Authenticate with Pi <ArrowRight size={16} />
+              Authenticate with Pi
             </a>
-            <div className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[13px] font-semibold text-[#3B82F6]">
+            <div className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-2 text-[13px] font-semibold text-[#007AFF]">
               <a href={`${APP}/qr-pay`}>QR Pay</a>
               <Link to="/openusd">OpenUSD</Link>
-              <a href={`${APP}/web3/nft`}>NFT</a>
-              <a href={`${APP}/ai`}>AI</a>
+              <a href={`${APP}/web3/nft`}>OpenNFT</a>
+              <a href={`${APP}/ai`}>OpenPay AI</a>
               <a href={`${PRO}/website`} target="_blank" rel="noopener noreferrer">
                 OpenPay Pro
               </a>

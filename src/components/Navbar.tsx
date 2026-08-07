@@ -11,6 +11,7 @@ const links = [
 ];
 
 const routes = [
+  { label: "Previews", to: "/app-store-previews" },
   { label: "QR Pay", to: "/qr-pay" },
   { label: "OpenUSD", to: "/openusd" },
   { label: "Blog", to: "/blog" },
