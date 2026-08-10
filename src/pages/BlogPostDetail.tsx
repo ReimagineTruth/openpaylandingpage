@@ -149,6 +149,1046 @@ const BlogPostDetail = () => {
 
   const getFallbackPosts = (): BlogPost[] => [
   {
+    id: "openpay-apple-pay",
+    slug: "openpay-apple-pay",
+    title: "OpenPay Apple Pay — Face ID Top-Ups for OUSD",
+    date: "Aug 10, 2026",
+    author: "OpenPay Team",
+    category: "Product",
+    desc: "Add OUSD with Apple Pay on Safari and iOS. Short on balance? OpenPay deep-links you to Apple Pay top-up from Send, Bank Transfer, and QR Pay — then you finish with wallet.",
+    meta: "Add OUSD with Apple Pay on Safari and iOS. Short on balance? OpenPay deep-links you to Apple Pay top-up from Send, Bank Transfer, and QR Pay — then you finish with wallet.",
+    tags: ["apple-pay", "stripe", "top-up", "ousd", "face-id", "safari", "wallet"],
+    hero: "Confirm with Face ID. Credit OUSD. Keep moving.",
+    cta_text: "Open Apple Pay Top-up",
+    cta_link: "https://openpy.space/topup-apple-pay",
+    content: `# OpenPay Apple Pay — Full Feature Blog
+
+Top up OpenPay with **Apple Pay** via Stripe — Face ID / Touch ID, no card typing. Soft CTAs appear when you’re short on balance during Express Send, Bank Transfer, or QR Pay checkout.
+
+**Open it:** [https://openpy.space/topup-apple-pay](https://openpy.space/topup-apple-pay)  
+**Cash In shortcut:** [https://openpy.space/cash-in](https://openpy.space/cash-in)  
+**Sign in:** [https://openpy.space/auth](https://openpy.space/auth)
+
+> Brand voice: Apple Pay–clean, Stripe-secured, OpenPay blue.  
+> Base URL: \`https://openpy.space\`  
+> Docs reference: [Apple PassKit / Apple Pay](https://developer.apple.com/documentation/passkit/apple-pay) (web via Stripe Checkout — not a native iOS SDK app)
+
+---
+
+## Why Apple Pay on OpenPay?
+
+Typing card numbers kills conversion. Apple Pay gives:
+
+1. **Wallet cards** already on the phone.
+2. **Biometric confirm** — Face ID / Touch ID.
+3. **Instant OUSD credit** after Stripe Checkout succeeds.
+4. **Fund-first loops** — if Send / Bank / QR Pay needs more balance, one tap opens Apple Pay with the shortfall prefilled.
+
+OpenPay is a **web app**: Apple Pay surfaces through **Stripe Embedded Checkout** when the domain is verified — same security model merchants trust worldwide.
+
+---
+
+## UI/UX mockup — Top up screen
+
+\`\`\`
+┌─────────────────────────────────┐
+│ ←  Top up with Apple Pay        │
+│     Face ID / Touch ID checkout │
+├─────────────────────────────────┤
+│  [  Apple Pay logo  ]           │
+│                                 │
+│  Confirm with Face ID or Touch  │
+│  ID. Appears on Safari / iOS    │
+│  with a card in Wallet.         │
+│                                 │
+│  You pay (USD)                  │
+│  ┌───────────────────────────┐  │
+│  │  $  25.00                 │  │
+│  └───────────────────────────┘  │
+│  1 OUSD = 1 USD                 │
+│                                 │
+│  [Face ID] [No typing] [Instant]│
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │  Continue · $25.00        │  │
+│  └───────────────────────────┘  │
+│  🔒 Secured by Stripe           │
+└─────────────────────────────────┘
+\`\`\`
+
+After Continue → embedded Stripe sheet (Apple Pay / cards / Link where available).
+
+---
+
+## UI/UX mockup — Soft CTA on Bank Transfer / Send
+
+\`\`\`
+┌─────────────────────────────────┐
+│  Available: 5.00 OUSD           │
+│  Need: 26.49 OUSD               │
+│  ┌───────────────────────────┐  │
+│  │ ⚠ Insufficient balance    │  │
+│  │ Need 21.49 more OUSD      │  │
+│  │ ┌───────────────────────┐ │  │
+│  │ │ Top up with Apple Pay │ │  │
+│  │ └───────────────────────┘ │  │
+│  └───────────────────────────┘  │
+└─────────────────────────────────┘
+\`\`\`
+
+Express Send toast also offers an **Apple Pay** action when amount exceeds balance.
+
+---
+
+## UI/UX mockup — QR Pay → Apple Pay → Wallet
+
+\`\`\`
+  QR Checkout                Apple Pay top-up           Back to QR
+┌──────────────┐           ┌──────────────┐           ┌──────────────┐
+│ Method:      │  tap Pay  │ Stripe sheet │  return   │ Method:      │
+│  Apple Pay  │ ───────►  │ Face ID      │ ───────►  │ Wallet       │
+│              │           │ +$ OUSD      │           │ Pay merchant │
+└──────────────┘           └──────────────┘           └──────────────┘
+\`\`\`
+
+QR Pay does **not** fake a PayMongo \`apple_pay\` charge. Flow: Stripe top-up → resume checkout → pay with **OpenPay Wallet**.
+
+---
+
+## Tutorial — Top up with Apple Pay
+
+1. Sign in at [https://openpy.space/auth](https://openpy.space/auth).
+2. Open [Top up with Apple Pay](https://openpy.space/topup-apple-pay) (or Cash In → Apple Pay).
+3. Enter USD amount (min $1).
+4. Tap **Continue**.
+5. In Stripe checkout, choose **Apple Pay** (Safari / iOS + Wallet card).
+6. Confirm with Face ID / Touch ID.
+7. Wait for **Top-up successful** — OUSD is in your wallet.
+8. If you came from Send / Bank / QR Pay, tap **Continue payment** on the return screen.
+
+---
+
+## Tutorial — Fix “insufficient balance” mid-transfer
+
+1. On Bank Transfer or Express Send, enter an amount larger than your balance.
+2. Tap **Top up with Apple Pay** (or the toast action).
+3. Complete Stripe Apple Pay for the suggested shortfall.
+4. Use **Continue payment** / back navigation to finish the original send.
+
+---
+
+## Device & domain checklist
+
+| Requirement | Why |
+|-------------|-----|
+| Safari or iOS Chrome/WebKit paths that support Apple Pay | Wallet sheet availability |
+| Card in Apple Wallet | Something to pay with |
+| Stripe Apple Pay domain verified for \`openpy.space\` | Button appears in Checkout |
+| Signed-in OpenPay user | Credit lands on your wallet |
+
+---
+
+## Who it’s for
+
+- iPhone users who hate typing PANs.
+- Anyone stuck mid-send without enough OUSD.
+- QR Pay payers who want Apple Pay convenience then wallet settle.
+
+---
+
+## FAQ
+
+**Is this native PassKit in an App Store app?**  
+OpenPay ships as **web**. Apple Pay runs through **Stripe Checkout** on supported browsers — aligned with Apple’s web Apple Pay model.
+
+**Can Apple Pay pay InstaPay directly?**  
+No. Apple Pay → OUSD top-up → Bank Transfer / Send / QR wallet pay.
+
+**Google Pay?**  
+Separate path: Stripe for USD top-up pages; PayMongo Google Pay on QR Pay checkout.
+
+---
+
+## Related features
+
+- Cash In — [https://openpy.space/cash-in](https://openpy.space/cash-in)
+- Bank Transfer — [https://openpy.space/bank-transfer](https://openpy.space/bank-transfer)
+- Express Send — [https://openpy.space/send](https://openpy.space/send)
+- QR Pay — [https://openpy.space/qr-pay](https://openpy.space/qr-pay)
+
+---
+
+## Closing
+
+**Face ID. Instant OUSD. Never stranded mid-payment.**
+
+**Start here →** [https://openpy.space/topup-apple-pay](https://openpy.space/topup-apple-pay)
+`
+  },
+  {
+    id: "openpay-bank-transfer",
+    slug: "openpay-bank-transfer",
+    title: "OpenPay Bank Transfer — InstaPay & PESONet from Your Wallet",
+    date: "Aug 10, 2026",
+    author: "OpenPay Team",
+    category: "Product",
+    desc: "Transfer OUSD to any Philippine bank via InstaPay or PESONet. Pick a bank, enter account details, confirm — track processing, success, or failure in clear modals.",
+    meta: "Transfer OUSD to any Philippine bank via InstaPay or PESONet. Pick a bank, enter account details, confirm — track processing, success, or failure in clear modals.",
+    tags: ["bank-transfer", "instapay", "pesonet", "unionbank", "paymongo", "philippines", "ousd"],
+    hero: "Wallet to bank. Local rails. Clear status.",
+    cta_text: "Open Bank Transfer",
+    cta_link: "https://openpy.space/bank-transfer",
+    content: `# OpenPay Bank Transfer — Full Feature Blog
+
+Send money from your OpenPay balance to Philippine bank accounts in minutes — **InstaPay** for near-instant payouts, **PESONet** for larger same-day transfers. Powered by UnionBank Partner rails (with PayMongo fallback).
+
+**Open it:** [https://openpy.space/bank-transfer](https://openpy.space/bank-transfer)  
+**Local send:** [https://openpy.space/bank-transfer/local](https://openpy.space/bank-transfer/local)  
+**Sign in:** [https://openpy.space/auth](https://openpy.space/auth)
+
+> Brand voice: modern fintech, Pi-native, Apple Pay–clean. Signature PayPal blue.  
+> Base URL: \`https://openpy.space\`
+
+---
+
+## Why Bank Transfer?
+
+Filipino users expect money to land in BPI, BDO, UnionBank, GCash-linked banks, and more. OpenPay Bank Transfer bridges **OUSD balance → PHP bank payout**:
+
+1. **Choose Local** — InstaPay or PESONet.
+2. **Pick a bank** — searchable institution list with logos.
+3. **Enter details** — amount, account name, account number.
+4. **Confirm** — OpenPay debits OUSD; partner rail pays out PHP.
+5. **See the result** — processing animation → success, pending, or failed.
+
+No spreadsheet. No “email us a screenshot.” Status lives in the app.
+
+---
+
+## UI/UX mockup — Hub
+
+\`\`\`
+┌─────────────────────────────────┐
+│ ←     Bank Transfer             │  ← paypal-blue header
+├─────────────────────────────────┤
+│                                 │
+│  Bank transfer locally and      │
+│  internationally                │
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │ 🏛 Local                  ›│  │
+│  │ Transfer via InstaPay or  │  │
+│  │ PESONet.                  │  │
+│  ├───────────────────────────┤  │
+│  │ 🌐 International          ›│  │
+│  │ International banks &     │  │
+│  │ e-wallets.                │  │
+│  └───────────────────────────┘  │
+│                                 │
+│  Local uses UnionBank Partner   │
+│  when configured, else PayMongo │
+└─────────────────────────────────┘
+\`\`\`
+
+**Design notes:** White cards on \`#f2f2f7\`, bold \`#0a2a6b\` titles, ₱ badge on Local, globe badge on International. One job per row — tap to continue.
+
+---
+
+## UI/UX mockup — Local bank list + rail toggle
+
+\`\`\`
+┌─────────────────────────────────┐
+│ ←  Local Bank Transfer          │
+├─────────────────────────────────┤
+│  [ InstaPay ]  [ PESONet ]      │  ← pill toggle
+│                                 │
+│  🔍 Search bank…                │
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │ [BDO] Banco de Oro      › │  │
+│  │ [BPI] BPI               › │  │
+│  │ [UB]  UnionBank         › │  │
+│  │ [LBP] Land Bank         › │  │
+│  └───────────────────────────┘  │
+└─────────────────────────────────┘
+\`\`\`
+
+| Rail | Typical use | Cap (product) |
+|------|-------------|----------------|
+| **InstaPay** | Fast retail payouts | Up to ₱50,000 |
+| **PESONet** | Larger transfers | Up to ₱1,000,000 |
+
+---
+
+## UI/UX mockup — Send form
+
+\`\`\`
+┌─────────────────────────────────┐
+│ ←  Send to BDO · InstaPay       │
+├─────────────────────────────────┤
+│  Amount (PHP)                   │
+│  ┌───────────────────────────┐  │
+│  │ ₱  1,500.00               │  │
+│  └───────────────────────────┘  │
+│  Available: 42.50 OUSD ≈ ₱…     │
+│  Debit ≈ 26.49 OUSD (+ ₱10 fee) │
+│                                 │
+│  Account Name                   │
+│  ┌───────────────────────────┐  │
+│  │ Juan Dela Cruz            │  │
+│  └───────────────────────────┘  │
+│  Account Number                 │
+│  ┌───────────────────────────┐  │
+│  │ 1234567890                │  │
+│  └───────────────────────────┘  │
+│  Receipt email (optional)       │
+│                                 │
+│  A PHP 10.00 fee per transfer.  │
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │      Send Money           │  │  ← full-width blue pill
+│  └───────────────────────────┘  │
+└─────────────────────────────────┘
+\`\`\`
+
+**Insufficient balance CTA:** red callout + **Top up with Apple Pay** deep-link to \`/topup-apple-pay?openUsdAmount=…\`.
+
+---
+
+## UI/UX mockup — Processing & result
+
+\`\`\`
+     PROCESSING                      SUCCESS
+┌──────────────────┐           ┌──────────────────┐
+│   ○ → ○ → ○      │           │       ✓          │
+│  Debit · Rail ·  │           │  Transfer sent   │
+│  Confirm         │           │  ₱1,500.00       │
+│  Workflow anim   │           │  Ref: BT-…       │
+└──────────────────┘           │  [Done] [Share]  │
+                               └──────────────────┘
+
+     PENDING                       FAILED
+┌──────────────────┐           ┌──────────────────┐
+│       ⏳         │           │       ✕          │
+│  Still processing│           │  Couldn’t send   │
+│  We’ll update…   │           │  Friendly reason │
+│  [Got it]        │           │  [Try again]     │
+└──────────────────┘           └──────────────────┘
+\`\`\`
+
+Friendly errors include empty partner PHP float (“source wallet insufficient”) so users know it’s a platform funding issue — not “your OUSD vanished.”
+
+---
+
+## Tutorial — How to send (Local)
+
+1. Sign in at [https://openpy.space/auth](https://openpy.space/auth).
+2. Open **Menu → Bank Transfer** or go to \`/bank-transfer\`.
+3. Tap **Local**.
+4. Choose **InstaPay** or **PESONet**.
+5. Select the destination bank (search if needed).
+6. Enter **PHP amount**, **account name**, **account number** (10–16 digits).
+7. Optional: receipt email.
+8. Confirm available OUSD covers amount + fee.
+9. Tap **Send Money** — watch the processing modal.
+10. Save the reference from the success (or pending) result.
+
+**Tip:** Top up first via Cash In or Apple Pay if balance is short.
+
+---
+
+## Tutorial — International
+
+1. From \`/bank-transfer\`, tap **International**.
+2. Follow the on-screen path for cross-border / e-wallet destinations (where enabled).
+3. Confirm amounts and fees before send.
+
+---
+
+## Who it’s for
+
+- Freelancers paying PH suppliers.
+- Families moving wallet balance to a bank account.
+- Merchants sweeping OUSD to operating accounts.
+- Anyone who needs InstaPay speed or PESONet size.
+
+---
+
+## FAQ
+
+**What currency leaves my wallet?**  
+OpenPay debits **OUSD**; the rail pays out **PHP**.
+
+**Why did I see “insufficient” but I have OUSD?**  
+Your OpenPay balance can be fine while the **partner PHP float** (PayMongo/UnionBank source wallet) is empty. Contact support / ops to fund the rail.
+
+**Is there a fee?**  
+A flat **₱10** product fee per local transfer (shown on the form).
+
+**Can I pay a bank directly with Apple Pay?**  
+No — Apple Pay tops up OUSD first; then Bank Transfer sends from balance.
+
+---
+
+## Related features
+
+- Cash In — [https://openpy.space/cash-in](https://openpy.space/cash-in)
+- Apple Pay top-up — [https://openpy.space/topup-apple-pay](https://openpy.space/topup-apple-pay)
+- QR Pay — [https://openpy.space/qr-pay](https://openpy.space/qr-pay)
+- Express Send — [https://openpy.space/send](https://openpy.space/send)
+
+---
+
+## Closing
+
+**Pick a bank. Enter the account. Send with InstaPay or PESONet. Know if it worked.**
+
+**Start here →** [https://openpy.space/bank-transfer](https://openpy.space/bank-transfer)
+`
+  },
+  {
+    id: "openpay-cash-in",
+    slug: "openpay-cash-in",
+    title: "OpenPay Cash In — QR Ph, E-Wallets & Global Cards",
+    date: "Aug 10, 2026",
+    author: "OpenPay Team",
+    category: "Product",
+    desc: "Top up OUSD via local bank QR Ph, GCash, Maya, GrabPay, ShopeePay, or cards and Apple Pay. One Cash In hub — pick a rail and go.",
+    meta: "Top up OUSD via local bank QR Ph, GCash, Maya, GrabPay, ShopeePay, or cards and Apple Pay. One Cash In hub — pick a rail and go.",
+    tags: ["cash-in", "top-up", "qr-ph", "gcash", "maya", "apple-pay", "paymongo", "ousd"],
+    hero: "Add money. Any rail. Instant OUSD.",
+    cta_text: "Open Cash In",
+    cta_link: "https://openpy.space/cash-in",
+    content: `# OpenPay Cash In — Full Feature Blog
+
+Fund your OpenPay wallet the way Filipinos already pay — **QR Ph banks**, **GCash / Maya / GrabPay / ShopeePay**, or **cards & global partners** (PayPal, Apple Pay, Google Pay, Stripe).
+
+**Open it:** [https://openpy.space/cash-in](https://openpy.space/cash-in)  
+**Local banks QR Ph:** [https://openpy.space/cash-in/local-banks](https://openpy.space/cash-in/local-banks)  
+**E-wallets & QR Ph:** [https://openpy.space/topup-ewallet-qrph](https://openpy.space/topup-ewallet-qrph)  
+**Sign in:** [https://openpy.space/auth](https://openpy.space/auth)
+
+> Brand voice: GCash-clear hub, OpenPay blue trust.  
+> Base URL: \`https://openpy.space\`
+
+---
+
+## Why Cash In?
+
+Users don’t want a maze of top-up pages. Cash In is one **hub**:
+
+1. **Local Banks** — scan a QR Ph deposit with your bank / e-wallet app.
+2. **QR Ph & e-wallets** — GCash, Maya, GrabPay, ShopeePay, QR Ph via PayMongo.
+3. **Cards & global** — PayPal, Stripe cards, Apple Pay, Google Pay, and more.
+
+Recent shortcuts put **Apple Pay**, PayPal, GCash, BDO, and QR Ph one tap away.
+
+---
+
+## UI/UX mockup — Cash In hub
+
+\`\`\`
+┌─────────────────────────────────┐
+│ ←  Cash In                      │
+├─────────────────────────────────┤
+│  🔍 Search methods…             │
+│                                 │
+│  Recent                         │
+│  (Pay) (PayPal) (GCash) (BDO)  │
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │ 🏦🏦 Local Banks          ›│  │
+│  │ Deposit via QR Ph — scan  │  │
+│  │ with any bank / e-wallet  │  │
+│  ├───────────────────────────┤  │
+│  │ 💚 QR Ph & e-wallets      ›│  │
+│  │ GCash, Maya, GrabPay…     │  │
+│  ├───────────────────────────┤  │
+│  │ 💳 Cards & global         ›│  │
+│  │ PayPal, cards, Apple Pay  │  │
+│  └───────────────────────────┘  │
+└─────────────────────────────────┘
+\`\`\`
+
+**Design notes:** Logo stacks (BDO/BPI/UB/Landbank) on Local; e-wallet marks on row 2; search filters titles/descriptions. Maintenance-aware — disabled rails hide or block cleanly.
+
+---
+
+## UI/UX mockup — Local Banks (QR Ph deposit)
+
+\`\`\`
+┌─────────────────────────────────┐
+│ ←  Local Banks                  │
+├─────────────────────────────────┤
+│  Choose how you’ll pay          │
+│                                 │
+│  ┌────┐ ┌────┐ ┌────┐ ┌────┐    │
+│  │BDO │ │BPI*│ │ UB*│ │LBP │    │  * tiles may be
+│  └────┘ └────┘ └────┘ └────┘    │    admin-controlled
+│                                 │
+│  Amount → Generate QR Ph        │
+│  ┌───────────────────────────┐  │
+│  │      ████ QR CODE ████    │  │
+│  │   Scan with your bank app │  │
+│  └───────────────────────────┘  │
+│  Waiting for payment…           │
+└─────────────────────────────────┘
+\`\`\`
+
+Admin can tune which QR Ph bank tiles appear (e.g. emphasize true QR Ph providers).
+
+---
+
+## Tutorial — Cash In with QR Ph (local bank)
+
+1. Open [Cash In](https://openpy.space/cash-in).
+2. Tap **Local Banks**.
+3. Pick your bank / flow and enter the **OUSD / PHP amount** as prompted.
+4. Generate the **QR Ph** code.
+5. Open your bank or e-wallet app → Scan QR → Confirm.
+6. Wait for OpenPay to credit **OUSD** (webhook settle).
+7. Check wallet balance / top-up history.
+
+---
+
+## Tutorial — Cash In with GCash / Maya / GrabPay / ShopeePay
+
+1. From Cash In, tap **QR Ph & e-wallets** (or go to \`/topup-ewallet-qrph\`).
+2. Enter amount.
+3. Choose **GCash**, **Maya**, **GrabPay**, **ShopeePay**, or **QR Ph**.
+4. Authorize in the provider app / page.
+5. Return to OpenPay — balance updates when PayMongo confirms paid.
+
+---
+
+## Tutorial — Cash In with Apple Pay / cards
+
+1. From Cash In **Recent**, tap **Apple Pay**, or open **Cards & global partners** → \`/topup\` / \`/topup-apple-pay\`.
+2. Enter USD amount (1 OUSD = 1 USD).
+3. Continue into Stripe checkout.
+4. On Safari / iOS with a card in Wallet, **Apple Pay** appears — confirm with Face ID / Touch ID.
+5. Return screen confirms credit.
+
+---
+
+## Who it’s for
+
+- New users funding their first OUSD.
+- Merchants topping up before payouts / transfers.
+- Pi and web users who prefer PHP e-wallets or cards.
+
+---
+
+## FAQ
+
+**How fast is credit?**  
+Most PayMongo and Stripe paths credit after the \`paid\` / checkout webhook — usually seconds.
+
+**Why don’t I see Apple Pay?**  
+Use Safari or iOS with a card in Wallet, and ensure the domain is Apple Pay–verified in Stripe.
+
+**Is Cash In the same as QR Pay?**  
+No. **Cash In** funds *your* wallet. **QR Pay** lets customers pay *you* as a merchant.
+
+---
+
+## Related features
+
+- Bank Transfer — [https://openpy.space/bank-transfer](https://openpy.space/bank-transfer)
+- Apple Pay — [https://openpy.space/topup-apple-pay](https://openpy.space/topup-apple-pay)
+- Top-up history — [https://openpy.space/topup-history](https://openpy.space/topup-history)
+- QR Pay — [https://openpy.space/qr-pay](https://openpy.space/qr-pay)
+
+---
+
+## Closing
+
+**One hub. Local QR Ph, e-wallets, or global cards. OUSD when payment clears.**
+
+**Start here →** [https://openpy.space/cash-in](https://openpy.space/cash-in)
+`
+  },
+  {
+    id: "openpay-new-features-blog-pack",
+    slug: "openpay-new-features-blog-pack",
+    title: "OpenPay — New Features Blog Pack (after QR Pay)",
+    date: "Aug 10, 2026",
+    author: "OpenPay Team",
+    category: "Update",
+    desc: "After QR Pay: Cash In, Bank Transfer, Apple Pay, PayMongo Links, and a redesigned Services Menu — the full fund → earn → send → get paid loop.",
+    meta: "After QR Pay: Cash In, Bank Transfer, Apple Pay, PayMongo Links, and a redesigned Services Menu — the complete fund → earn → send → get paid loop on OpenPay.",
+    tags: ["cash-in", "bank-transfer", "apple-pay", "paymongo", "services", "qr-pay", "ousd"],
+    hero: "Fund. Earn. Send. Get paid.",
+    cta_text: "Read the OpenPay blog",
+    cta_link: "https://www.openpy.space/blog",
+    content: `# OpenPay — New Features Blog Pack (after QR Pay)
+
+Use this index when exploring what’s new on [openpy.space/blog](https://www.openpy.space/blog). Each post is a **standalone guide** with tutorials and UI/UX mockups — same style as the QR Pay flagship story.
+
+**Previous flagship:** [OpenPay QR Pay](/blog/openpay-qr-pay) · Live: [https://openpy.space/qr-pay](https://openpy.space/qr-pay)
+
+---
+
+## Publish order (recommended)
+
+| # | Post | Slug | One-line pitch |
+|---|------|------|----------------|
+| 1 | Cash In | \`openpay-cash-in\` | Fund OUSD via QR Ph, e-wallets, cards & Apple Pay |
+| 2 | Bank Transfer | \`openpay-bank-transfer\` | InstaPay / PESONet from wallet to PH banks |
+| 3 | Apple Pay | \`openpay-apple-pay\` | Face ID top-ups + shortfall CTAs |
+| 4 | [PayMongo Payment Links](/blog/openpay-paymongo-payment-links) | \`openpay-paymongo-payment-links\` | Shareable PayMongo \`pm.link\` → OUSD |
+| 5 | [Services Menu](/blog/openpay-services-menu) | \`openpay-services-menu\` | Redesigned Services / Transactions grid |
+
+**Open the products:** [Cash In](https://openpy.space/cash-in) · [Bank Transfer](https://openpy.space/bank-transfer) · [Apple Pay](https://openpy.space/topup-apple-pay) · [PayMongo Links](https://openpy.space/paymongo-links) · [Services Menu](https://openpy.space/menu)
+
+---
+
+## How to read this series
+
+For each post:
+
+1. Start with the **hero** and meta — the one-line promise.
+2. Skim the **why** section, then the **tutorials**.
+3. Use ASCII mockups as a map until screenshots land — same section headings.
+4. Follow **Open it** links to the live product.
+5. Cross-link **Related features** between posts + [QR Pay](/blog/openpay-qr-pay).
+
+---
+
+## Suggested cover / OG lines
+
+| Post | OG description |
+|------|----------------|
+| Cash In | Add money with QR Ph, GCash, Maya, or Apple Pay. |
+| Bank Transfer | Send to any PH bank with InstaPay or PESONet. |
+| Apple Pay | Top up OUSD with Face ID — never stuck mid-send. |
+| PayMongo Links | Share a PHP checkout link. Get paid in OUSD. |
+| Services Menu | Every OpenPay action — finally readable on mobile. |
+
+---
+
+## Product journey diagram
+
+\`\`\`mermaid
+flowchart TD
+  Menu[Services Menu]
+  CashIn[Cash In / Apple Pay]
+  Wallet[OUSD Wallet]
+  Send[Express Send]
+  Bank[Bank Transfer]
+  QrPay[QR Pay]
+  PmLinks[PayMongo Links]
+  Menu --> CashIn
+  CashIn --> Wallet
+  Menu --> Send
+  Menu --> Bank
+  Menu --> QrPay
+  Menu --> PmLinks
+  Wallet --> Send
+  Wallet --> Bank
+  PmLinks -->|"link.payment.paid"| Wallet
+  QrPay --> Wallet
+\`\`\`
+
+**In plain words:** Services Menu → fund with Cash In / Apple Pay → OUSD wallet → Express Send or Bank Transfer. Merchants get paid via QR Pay or PayMongo Links, and webhooks credit the same wallet.
+
+---
+
+## Related stories already live
+
+- [OpenPay QR Pay — Accept Payments with QR Codes & Links](/blog/openpay-qr-pay)
+- [OpenPay PayMongo Payment Links — Share PHP Checkout Like QR Pay](/blog/openpay-paymongo-payment-links)
+- [OpenPay Services Menu — Redesigned Transaction Grid](/blog/openpay-services-menu)
+- [Meet OpenPay AI](/blog/meet-openpay-ai)
+- [OpenPay NFT — Complete Feature Blog](/blog/openpay-nft-marketplace)
+
+---
+
+## Closing
+
+Ship **Cash In → Bank Transfer → Apple Pay → PayMongo Links → Services Menu** after the QR Pay story so readers see a complete **fund → earn → send → get paid** loop on OpenPay.
+
+**Explore the blog →** [https://www.openpy.space/blog](https://www.openpy.space/blog)
+`
+  },
+  {
+    id: "openpay-paymongo-payment-links",
+    slug: "openpay-paymongo-payment-links",
+    title: "OpenPay PayMongo Payment Links — Share PHP Checkout Like QR Pay",
+    date: "Aug 10, 2026",
+    author: "OpenPay Team",
+    category: "Product",
+    desc: "Generate PayMongo Payment Links from OpenPay. Share a URL or QR, collect PHP via e-wallets and cards, and receive OUSD when the link is paid.",
+    meta: "Generate PayMongo Payment Links from OpenPay. Share a URL or QR, collect PHP via e-wallets and cards, and receive OUSD when the link is paid.",
+    tags: ["paymongo", "payment-links", "merchant", "gcash", "qr-ph", "checkout", "ousd", "php"],
+    hero: "Create a link. Share it. Get paid in OUSD.",
+    cta_text: "Open PayMongo Links",
+    cta_link: "https://openpy.space/paymongo-links",
+    content: `# OpenPay PayMongo Payment Links — Full Feature Blog
+
+Create a **shareable PayMongo checkout link** (\`pm.link/…\`) for any PHP amount — customers pay with cards, GCash, Maya, QR Ph, online banking, and more. When paid, OpenPay credits your **OUSD** wallet. Built for merchants who already love QR Pay.
+
+**Open it:** [https://openpy.space/paymongo-links](https://openpy.space/paymongo-links)  
+**Menu:** Services → Merchant → **PayMongo Links**  
+**Sign in:** [https://openpy.space/auth](https://openpy.space/auth)
+
+> Docs: [PayMongo Payment Links](https://docs.paymongo.com/reference/payment-links) · [Checkout Session](https://docs.paymongo.com/reference/checkout-session-resource)  
+> Base URL: \`https://openpy.space\`
+
+---
+
+## Why PayMongo Payment Links?
+
+QR Pay is OpenPay-hosted checkout. **PayMongo Payment Links** use PayMongo’s hosted page — perfect when you want:
+
+1. **One URL** that already supports many PH methods.
+2. **Chat / social selling** — paste into Messenger, Viber, IG DMs.
+3. **No custom checkout UI** to maintain for that sale.
+4. **Webhook settle** into OpenPay so your wallet and notifications stay in sync.
+
+Optional: **one-time Checkout Session** for a single hosted cart with success/cancel return URLs.
+
+---
+
+## PayMongo Links vs QR Pay vs OpenPay Payment Link Creator
+
+| | **PayMongo Links** | **QR Pay** | **Payment Link Creator** |
+|--|-------------------|------------|---------------------------|
+| Hosted by | PayMongo (\`pm.link\`) | OpenPay (\`/qr-pay/:token\`) | OpenPay merchant links |
+| Best for | PHP multi-method share links | Branded OpenPay checkout + Pi/Wallet/Card/Pro | OpenPay catalog / widgets |
+| Customer methods | Cards, e-wallets, QR Ph, banks, BNPL (PayMongo) | Pi, Wallet, Card, Pro, PayMongo methods when enabled | Wallet / Pi / Card (OpenPay) |
+| Merchant credit | OUSD via OpenPay webhook | OUSD / ledger via OpenPay | OpenPay settle |
+
+Use **all three** when it fits the channel.
+
+---
+
+## UI/UX mockup — Dashboard
+
+\`\`\`
+┌─────────────────────────────────┐
+│ ←  PayMongo Links        [+ New]│
+├─────────────────────────────────┤
+│  ┌───────────────────────────┐  │
+│  │ 🔗 PayMongo Payment Links │  │
+│  │ Shareable checkout · like │  │
+│  │ QR Pay. Paid → OUSD.      │  │
+│  └───────────────────────────┘  │
+│                                 │
+│  Your links                     │
+│  ┌───────────────────────────┐  │
+│  │ Order #1042     [active]  │  │
+│  │ ₱1,500.00   Live          │  │
+│  │ Paid 0/1 · ref aBcDe      │  │
+│  │              📋 ↗ 🗄      │  │
+│  └───────────────────────────┘  │
+└─────────────────────────────────┘
+\`\`\`
+
+Actions per row: **Copy**, **Open**, **Archive** (active only).
+
+---
+
+## UI/UX mockup — Create sheet
+
+\`\`\`
+┌─────────────────────────────────┐
+│  Create payment link            │
+│                                 │
+│  Amount (PHP)                   │
+│  ┌───────────────────────────┐  │
+│  │ 500.00                    │  │
+│  └───────────────────────────┘  │
+│  Description                    │
+│  ┌───────────────────────────┐  │
+│  │ Custom cake deposit       │  │
+│  └───────────────────────────┘  │
+│  Internal remarks (optional)    │
+│  Max successful payments [ 1 ]  │
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │  Create Payment Link      │  │
+│  └───────────────────────────┘  │
+│  One-time Checkout Session…     │
+│  Cancel                         │
+└─────────────────────────────────┘
+\`\`\`
+
+---
+
+## UI/UX mockup — Link ready (share)
+
+\`\`\`
+┌─────────────────────────────────┐
+│  ✓ Link ready                   │
+│  https://pm.link/yourbiz/3VEi…  │
+│  ┌───────────────────────────┐  │
+│  │      ████ QR CODE ████    │  │
+│  └───────────────────────────┘  │
+│  [ Copy ]        [ Open ]       │
+└─────────────────────────────────┘
+\`\`\`
+
+Customer opens PayMongo Hosted Checkout → pays → OpenPay webhook \`link.payment.paid\` → merchant OUSD + in-app notification.
+
+---
+
+## Tutorial — Create & share a Payment Link
+
+1. Sign in at [https://openpy.space/auth](https://openpy.space/auth).
+2. Open [PayMongo Links](https://openpy.space/paymongo-links) (Menu → Merchant services → PayMongo Links).
+3. Tap **New**.
+4. Enter **PHP amount** (minimum ₱1.00) and a clear **description**.
+5. Optional: remarks, max successful payments (1 = single-use).
+6. Tap **Create Payment Link**.
+7. **Copy** the URL or show the **QR** to your customer.
+8. When they pay, check wallet balance / notification: *PayMongo Payment Link paid*.
+
+---
+
+## Tutorial — One-time Checkout Session
+
+1. On the create sheet, enter amount + description.
+2. Tap **One-time Checkout Session instead**.
+3. You’re redirected to PayMongo Hosted Checkout.
+4. After pay, return URL lands on \`/paymongo-links?checkout=success\`.
+
+Use sessions when you want **success/cancel redirects**; use Payment Links when you want a **reusable shareable URL**.
+
+---
+
+## Tutorial — Archive a link
+
+1. Find the link in **Your links**.
+2. Tap the archive icon.
+3. Status becomes **archived** — customers can no longer complete new pays on that link (PayMongo archive + local status).
+
+---
+
+## Who it’s for
+
+- Sellers quoting in PHP over chat.
+- Pop-ups that already trust PayMongo methods.
+- OpenPay merchants who want OUSD books with PayMongo collection.
+
+---
+
+## FAQ
+
+**Where does the money go first?**  
+Customer pays **PayMongo**. OpenPay records the paid event and credits **OUSD** to your OpenPay wallet at the configured PHP/USD rate.
+
+**Is this the same as Menu → Payment Link Creator?**  
+No. That product is OpenPay-hosted. **PayMongo Links** call PayMongo’s [Payment Links API](https://docs.paymongo.com/reference/payment-links).
+
+**Do I need my own PayMongo keys in the app?**  
+Platform keys are configured on the server. Merchants use OpenPay UI — no secret keys in the browser.
+
+---
+
+## Related features
+
+- QR Pay — [https://openpy.space/qr-pay](https://openpy.space/qr-pay)
+- Payment Link Creator — [https://openpy.space/payment-links/create](https://openpy.space/payment-links/create)
+- Cash In — [https://openpy.space/cash-in](https://openpy.space/cash-in)
+- Bank Transfer — [https://openpy.space/bank-transfer](https://openpy.space/bank-transfer)
+
+---
+
+## Closing
+
+**PHP checkout link. Share anywhere. OUSD when it clears.**
+
+**Start here →** [https://openpy.space/paymongo-links](https://openpy.space/paymongo-links)
+`
+  },
+  {
+    id: "openpay-services-menu",
+    slug: "openpay-services-menu",
+    title: "OpenPay Services Menu — Redesigned Transaction Grid",
+    date: "Aug 10, 2026",
+    author: "OpenPay Team",
+    category: "Update",
+    desc: "Browse every OpenPay action from one Services screen. Transactions now use a white 4-column card — Express Send, Bank Transfer, Cash In, PayMongo Links, and more — with no overlapping labels.",
+    meta: "Browse every OpenPay action from one Services screen. Transactions now use a white 4-column card — Express Send, Bank Transfer, Cash In, PayMongo Links, and more — with no overlapping labels.",
+    tags: ["menu", "services", "ux", "navigation", "mobile", "transactions"],
+    hero: "Every service. One screen. Labels you can actually read.",
+    cta_text: "Open Services",
+    cta_link: "https://openpy.space/menu",
+    content: `# OpenPay Services Menu — Full Feature Blog
+
+The **Services** menu is your OpenPay control center — Live Rates, Transactions, Secure banking, Merchant tools, and more. The Transactions row is redesigned as a **readable 4-column card** so every action label stays clear on mobile.
+
+**Open it:** [https://openpy.space/menu](https://openpy.space/menu)  
+**Sign in:** [https://openpy.space/auth](https://openpy.space/auth)
+
+> Brand voice: signature blue canvas, white service cards, bold icons.  
+> Base URL: \`https://openpy.space\`
+
+---
+
+## Why redesign Transactions?
+
+The old top row squeezed **12 icons into one flex line**. On phones, labels collided:
+
+> “Express… Pro Pro… Top- Up istor…”
+
+The new layout matches **Secure banking**:
+
+- Titled white card
+- **4 columns × N rows**
+- \`line-clamp-2\` labels
+- Distinct icons (Send, Bank, Cash In, History…)
+
+Same power — clearer thumbs.
+
+---
+
+## UI/UX mockup — Services (first viewport)
+
+\`\`\`
+┌─────────────────────────────────┐
+│  Services                       │  ← white on paypal-blue
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │ Live Rates                │  │
+│  │ PI $0.08…   OUSD $1.00    │  │
+│  │ 1 PI = … OUSD             │  │
+│  └───────────────────────────┘  │
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │ Transactions              │  │  sky header bar
+│  │ ┌────┐┌────┐┌────┐┌────┐  │  │
+│  │ │✈   ││↗   ││$   ││⇄   │  │  │
+│  │ │Send││To  ││Pro ││Pro │  │  │
+│  │ │    ││Pro ││Top ││Swap│  │  │
+│  │ └────┘└────┘└────┘└────┘  │  │
+│  │ ┌────┐┌────┐┌────┐┌────┐  │  │
+│  │ │Cash││Bank││Xfer││Swap│  │  │
+│  │ │In  ││Xfer││    ││    │  │  │
+│  │ └────┘└────┘└────┘└────┘  │  │
+│  │ … Request · Invoice · Hist│  │
+│  └───────────────────────────┘  │
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │ Secure banking            │  │  green header
+│  │ Wallet · KYC · AI · Card  │  │
+│  └───────────────────────────┘  │
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │ Merchant services         │  │
+│  │ QR Pay · PayMongo Links · │  │
+│  │ Payment Link Creator · POS│  │
+│  └───────────────────────────┘  │
+│                                 │
+│      [ Home ] [ Scan ] [ Menu ] │
+└─────────────────────────────────┘
+\`\`\`
+
+**Motion:** section stagger enter, icon hover lift (desktop), ios-active press on tap.
+
+---
+
+## Transactions map (what each tile does)
+
+| Tile | Opens |
+|------|--------|
+| Express Send | \`/send\` |
+| To Pro | \`/send/pro\` |
+| Pro Top-up | OpenPay Pro money rail |
+| Pro Swap / Withdraw | openpaypro.space |
+| Cash In | \`/cash-in\` |
+| Bank Transfer | \`/bank-transfer\` |
+| Transfer | \`/topup\` |
+| Swap | \`/swap-withdrawal\` |
+| Request | \`/request-payment\` |
+| Invoice | \`/send-invoice\` |
+| History | \`/topup-history\` |
+
+---
+
+## Merchant services highlights (post–QR Pay)
+
+| Tile | Why it matters |
+|------|----------------|
+| **QR Pay** | Branded OpenPay checkout |
+| **PayMongo Links** | Shareable \`pm.link\` PHP checkout |
+| **Payment Link Creator** | OpenPay-hosted links / embeds |
+| **Merchant POS** | Counter sessions |
+| **Buttons** | Pay buttons for sites |
+
+---
+
+## Tutorial — Find any feature in 10 seconds
+
+1. Open [Services / Menu](https://openpy.space/menu).
+2. Glance **Live Rates** for PI / OUSD.
+3. In **Transactions**, tap the action (4-column grid — scroll the card if needed).
+4. For selling: scroll to **Merchant services** → QR Pay or PayMongo Links.
+5. For security: **Secure banking** → KYC, 2FA, Virtual Card.
+6. Bottom nav: **Home · Scan QR · Menu**.
+
+---
+
+## Tutorial — Suggested journeys from Menu
+
+**Fund → Send to bank**  
+Cash In → (optional Apple Pay) → Bank Transfer.
+
+**Get paid in PHP chat**  
+PayMongo Links → Create → Share URL/QR.
+
+**Get paid with OpenPay branding**  
+QR Pay → Create → Share QR / link / button.
+
+**Pay a friend**  
+Express Send → amount → Pay.
+
+---
+
+## Design language
+
+| Token | Use |
+|-------|-----|
+| \`paypal-blue\` canvas | Page background |
+| White \`rounded-[2.5rem]\` cards | Section containers |
+| Blue filled \`1.25rem\` icon tiles | Actions |
+| Sky / green / blue / orange headers | Section identity |
+| 10px bold labels, 2-line clamp | Mobile legibility |
+
+---
+
+## FAQ
+
+**Where did “Top-Up History” go?**  
+Same place — label shortened to **History** under Transactions.
+
+**Where is PayMongo Links?**  
+**Merchant services** card — subtitle *Shareable PHP checkout*.
+
+**Why not keep the single icon row?**  
+It looked “busy” on marketing screenshots and failed basic readability on small phones.
+
+---
+
+## Related features
+
+- Bank Transfer — [https://openpy.space/bank-transfer](https://openpy.space/bank-transfer)
+- Cash In — [https://openpy.space/cash-in](https://openpy.space/cash-in)
+- PayMongo Links — [https://openpy.space/paymongo-links](https://openpy.space/paymongo-links)
+- QR Pay — [https://openpy.space/qr-pay](https://openpy.space/qr-pay)
+- Apple Pay — [https://openpy.space/topup-apple-pay](https://openpy.space/topup-apple-pay)
+
+---
+
+## Closing
+
+**Services should feel powerful — not crowded. The new Transactions card makes every destination obvious.**
+
+**Open Services →** [https://openpy.space/menu](https://openpy.space/menu)
+`
+  },
+  {
     id: "openpay-qr-pay",
     slug: "openpay-qr-pay",
     title: "OpenPay QR Pay — Accept Payments with QR Codes & Links",
