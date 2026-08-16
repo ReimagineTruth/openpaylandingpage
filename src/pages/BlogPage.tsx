@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Calendar } from "lucide-react";
 import { supabase } from "@/utils/supabase";
+import { mergeBlogPosts, mapDbBlog, siteValue } from "@/lib/adminStore";
+import { FALLBACK_BLOG_POSTS } from "@/data/fallbackBlogPosts";
 
 const BlogPage = () => {
   const [posts, setPosts] = useState<any[]>([]);
@@ -17,7 +19,8 @@ const BlogPage = () => {
         const query = supabase
           .from('blog_posts')
           .select('*')
-          .order('date', { ascending: false });
+          .eq('published', true)
+          .order('published_at', { ascending: false, nullsFirst: false });
         const timeout = new Promise<never>((_, reject) =>
           setTimeout(() => reject(new Error('Supabase timeout')), 4000)
         );
@@ -25,14 +28,15 @@ const BlogPage = () => {
 
         if (error) {
           console.error('Error fetching posts:', error);
-          // Fallback to hardcoded data if Supabase fails
-          setPosts(getFallbackPosts());
-        } else if (data) {
-          setPosts(data);
+          setPosts(mergeBlogPosts(FALLBACK_BLOG_POSTS));
+        } else if (data?.length) {
+          setPosts(mergeBlogPosts([...FALLBACK_BLOG_POSTS, ...data.map((row) => mapDbBlog(row as Record<string, unknown>))]));
+        } else {
+          setPosts(mergeBlogPosts(FALLBACK_BLOG_POSTS));
         }
       } catch (err) {
         console.error('Error:', err);
-        setPosts(getFallbackPosts());
+        setPosts(mergeBlogPosts(FALLBACK_BLOG_POSTS));
       } finally {
         setLoading(false);
       }
@@ -40,40 +44,6 @@ const BlogPage = () => {
 
     fetchPosts();
   }, []);
-
-  const getFallbackPosts = () => [
-    { id: "openpay-to-pi-wallet", title: "OpenPay → Pi Wallet — Debit OUSD, Credit OpenUSD on Pi", date: "Aug 16, 2026", author: "OpenPay Team", category: "Product", desc: "Pay a Pi Wallet directly from OpenPay. Debit OUSD from your balance and credit OpenUSD (OUSD) on the Pi blockchain — with Pi Explorer and OpenLedger on every receipt.", hero: "Wallet to Pi Wallet. OpenUSD on the chain." },
-    { id: "openpay-scanner-update", title: "OpenPay Scanner Update — OpenPay, OpenPay Pro, QR Ph & Bank in One Scan", date: "Aug 16, 2026", author: "OpenPay Team", category: "Product", desc: "Scan OpenPay, OpenPay Pro, QR Pay, and QR Ph / InstaPay codes with one camera. Send wallet to wallet, OpenPay to Pro, or pay a bank — Maya, GCash, and international rails included.", hero: "One scan. Wallet, Pro, bank, or the world." },
-    { id: "openpay-new-features-blog-pack", title: "OpenPay — New Features Blog Pack (after QR Pay)", date: "Aug 16, 2026", author: "OpenPay Team", category: "Update", desc: "After QR Pay: Cash In, Bank Transfer, Apple Pay, PayMongo Links, Services Menu, Scanner, and OpenPay → Pi Wallet — the full fund → earn → send → get paid loop.", hero: "Fund. Earn. Send. Get paid." },
-    { id: "openpay-apple-pay", title: "OpenPay Apple Pay — Face ID Top-Ups for OUSD", date: "Aug 10, 2026", author: "OpenPay Team", category: "Product", desc: "Add OUSD with Apple Pay on Safari and iOS. Short on balance? OpenPay deep-links you to Apple Pay top-up from Send, Bank Transfer, and QR Pay — then you finish with wallet.", hero: "Confirm with Face ID. Credit OUSD. Keep moving." },
-    { id: "openpay-bank-transfer", title: "OpenPay Bank Transfer — InstaPay & PESONet from Your Wallet", date: "Aug 10, 2026", author: "OpenPay Team", category: "Product", desc: "Transfer OUSD to any Philippine bank via InstaPay or PESONet. Pick a bank, enter account details, confirm — track processing, success, or failure in clear modals.", hero: "Wallet to bank. Local rails. Clear status." },
-    { id: "openpay-cash-in", title: "OpenPay Cash In — QR Ph, E-Wallets & Global Cards", date: "Aug 10, 2026", author: "OpenPay Team", category: "Product", desc: "Top up OUSD via local bank QR Ph, GCash, Maya, GrabPay, ShopeePay, or cards and Apple Pay. One Cash In hub — pick a rail and go.", hero: "Add money. Any rail. Instant OUSD." },
-    { id: "openpay-paymongo-payment-links", title: "OpenPay PayMongo Payment Links — Share PHP Checkout Like QR Pay", date: "Aug 10, 2026", author: "OpenPay Team", category: "Product", desc: "Generate PayMongo Payment Links from OpenPay. Share a URL or QR, collect PHP via e-wallets and cards, and receive OUSD when the link is paid.", hero: "Create a link. Share it. Get paid in OUSD." },
-    { id: "openpay-services-menu", title: "OpenPay Services Menu — Redesigned Transaction Grid", date: "Aug 10, 2026", author: "OpenPay Team", category: "Update", desc: "Browse every OpenPay action from one Services screen. Transactions now use a white 4-column card — Express Send, Bank Transfer, Cash In, PayMongo Links, and more — with no overlapping labels.", hero: "Every service. One screen. Labels you can actually read." },
-    { id: "openpay-qr-pay", title: "OpenPay QR Pay — Accept Payments with QR Codes & Links", date: "Aug 6, 2026", author: "OpenPay Team", category: "Product", desc: "QR Pay turns any phone into a checkout. Create a branded payment page, share a QR or link, and get paid with Pi, OpenPay Wallet, Virtual Card, or OpenPay Pro — no forms required.", hero: "Create a checkout. Share it. Get paid." },
-    { id: "meet-openpay-ai", title: "Meet OpenPay AI — Your Conversational Money Assistant", date: "Jul 27, 2026", author: "OpenPay Team", category: "Product", desc: "Check balances, send money, explore features, and get financial guidance in plain language — built into the OpenPay wallet.", hero: "Ask. Act. Keep the conversation going." },
-    { id: "openpay-third-party-integration", title: "OpenPay Launches Third-Party Integration with OpenPay Auth & OpenPay Checkout", date: "Jul 27, 2026", author: "OpenPay Team", category: "Product", desc: "One Integration. Secure Authentication. Seamless Payments. OpenPay now supports third-party app integration via OAuth 2.0 and Checkout APIs.", hero: "One Account. One Checkout. Unlimited Possibilities." },
-    { id: "openpay-home-dashboard-ui-refresh", title: "OpenPay Home Dashboard: New UI/UX for Every Money Moment", date: "Jul 25, 2026", author: "OpenPay Team", category: "Update", desc: "A guided look at the refreshed home experience — Wallet, Savings, Credit, Loans, Cards, Buy, Swap, Mining, Analytics, and OpenNFT — in one place.", hero: "Your balance is the center. Your next action is one tap away." },
-    { id: "openledger-dashboard-ui-refresh", title: "OpenLedger Dashboard: A Fresh UI/UX for the Live Ledger", date: "Jul 24, 2026", author: "OpenPay Team", category: "Update", desc: "How the new home experience makes network activity clearer, faster, and easier to explore — on desktop and mobile.", hero: "One composition. Live metrics. Real-time feed." },
-    { id: "openledger-public-explorer", title: "OpenLedger: The Public Explorer for the OpenPay Ecosystem", date: "Jul 23, 2026", author: "OpenPay Team", category: "Product", desc: "A complete guide to every feature on the live, transparent ledger for OpenPay and OpenPay Pro — sealed on a SHA-256 hash chain and updated in near real time.", hero: "Live ledger. SHA-256 hash chain. Immutable audit." },
-    { id: "openpay-telegram-mini-app", title: "OpenPay Now Available as a Telegram Mini App", date: "Jul 11, 2026", author: "OpenPay Team", category: "Product", desc: "Access OpenPay directly inside Telegram via our Mini App for seamless, fast, and secure payments right where conversations happen.", hero: "The Future of Payments is Here" },
-    { id: "openpay-nft-marketplace", title: "OpenPay NFT — Complete Feature Blog", date: "Jul 10, 2026", author: "OpenPay Team", category: "Product", desc: "A creator-first NFT marketplace built into OpenPay. Mint, sell, auction, gift, chat, and run your own store — all from one app, on web and inside Pi Browser.", hero: "Your NFT studio. Your global stage." },
-    { id: "core-wallet-features-guide", title: "Complete Guide to OpenPay Core Wallet Features", date: "Jul 10, 2026", author: "OpenPay Team", category: "Guide", desc: "Master OpenPay's core wallet features: Express Send, QR payments, invoices, activity tracking, currency conversion, and security tools.", hero: "One screen. Every action a Pioneer needs." },
-    { id: "openpay-launches-merchant-pos", title: "OpenPay Launches Merchant POS for Pi Payments", date: "Jul 9, 2026", author: "OpenPay Team", category: "Product", desc: "Introducing the OpenPay Merchant POS — accept Pi payments in-store and online with a full dashboard, refund management, and transaction history.", hero: "Your phone is your terminal." },
-    { id: "utility-apps-ecommerce-guide", title: "OpenPay Utility Apps: Complete E-commerce Solution", date: "Jul 8, 2026", author: "OpenPay Team", category: "Product", desc: "Explore OpenPay's utility apps: Merchant POS, Payment Links, Virtual Cards, and more for complete payment solutions.", hero: "Your complete payment toolkit." },
-    { id: "merchant-portal-complete-guide", title: "OpenPay Merchant Portal: Complete Business Management", date: "Jul 7, 2026", author: "OpenPay Team", category: "Guide", desc: "Master the OpenPay Merchant Portal: product management, analytics, checkout flows, and business operations.", hero: "Your business command center." },
-    { id: "security-trust-comprehensive-guide", title: "Security & Trust: OpenPay's Complete Protection Framework", date: "Jul 6, 2026", author: "OpenPay Team", category: "Security", desc: "Learn about OpenPay's comprehensive security features: Pi-auth, transaction PIN, disputes, compliance, and trust mechanisms.", hero: "Built on trust. Secured by design." },
-    { id: "notifications-growth-complete-guide", title: "Notifications & Growth: OpenPay's Engagement Ecosystem", date: "Jul 5, 2026", author: "OpenPay Team", category: "Update", desc: "Explore OpenPay's notification system, announcements, affiliate program, and Pi Ad Network for user engagement and business growth.", hero: "Never miss a beat. Always grow." },
-    { id: "wallet-profile-settings-guide", title: "Wallet, Profile, and Settings: Complete User Management", date: "Jul 4, 2026", author: "OpenPay Team", category: "Guide", desc: "Master OpenPay's dashboard, profile management, settings configuration, contacts, and QR scanner for complete user control.", hero: "Your wallet. Your way." },
-    { id: "topup-funding-complete-guide", title: "Top Up & Funding: Complete Guide to Adding Funds", date: "Jul 3, 2026", author: "OpenPay Team", category: "Guide", desc: "Learn all ways to fund your OpenPay wallet: Apple Pay, Google Pay, Stripe, PayPal, credit/debit cards, USDC/USDT, Venmo, and regional options.", hero: "Add funds. Any way you want." },
-    { id: "virtual-card-checkout-guide", title: "Virtual Card & Checkout: Complete Payment Solution", date: "Jul 2, 2026", author: "OpenPay Team", category: "Product", desc: "Master OpenPay's virtual cards, hosted checkout, public payments, and thank-you pages for complete e-commerce integration.", hero: "Spend Pi anywhere online." },
-    { id: "developer-api-complete-guide", title: "Developer & API: Complete Integration Guide", date: "Jul 1, 2026", author: "OpenPay Team", category: "Guide", desc: "Master OpenPay's API documentation, POS integration, merchant portal APIs, and developer tools for seamless application integration.", hero: "Build with Pi. Ship with confidence." },
-    { id: "ecosystem-whitepapers-guide", title: "Ecosystem & Whitepapers: OpenPay's Strategic Vision", date: "Jun 30, 2026", author: "OpenPay Team", category: "Insight", desc: "Explore OpenPay's whitepapers, Pi Network integration, regulatory compliance, and strategic vision for the future of digital payments.", hero: "The future of Pi payments, documented." },
-    { id: "earn-4.50-apy-pi-savings", title: "How to Earn 4.50% APY on Your Pi with OpenPay Savings", date: "Jun 29, 2026", author: "OpenPay Team", category: "Guide", desc: "Learn how to move your Pi from your wallet to savings and start earning competitive yield with OpenPay's built-in savings feature.", hero: "Let your Pi work for you." },
-    { id: "introducing-virtual-cards", title: "Introducing OpenPay Virtual Cards", date: "Jun 25, 2026", author: "OpenPay Team", category: "Product", desc: "Your OpenPay virtual card is now live. Linked to your Pi balance, you can spend Pi anywhere that accepts digital payments.", hero: "Your Pi, now spendable anywhere." },
-    { id: "170-currencies-support", title: "OpenPay Now Supports 170+ Currencies", date: "Jun 20, 2026", author: "OpenPay Team", category: "Update", desc: "We've expanded our currency conversion to support over 170 global currencies, making Pi truly borderless for users worldwide.", hero: "Pi without borders." },
-    { id: "pi-network-openpay-future", title: "Pi Network & OpenPay: The Future of Web3 Commerce", date: "Jun 15, 2026", author: "OpenPay Team", category: "Insight", desc: "A deep dive into how OpenPay is building the payment layer for Pi Network's ecosystem and what it means for the future of decentralized commerce.", hero: "The future of money is here." },
-  ];
 
   const categoryDot: Record<string, string> = {
     Product: "bg-accent",
@@ -127,13 +97,13 @@ const BlogPage = () => {
         <div className="max-w-4xl mx-auto text-center">
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-block px-4 py-1.5 rounded-full bg-secondary text-sm font-semibold text-foreground/70">
-              Learn
+              {siteValue("blog", "hero", "eyebrow", "Learn")}
             </span>
             <h1 className="mt-7 text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl font-bold text-foreground tracking-tight">
-              OpenPay <span className="text-gradient">blog</span>
+              {siteValue("blog", "hero", "title", "OpenPay blog")}
             </h1>
             <p className="mt-6 text-lg sm:text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              All the latest news, updates, and announcements from OpenPay.
+              {siteValue("blog", "hero", "subtitle", "All the latest news, updates, and announcements from OpenPay.")}
             </p>
           </motion.div>
         </div>

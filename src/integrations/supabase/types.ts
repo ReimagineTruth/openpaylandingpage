@@ -14,13 +14,392 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      blog_posts: {
+        Row: {
+          id: string
+          slug: string
+          title: string
+          display_date: string
+          author: string
+          category: string
+          summary: string
+          meta: string
+          tags: string[]
+          hero: string
+          content: string
+          cta_text: string
+          cta_link: string
+          published: boolean
+          published_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          slug: string
+          title: string
+          display_date: string
+          author?: string
+          category: string
+          summary?: string
+          meta?: string
+          tags?: string[]
+          hero?: string
+          content?: string
+          cta_text?: string
+          cta_link?: string
+          published?: boolean
+          published_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          slug?: string
+          title?: string
+          display_date?: string
+          author?: string
+          category?: string
+          summary?: string
+          meta?: string
+          tags?: string[]
+          hero?: string
+          content?: string
+          cta_text?: string
+          cta_link?: string
+          published?: boolean
+          published_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_content: {
+        Row: {
+          id: number
+          page: string
+          section: string
+          content: Json
+          updated_at: string
+        }
+        Insert: {
+          id?: number
+          page: string
+          section: string
+          content?: Json
+          updated_at?: string
+        }
+        Update: {
+          id?: number
+          page?: string
+          section?: string
+          content?: Json
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      staff_profiles: {
+        Row: {
+          id: string
+          email: string
+          role: "admin" | "support" | "auditor"
+          is_active: boolean
+          last_active_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id: string
+          email: string
+          role?: "admin" | "support" | "auditor"
+          is_active?: boolean
+          last_active_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          email?: string
+          role?: "admin" | "support" | "auditor"
+          is_active?: boolean
+          last_active_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      wallet_accounts: {
+        Row: {
+          id: string
+          username: string
+          account_no: string
+          email: string
+          display_name: string
+          status: "active" | "restricted" | "frozen" | "suspended"
+          risk: "low" | "medium" | "high"
+          ousd_balance: number
+          pi_balance: number
+          flags: string[]
+          restriction_reason: string | null
+          last_active_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          username: string
+          account_no: string
+          email: string
+          display_name: string
+          status?: "active" | "restricted" | "frozen" | "suspended"
+          risk?: "low" | "medium" | "high"
+          ousd_balance?: number
+          pi_balance?: number
+          flags?: string[]
+          restriction_reason?: string | null
+          last_active_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          username?: string
+          account_no?: string
+          email?: string
+          display_name?: string
+          status?: "active" | "restricted" | "frozen" | "suspended"
+          risk?: "low" | "medium" | "high"
+          ousd_balance?: number
+          pi_balance?: number
+          flags?: string[]
+          restriction_reason?: string | null
+          last_active_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      kyc_profiles: {
+        Row: {
+          account_id: string
+          status: "approved" | "pending" | "rejected" | "expired"
+          full_name: string
+          dob: string | null
+          nationality: string | null
+          id_type: string | null
+          id_number_masked: string | null
+          address: string | null
+          verified_at: string | null
+          notes: string | null
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          status?: "approved" | "pending" | "rejected" | "expired"
+          full_name: string
+          dob?: string | null
+          nationality?: string | null
+          id_type?: string | null
+          id_number_masked?: string | null
+          address?: string | null
+          verified_at?: string | null
+          notes?: string | null
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          status?: "approved" | "pending" | "rejected" | "expired"
+          full_name?: string
+          dob?: string | null
+          nationality?: string | null
+          id_type?: string | null
+          id_number_masked?: string | null
+          address?: string | null
+          verified_at?: string | null
+          notes?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kyc_profiles_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: true
+            referencedRelation: "wallet_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wallet_transactions: {
+        Row: {
+          id: number
+          account_id: string
+          occurred_at: string
+          tx_type: string
+          method: string
+          counterparty: string
+          amount: number
+          status: string
+          note: string | null
+        }
+        Insert: {
+          id?: number
+          account_id: string
+          occurred_at?: string
+          tx_type: string
+          method: string
+          counterparty?: string
+          amount: number
+          status?: string
+          note?: string | null
+        }
+        Update: {
+          id?: number
+          account_id?: string
+          occurred_at?: string
+          tx_type?: string
+          method?: string
+          counterparty?: string
+          amount?: number
+          status?: string
+          note?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wallet_transactions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "wallet_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wallet_ledger: {
+        Row: {
+          id: number
+          account_id: string
+          direction: "credit" | "debit"
+          amount: number
+          reason: string
+          actor_email: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: number
+          account_id: string
+          direction: "credit" | "debit"
+          amount: number
+          reason: string
+          actor_email?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: number
+          account_id?: string
+          direction?: "credit" | "debit"
+          amount?: number
+          reason?: string
+          actor_email?: string | null
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wallet_ledger_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "wallet_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      account_actions: {
+        Row: {
+          id: number
+          account_id: string
+          action: "restrict" | "freeze" | "suspend" | "restore" | "flag" | "note"
+          reason: string | null
+          detail: string
+          actor_email: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: number
+          account_id: string
+          action: "restrict" | "freeze" | "suspend" | "restore" | "flag" | "note"
+          reason?: string | null
+          detail?: string
+          actor_email?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: number
+          account_id?: string
+          action?: "restrict" | "freeze" | "suspend" | "restore" | "flag" | "note"
+          reason?: string | null
+          detail?: string
+          actor_email?: string | null
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "account_actions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "wallet_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      admin_audit_log: {
+        Row: {
+          id: number
+          area: string
+          detail: string
+          actor_email: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: number
+          area: string
+          detail: string
+          actor_email?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: number
+          area?: string
+          detail?: string
+          actor_email?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      search_wallet_accounts: {
+        Args: { p_query: string }
+        Returns: Database["public"]["Tables"]["wallet_accounts"]["Row"][]
+      }
+      adjust_wallet_balance: {
+        Args: {
+          p_account_id: string
+          p_direction: "credit" | "debit"
+          p_amount: number
+          p_reason: string
+        }
+        Returns: Database["public"]["Tables"]["wallet_accounts"]["Row"]
+      }
+      set_wallet_account_status: {
+        Args: {
+          p_account_id: string
+          p_status: "active" | "restricted" | "frozen" | "suspended"
+          p_reason?: string
+          p_detail?: string
+        }
+        Returns: Database["public"]["Tables"]["wallet_accounts"]["Row"]
+      }
     }
     Enums: {
       [_ in never]: never

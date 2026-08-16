@@ -1,161 +1,122 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  Plus, 
-  Search, 
-  Edit, 
-  Trash2, 
-  Eye,
-  Calendar,
-  Tag,
-  FileText
-} from 'lucide-react';
-import { Link } from 'react-router-dom';
-
-// This will be replaced with Supabase data later
-const mockBlogPosts = [
-  {
-    id: 'openpay-nft-marketplace',
-    title: 'OpenPay NFT — Complete Feature Blog',
-    date: 'Jul 10, 2026',
-    category: 'Product',
-    author: 'OpenPay Team',
-    desc: 'A creator-first NFT marketplace built into OpenPay.'
-  },
-  {
-    id: 'core-wallet-features-guide',
-    title: 'Complete Guide to OpenPay Core Wallet Features',
-    date: 'Jul 10, 2026',
-    category: 'Guide',
-    author: 'OpenPay Team',
-    desc: 'Master OpenPay core wallet features.'
-  },
-  {
-    id: 'openpay-launches-merchant-pos',
-    title: 'OpenPay Launches Merchant POS for Pi Payments',
-    date: 'Jul 9, 2026',
-    category: 'Product',
-    author: 'OpenPay Team',
-    desc: 'Introducing the OpenPay Merchant POS.'
-  }
-];
+import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { Plus, Search, Edit, Trash2, Eye, Calendar, FileText } from "lucide-react";
+import { Link } from "react-router-dom";
+import { deleteBlogPost, mergeBlogPosts, setBlogPublished, type CmsBlogPost } from "@/lib/adminStore";
+import { FALLBACK_BLOG_POSTS } from "@/data/fallbackBlogPosts";
+import { toast } from "sonner";
 
 const AdminBlog = () => {
-  const [posts, setPosts] = useState(mockBlogPosts);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("All");
+  const [tick, setTick] = useState(0);
 
-  const categories = ['All', 'Product', 'Guide', 'Update', 'Insight', 'Security'];
+  const posts = useMemo(() => mergeBlogPosts(FALLBACK_BLOG_POSTS, true), [tick]);
+  const categories = ["All", ...Array.from(new Set(posts.map((p) => p.category)))];
 
-  const filteredPosts = posts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.desc.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+  const visible = posts.filter((post) => {
+    const q = query.toLowerCase();
+    const matches =
+      post.title.toLowerCase().includes(q) ||
+      post.desc.toLowerCase().includes(q) ||
+      post.slug.toLowerCase().includes(q);
+    return matches && (category === "All" || post.category === category);
   });
 
-  const handleDelete = (id: string) => {
-    if (confirm('Are you sure you want to delete this blog post?')) {
-      setPosts(posts.filter(post => post.id !== id));
-    }
+  const remove = (post: CmsBlogPost) => {
+    if (!confirm(`Delete “${post.title}”? It will disappear from the public blog.`)) return;
+    deleteBlogPost(post.id);
+    setTick((n) => n + 1);
+    toast.success("Post deleted");
+  };
+
+  const toggle = (post: CmsBlogPost) => {
+    const next = post.published === false;
+    setBlogPublished(post.id, next);
+    setTick((n) => n + 1);
+    toast.success(next ? "Published" : "Unpublished");
   };
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-foreground mb-2">Blog Posts</h1>
-          <p className="text-muted-foreground">Manage your blog content</p>
+          <h1 className="text-2xl font-bold text-foreground">Blog</h1>
+          <p className="text-muted-foreground">Write, edit, and publish posts that appear on /blog.</p>
         </div>
         <Link
           to="/admin/blog/new"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg font-semibold hover:opacity-90 transition-opacity"
+          className="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 font-semibold text-white hover:opacity-90"
         >
-          <Plus size={20} />
-          New Post
+          <Plus size={18} />
+          New post
         </Link>
       </div>
 
-      {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
-            type="text"
-            placeholder="Search posts..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search title, slug, or description…"
+            className="w-full rounded-lg border border-border bg-background py-2 pl-10 pr-4 text-sm focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
           />
         </div>
-        <div className="flex gap-2 flex-wrap">
-          {categories.map(category => (
+        <div className="flex flex-wrap gap-2">
+          {categories.map((cat) => (
             <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                selectedCategory === category
-                  ? 'bg-accent text-white'
-                  : 'bg-secondary text-foreground hover:bg-secondary/80'
+              key={cat}
+              onClick={() => setCategory(cat)}
+              className={`rounded-lg px-3 py-2 text-sm font-medium ${
+                category === cat ? "bg-accent text-white" : "bg-secondary text-foreground hover:bg-secondary/80"
               }`}
             >
-              {category}
+              {cat}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Posts Grid */}
-      <div className="grid gap-4">
-        {filteredPosts.map((post, index) => (
+      <div className="space-y-3">
+        {visible.map((post, i) => (
           <motion.div
             key={post.id}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }}
-            className="bg-card rounded-xl border border-border p-6 hover:shadow-card transition-shadow"
+            transition={{ delay: Math.min(i, 8) * 0.03 }}
+            className="rounded-xl border border-border bg-card p-5"
           >
-            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-xs font-semibold px-2 py-1 rounded-full bg-accent/10 text-accent">
-                    {post.category}
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div className="min-w-0 flex-1">
+                <div className="mb-2 flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs font-semibold text-accent">{post.category}</span>
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
+                      post.published === false ? "bg-orange-100 text-orange-700" : "bg-emerald-100 text-emerald-700"
+                    }`}
+                  >
+                    {post.published === false ? "Draft" : "Live"}
                   </span>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Calendar size={12} />
-                    {post.date}
-                  </div>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Tag size={12} />
-                    {post.author}
-                  </div>
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{post.title}</h3>
-                <p className="text-sm text-muted-foreground line-clamp-2">{post.desc}</p>
+                <h3 className="text-lg font-bold text-foreground">{post.title}</h3>
+                <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{post.desc}</p>
+                <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
+                  <Calendar size={12} /> {post.date} · /blog/{post.slug || post.id}
+                </p>
               </div>
-              <div className="flex items-center gap-2">
-                <Link
-                  to={`/blog/${post.id}`}
-                  target="_blank"
-                  className="p-2 hover:bg-secondary rounded-lg transition-colors text-muted-foreground hover:text-foreground"
-                  title="View post"
-                >
-                  <Eye size={20} />
+              <div className="flex shrink-0 items-center gap-1">
+                <Link to={`/blog/${post.slug || post.id}`} className="rounded-lg p-2 text-muted-foreground hover:bg-secondary" title="View">
+                  <Eye size={18} />
                 </Link>
-                <Link
-                  to={`/admin/blog/edit/${post.id}`}
-                  className="p-2 hover:bg-secondary rounded-lg transition-colors text-muted-foreground hover:text-foreground"
-                  title="Edit post"
-                >
-                  <Edit size={20} />
+                <Link to={`/admin/blog/edit/${post.id}`} className="rounded-lg p-2 text-muted-foreground hover:bg-secondary" title="Edit">
+                  <Edit size={18} />
                 </Link>
-                <button
-                  onClick={() => handleDelete(post.id)}
-                  className="p-2 hover:bg-red-50 rounded-lg transition-colors text-muted-foreground hover:text-red-600"
-                  title="Delete post"
-                >
-                  <Trash2 size={20} />
+                <button onClick={() => toggle(post)} className="rounded-lg px-3 py-2 text-xs font-semibold hover:bg-secondary">
+                  {post.published === false ? "Publish" : "Unpublish"}
+                </button>
+                <button onClick={() => remove(post)} className="rounded-lg p-2 text-muted-foreground hover:bg-red-50 hover:text-red-600" title="Delete">
+                  <Trash2 size={18} />
                 </button>
               </div>
             </div>
@@ -163,15 +124,10 @@ const AdminBlog = () => {
         ))}
       </div>
 
-      {filteredPosts.length === 0 && (
-        <div className="text-center py-12">
-          <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-foreground mb-2">No posts found</h3>
-          <p className="text-muted-foreground">
-            {searchTerm || selectedCategory !== 'All'
-              ? 'Try adjusting your search or filters'
-              : 'Get started by creating your first blog post'}
-          </p>
+      {visible.length === 0 && (
+        <div className="py-16 text-center">
+          <FileText className="mx-auto mb-3 h-10 w-10 text-muted-foreground" />
+          <p className="font-semibold text-foreground">No posts match</p>
         </div>
       )}
     </div>
