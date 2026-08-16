@@ -6,7 +6,7 @@ import {
 
 const features = [
   { icon: Send, title: "Express Send", desc: "Send Pi instantly to anyone, anywhere in the world with just a username." },
-  { icon: QrCode, title: "Scan QR Code", desc: "Pay merchants or friends by scanning a QR code — no typing needed." },
+  { icon: QrCode, title: "Scan QR Code", desc: "One camera for OpenPay, OpenPay Pro, QR Pay, and QR Ph / InstaPay — no typing needed." },
   { icon: Link2, title: "Payment Links", desc: "Create checkout links and share them to collect payments effortlessly." },
   { icon: FileText, title: "Invoicing", desc: "Generate professional invoices and track payments in real time." },
   { icon: Wallet, title: "Wallet", desc: "Multi-currency wallet supporting Pi and 170+ global currencies." },

@@ -7,8 +7,8 @@ import {
 const APP = "https://openpy.space";
 
 const highlights = [
-  { icon: Send, title: "Send & Receive Pi", desc: "Instant transfers to any OpenPay username, plus QR receive.", links: [{ label: "Send", href: `${APP}/send` }, { label: "Receive", href: `${APP}/receive` }] },
-  { icon: QrCode, title: "QR Pay", desc: "Create QR payments with inline items and guest-friendly checkout.", links: [{ label: "QR Pay", href: `${APP}/qr-pay` }] },
+  { icon: Send, title: "Send & Receive Pi", desc: "Instant transfers to any OpenPay username, plus QR receive.", links: [{ label: "Send", href: `${APP}/send` }, { label: "Scan QR", href: `${APP}/scan-qr` }, { label: "Receive", href: `${APP}/receive` }] },
+  { icon: QrCode, title: "QR Pay", desc: "Create QR payments with inline items and guest-friendly checkout. Scan OpenPay, Pro, and QR Ph with the same camera.", links: [{ label: "QR Pay", href: `${APP}/qr-pay` }, { label: "Scan QR", href: `${APP}/scan-qr` }] },
   { icon: Store, title: "Merchant POS", desc: "In-person checkout with QR sessions and instant receipts.", links: [{ label: "Open POS", href: `${APP}/merchant-pos` }] },
   { icon: MousePointerClick, title: "Payment Links & Buttons", desc: "Cart, donate, subscribe and embeddable pay buttons.", links: [{ label: "Buttons", href: `${APP}/buttons` }] },
   { icon: CreditCard, title: "Virtual Card", desc: "Issue and manage an OpenPay virtual card linked to your balance.", links: [{ label: "Virtual Card", href: `${APP}/virtual-card` }] },

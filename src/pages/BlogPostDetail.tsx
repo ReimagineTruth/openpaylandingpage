@@ -149,6 +149,276 @@ const BlogPostDetail = () => {
 
   const getFallbackPosts = (): BlogPost[] => [
   {
+    id: "openpay-scanner-update",
+    slug: "openpay-scanner-update",
+    title: "OpenPay Scanner Update — OpenPay, OpenPay Pro, QR Ph & Bank in One Scan",
+    date: "Aug 16, 2026",
+    author: "OpenPay Team",
+    category: "Product",
+    desc: "Scan OpenPay, OpenPay Pro, QR Pay, and QR Ph / InstaPay codes with one camera. Send wallet to wallet, OpenPay to Pro, or pay a bank — Maya, GCash, and international rails included.",
+    meta: "Scan OpenPay, OpenPay Pro, QR Pay, and QR Ph / InstaPay codes with one camera. Send wallet to wallet, OpenPay to Pro, or pay a bank — Maya, GCash, and international rails included.",
+    tags: ["scanner", "qr", "openpay-pro", "qr-ph", "instapay", "maya", "gcash", "bank-transfer", "ousd"],
+    hero: "One scan. Wallet, Pro, bank, or the world.",
+    cta_text: "Open the scanner",
+    cta_link: "https://openpy.space/scan-qr",
+    content: `# OpenPay Scanner — One Camera for Every QR
+
+The OpenPay scanner just got a full upgrade. One camera now reads **OpenPay wallets**, **OpenPay Pro**, **QR Pay checkouts**, and **QR Ph / InstaPay** bank codes — so you can send OpenPay to OpenPay, OpenPay to OpenPay Pro, OpenPay to a bank, or pay internationally without switching apps.
+
+**Open it:** [https://openpy.space/scan-qr](https://openpy.space/scan-qr)  
+**Send to OpenPay:** [https://openpy.space/send](https://openpy.space/send)  
+**Send to OpenPay Pro:** [https://openpy.space/send/pro](https://openpy.space/send/pro)  
+**Bank transfer:** [https://openpy.space/bank-transfer](https://openpy.space/bank-transfer)  
+**Sign in:** [https://openpy.space/auth](https://openpy.space/auth)
+
+> Brand voice: modern fintech, Pi-native, Apple Pay–clean. Signature blue.  
+> Base URL: \`https://openpy.space\`
+
+---
+
+## Why this update?
+
+People don’t think in product names. They think: *point the camera, pay the person in front of me.*
+
+Before, OpenPay QR, OpenPay Pro QR, and Philippine QR Ph codes lived in different flows. The Pro scanner was a separate modal. Bank QR Ph needed its own path. The main scanner was OpenPay-first.
+
+Now **Scan QR Code** is the single front door:
+
+1. **OpenPay → OpenPay** — pay another wallet, checkout link, or merchant QR.
+2. **OpenPay → OpenPay Pro** — scan a Pro \`@username\` or \`0x\` wallet QR and send from your OpenPay balance.
+3. **OpenPay → bank (QR Ph)** — GCash, Maya, InstaPay, and bank QRs auto-fill name, account, and bank.
+4. **International** — OpenPay rails that work beyond local payouts.
+
+Same screen. Camera, photo, or paste.
+
+---
+
+## UI/UX mockup — Scan QR Code
+
+\`\`\`
+┌─────────────────────────────────┐
+│ ← Back     Scan QR Code     ↻ ? │
+├─────────────────────────────────┤
+│  [ Camera ]  Photo   Paste      │
+│                                 │
+│  OpenPay · OpenPay Pro · QR Pay │
+│         · QR Ph / InstaPay      │
+│                                 │
+│  (O) (Pro) (maya) (G) (QR Ph)   │
+│                                 │
+│  OpenPay to OpenPay, OpenPay to │
+│  OpenPay Pro, QR Ph, bank, and  │
+│  international — one scan.      │
+│                                 │
+│         ┌───────────────┐       │
+│         │               │       │
+│         │   viewfinder  │       │
+│         │               │       │
+│         └───────────────┘       │
+│                                 │
+│  Position the code inside the   │
+│  frame                          │
+└─────────────────────────────────┘
+\`\`\`
+
+**Design notes:** Dark camera chrome, iOS segmented control (Camera / Photo / Paste), white brand pill with OpenPay, OpenPay Pro, Maya, GCash, QR Ph, and InstaPay. Help (\`?\`) opens **How to scan safely**. Retry restores camera permission without leaving the page.
+
+---
+
+## What you can scan
+
+| Code | What it is | Where it goes |
+|------|------------|---------------|
+| **OpenPay QR** | Wallet receive, \`openpay://pay\`, OP account, \`@username\` | [Send](https://openpy.space/send) |
+| **QR Pay** | Merchant checkout \`qrp_…\` token | [QR Pay checkout](https://openpy.space/qr-pay) |
+| **OpenPay Pro QR** | \`openpaypro.space\` pay / receive, \`@user\`, or \`0x\` wallet | [Transfer to Pro](https://openpy.space/send/pro) |
+| **QR Ph / InstaPay** | EMVCo bank & e-wallet codes (GCash, Maya, banks) | [Bank send](https://openpy.space/bank-transfer/local/send) — auto-filled |
+| **POS / checkout** | Merchant session or payment link | Public payment or POS pay |
+| **Paste & search** | Link, OP account, \`@username\`, email | Express Search on Send |
+
+If the code isn’t OpenPay, OpenPay Pro, QR Pay, or QR Ph, the scanner tells you clearly — no silent fail.
+
+---
+
+## Tutorial — How to scan safely
+
+Tap **?** on the scanner (or open it the first time you visit). The sheet is the product tutorial:
+
+\`\`\`
+┌─────────────────────────────────┐
+│           [ QR icon ]           │
+│      How to scan safely         │
+│  OpenPay, OpenPay Pro, QR Pay,  │
+│  and QR Ph / InstaPay codes     │
+│  are supported.                 │
+├─────────────────────────────────┤
+│  SUPPORTED                      │
+│  OpenPay  Pro  Maya  GCash      │
+│  QR Ph  InstaPay                │
+│                                 │
+│  What OpenPay can do            │
+│  OpenPay to OpenPay, OpenPay to │
+│  OpenPay Pro, OpenPay to bank,  │
+│  QR Ph, and international.      │
+│                                 │
+│  ↔ OpenPay to OpenPay           │
+│  ↔ OpenPay to OpenPay Pro       │
+│  🏛 OpenPay to bank             │
+│  🌐 International               │
+│  ✓ QR Ph auto-fill              │
+│  🛡 Verify before you pay       │
+│                                 │
+│  Paste & Express Search         │
+│  openpay://pay?account=OP…      │
+│                                 │
+│  [ Close ]    [ I Understand ]  │
+└─────────────────────────────────┘
+\`\`\`
+
+**Verify before you pay** is still the rule: confirm the recipient name, Pro handle / \`0x\` address, or bank details match who you intend to pay.
+
+---
+
+## OpenPay to OpenPay
+
+Scan another person’s OpenPay receive QR, payment link, or merchant checkout.
+
+- Wallet-to-wallet in OUSD.
+- Checkout links and QR Pay tokens open the right pay screen.
+- POS and public payment QRs keep their existing checkout flow.
+
+**CTA:** [Scan an OpenPay QR →](https://openpy.space/scan-qr)
+
+---
+
+## OpenPay to OpenPay Pro (new)
+
+This is the headline of the update.
+
+OpenPay Pro wallets use \`@username\` handles and EVM-style \`0x\` addresses. You used to open a separate **Scan Pro QR** modal on Transfer to Pro. The **main scanner now reads the same codes**:
+
+- Pro receive / pay links on \`openpaypro.space\`
+- \`@alice\`-style Pro usernames in a Pro QR
+- \`0x\` + 40 hex wallet addresses
+- \`ethereum:0x…\` payloads
+
+After a successful scan, OpenPay opens **Transfer to OpenPay Pro** with the destination (and amount, if the QR included one) already filled. You send from your **OpenPay balance** to that Pro wallet.
+
+The dedicated Pro scanner on [https://openpy.space/send/pro](https://openpy.space/send/pro) still works if you are already on the transfer screen.
+
+**CTA:** [Send to OpenPay Pro →](https://openpy.space/send/pro)
+
+**OpenPay Pro**
+- App: [http://openpaypro4378.pinet.com](http://openpaypro4378.pinet.com)
+- Website: [https://openpaypro.space](https://openpaypro.space)
+- Wallet: [https://openpaypro.space/wallet](https://openpaypro.space/wallet)
+
+---
+
+## OpenPay to bank — QR Ph auto-fill
+
+Point the camera at a **GCash, Maya, InstaPay, or bank QR Ph** code. OpenPay parses the EMVCo payload and matches the receiving institution:
+
+- Bank / e-wallet name
+- Account number
+- Account holder name
+- Amount, when the QR includes one
+
+You land on the local bank send form with fields filled. Confirm, then pay from OpenPay. No typing 16-digit account numbers off a poster.
+
+Maya, GCash, QR Ph, and InstaPay marks sit on the scanner so people know those codes are first-class — not a workaround.
+
+**CTA:** [Open bank transfer →](https://openpy.space/bank-transfer)
+
+---
+
+## International
+
+OpenPay is not only a Philippine QR reader. The same scanner still routes OpenPay wallet QRs and checkout links for **cross-border sends** — OpenPay to OpenPay anywhere the wallet works, plus Pro when the destination is a Pro handle or \`0x\` address.
+
+Local QR Ph stays the fast path for PHP banks. International stays the path for OpenPay and OpenPay Pro.
+
+---
+
+## Camera, Photo, Paste
+
+| Tab | Use it when |
+|-----|-------------|
+| **Camera** | Live scan in Pi Browser or the web app (allow camera, tap Retry if denied). |
+| **Photo** | The QR is in your camera roll or a screenshot. |
+| **Paste** | You copied \`openpay://…\`, an OP account, a Pro pay URL, or a 0x address. |
+
+**Express Search** on Photo / Paste still finds people by \`@username\`, name, email, or OP account if there is no QR at all.
+
+Pi Browser tip: if the viewfinder stays black, enable camera permission and tap **Retry Camera**. HTTPS (or localhost) is required.
+
+---
+
+## How a scan is routed
+
+1. **QR Ph / EMVCo?** → Bank send, fields auto-filled (GCash, Maya, InstaPay, banks).
+2. **OpenPay Pro QR?** → Transfer to OpenPay Pro (\`@username\` or \`0x\` wallet).
+3. **OpenPay / QR Pay?** → Send, checkout, or POS.
+4. Otherwise → “Not a supported code.”
+
+QR Ph is checked first so a GCash or Maya code is never mistaken for a wallet username. Pro is checked next so \`openpaypro.space\` pay links are not treated as generic OpenPay URLs.
+
+---
+
+## Step by step for readers
+
+1. Sign in at [https://openpy.space/auth](https://openpy.space/auth).
+2. Open [https://openpy.space/scan-qr](https://openpy.space/scan-qr).
+3. Read **How to scan safely**, tap **I Understand**.
+4. Allow the camera.
+5. Point at the code:
+   - Friend’s OpenPay QR → Send.
+   - OpenPay Pro QR → Transfer to Pro.
+   - Store / bank QR Ph → Bank send with auto-fill.
+   - Merchant QR Pay → Checkout.
+6. Confirm the name, handle, or bank. Pay.
+
+---
+
+## FAQ
+
+**Is this the same as QR Pay?**  
+No. **QR Pay** is how *you* get paid as a merchant. The **scanner** is how *you* pay someone else — including QR Pay checkouts they created.
+
+**Do I still need the Scan Pro QR modal?**  
+Only if you are already on Transfer to Pro and want to fill the To field in place. The main scanner now does the same job from anywhere.
+
+**Which e-wallets work for QR Ph?**  
+GCash, Maya, InstaPay, and any bank QR Ph that follows the Philippine EMVCo format. The scanner matches the institution catalog and fills the send form.
+
+**What if the Maya logo was broken?**  
+The Maya mark on the scanner and tutorial is restored. If you still see a missing icon, hard-refresh the page.
+
+**Can I paste instead of scanning?**  
+Yes. Photo and Paste tabs accept OpenPay links, Pro pay URLs, OP account numbers, and Express Search queries.
+
+---
+
+## Related features
+
+- QR Pay — [https://openpy.space/qr-pay](https://openpy.space/qr-pay)
+- Bank Transfer — [https://openpy.space/bank-transfer](https://openpy.space/bank-transfer)
+- Cash In — [https://openpy.space/cash-in](https://openpy.space/cash-in)
+- Transfer to OpenPay Pro — [https://openpy.space/send/pro](https://openpy.space/send/pro)
+- Send — [https://openpy.space/send](https://openpy.space/send)
+- [OpenPay QR Pay story](/blog/openpay-qr-pay)
+- [OpenPay Bank Transfer story](/blog/openpay-bank-transfer)
+
+---
+
+## Closing
+
+**One camera. OpenPay, OpenPay Pro, QR Ph, and international. Confirm, then send.**
+
+**Start here →** [https://openpy.space/scan-qr](https://openpy.space/scan-qr)
+`
+  },
+  {
     id: "openpay-apple-pay",
     slug: "openpay-apple-pay",
     title: "OpenPay Apple Pay — Face ID Top-Ups for OUSD",
@@ -311,6 +581,7 @@ Separate path: Stripe for USD top-up pages; PayMongo Google Pay on QR Pay checko
 
 ## Related features
 
+- Scan QR — [https://openpy.space/scan-qr](https://openpy.space/scan-qr)
 - Cash In — [https://openpy.space/cash-in](https://openpy.space/cash-in)
 - Bank Transfer — [https://openpy.space/bank-transfer](https://openpy.space/bank-transfer)
 - Express Send — [https://openpy.space/send](https://openpy.space/send)
@@ -532,6 +803,7 @@ No — Apple Pay tops up OUSD first; then Bank Transfer sends from balance.
 
 ## Related features
 
+- Scan QR — [https://openpy.space/scan-qr](https://openpy.space/scan-qr)
 - Cash In — [https://openpy.space/cash-in](https://openpy.space/cash-in)
 - Apple Pay top-up — [https://openpy.space/topup-apple-pay](https://openpy.space/topup-apple-pay)
 - QR Pay — [https://openpy.space/qr-pay](https://openpy.space/qr-pay)
@@ -694,6 +966,7 @@ No. **Cash In** funds *your* wallet. **QR Pay** lets customers pay *you* as a me
 
 ## Related features
 
+- Scan QR — [https://openpy.space/scan-qr](https://openpy.space/scan-qr)
 - Bank Transfer — [https://openpy.space/bank-transfer](https://openpy.space/bank-transfer)
 - Apple Pay — [https://openpy.space/topup-apple-pay](https://openpy.space/topup-apple-pay)
 - Top-up history — [https://openpy.space/topup-history](https://openpy.space/topup-history)
@@ -725,6 +998,7 @@ No. **Cash In** funds *your* wallet. **QR Pay** lets customers pay *you* as a me
 
 Use this index when exploring what’s new on [openpy.space/blog](https://www.openpy.space/blog). Each post is a **standalone guide** with tutorials and UI/UX mockups — same style as the QR Pay flagship story.
 
+**Latest:** [OpenPay Scanner Update](/blog/openpay-scanner-update) · Live: [https://openpy.space/scan-qr](https://openpy.space/scan-qr)  
 **Previous flagship:** [OpenPay QR Pay](/blog/openpay-qr-pay) · Live: [https://openpy.space/qr-pay](https://openpy.space/qr-pay)
 
 ---
@@ -733,13 +1007,14 @@ Use this index when exploring what’s new on [openpy.space/blog](https://www.op
 
 | # | Post | Slug | One-line pitch |
 |---|------|------|----------------|
+| 0 | [Scanner Update](/blog/openpay-scanner-update) | \`openpay-scanner-update\` | One camera for OpenPay, Pro, QR Ph & bank |
 | 1 | Cash In | \`openpay-cash-in\` | Fund OUSD via QR Ph, e-wallets, cards & Apple Pay |
 | 2 | Bank Transfer | \`openpay-bank-transfer\` | InstaPay / PESONet from wallet to PH banks |
 | 3 | Apple Pay | \`openpay-apple-pay\` | Face ID top-ups + shortfall CTAs |
 | 4 | [PayMongo Payment Links](/blog/openpay-paymongo-payment-links) | \`openpay-paymongo-payment-links\` | Shareable PayMongo \`pm.link\` → OUSD |
 | 5 | [Services Menu](/blog/openpay-services-menu) | \`openpay-services-menu\` | Redesigned Services / Transactions grid |
 
-**Open the products:** [Cash In](https://openpy.space/cash-in) · [Bank Transfer](https://openpy.space/bank-transfer) · [Apple Pay](https://openpy.space/topup-apple-pay) · [PayMongo Links](https://openpy.space/paymongo-links) · [Services Menu](https://openpy.space/menu)
+**Open the products:** [Scan QR](https://openpy.space/scan-qr) · [Cash In](https://openpy.space/cash-in) · [Bank Transfer](https://openpy.space/bank-transfer) · [Apple Pay](https://openpy.space/topup-apple-pay) · [PayMongo Links](https://openpy.space/paymongo-links) · [Services Menu](https://openpy.space/menu)
 
 ---
 
@@ -759,6 +1034,7 @@ For each post:
 
 | Post | OG description |
 |------|----------------|
+| Scanner | Scan any OpenPay, Pro, or QR Ph code. One camera. Instant send. |
 | Cash In | Add money with QR Ph, GCash, Maya, or Apple Pay. |
 | Bank Transfer | Send to any PH bank with InstaPay or PESONet. |
 | Apple Pay | Top up OUSD with Face ID — never stuck mid-send. |
@@ -796,6 +1072,7 @@ flowchart TD
 
 ## Related stories already live
 
+- [OpenPay Scanner Update — OpenPay, OpenPay Pro, QR Ph & Bank in One Scan](/blog/openpay-scanner-update)
 - [OpenPay QR Pay — Accept Payments with QR Codes & Links](/blog/openpay-qr-pay)
 - [OpenPay PayMongo Payment Links — Share PHP Checkout Like QR Pay](/blog/openpay-paymongo-payment-links)
 - [OpenPay Services Menu — Redesigned Transaction Grid](/blog/openpay-services-menu)
@@ -1173,6 +1450,7 @@ It looked “busy” on marketing screenshots and failed basic readability on sm
 
 ## Related features
 
+- Scan QR — [https://openpy.space/scan-qr](https://openpy.space/scan-qr)
 - Bank Transfer — [https://openpy.space/bank-transfer](https://openpy.space/bank-transfer)
 - Cash In — [https://openpy.space/cash-in](https://openpy.space/cash-in)
 - PayMongo Links — [https://openpy.space/paymongo-links](https://openpy.space/paymongo-links)
@@ -1409,9 +1687,9 @@ OpenPay's scanner recognizes QR Pay tokens and deep links:
 - Paths like \`/qr-pay/{token}\`
 - Schemes like \`openpay://qr-pay/...\`
 
-Scan → preview → pay. Same receipts, same merchant dashboard.
+Scan → preview → pay. Same receipts, same merchant dashboard. The main scanner also reads OpenPay wallets, OpenPay Pro, and QR Ph / InstaPay — see the [scanner update](/blog/openpay-scanner-update).
 
-**CTA:** [Open scanner →](https://openpy.space/auth/qr-scanner)
+**CTA:** [Open scanner →](https://openpy.space/scan-qr)
 
 ---
 
@@ -1490,6 +1768,8 @@ Yes for Wallet / Card / Pro paths and for viewing checkout. Full Pi pay UX is in
 
 ## Related OpenPay Features
 
+- Scan QR — [https://openpy.space/scan-qr](https://openpy.space/scan-qr)
+- [Scanner update](/blog/openpay-scanner-update) — one camera for OpenPay, Pro, QR Pay, and QR Ph
 - Merchant POS — [https://openpy.space/auth/merchant-pos](https://openpy.space/auth/merchant-pos)
 - Payment Links — [https://openpy.space/auth/payment-links/create](https://openpy.space/auth/payment-links/create)
 - Receive / Request — [https://openpy.space/auth/receive](https://openpy.space/auth/receive) · [https://openpy.space/auth/request-payment](https://openpy.space/auth/request-payment)

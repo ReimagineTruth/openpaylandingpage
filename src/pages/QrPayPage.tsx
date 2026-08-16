@@ -344,6 +344,10 @@ const QrPayPage = () => {
             <a href="/blog/openpay-qr-pay" className="text-[#007AFF] font-semibold">
               the OpenPay blog
             </a>
+            . Paying someone else?{" "}
+            <a href="/blog/openpay-scanner-update" className="text-[#007AFF] font-semibold">
+              One camera for every QR
+            </a>
             .
           </p>
         </div>

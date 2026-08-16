@@ -178,7 +178,7 @@ const HomeLanding = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             { n: "01", t: "Sign in", d: "Authenticate with Pi" },
-            { n: "02", t: "Pay", d: "Send, QR, @username" },
+            { n: "02", t: "Pay", d: "One camera: wallet, Pro, bank" },
             { n: "03", t: "Sell", d: "POS & QR Pay checkouts" },
             { n: "04", t: "Grow", d: "Mine, stake, mint, build" },
           ].map((s, i) => (
@@ -226,10 +226,13 @@ const HomeLanding = () => {
             <ReceivePhoneMock />
           </div>
         </div>
-        <div className="mt-10 text-center">
+        <div className="mt-10 text-center flex flex-wrap items-center justify-center gap-4">
           <BlueCta href={`${APP}/auth/dashboard`}>
             Open dashboard <ArrowRight size={16} />
           </BlueCta>
+          <a href={`${APP}/scan-qr`} className="h-12 px-5 inline-flex items-center text-[15px] font-semibold text-[#3B82F6]">
+            Scan QR →
+          </a>
         </div>
       </Section>
 
