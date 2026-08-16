@@ -6,29 +6,11 @@ import { Button } from "@/components/ui/button";
 import { usePiUsdPrice } from "@/lib/piPrice";
 import { PhoneChrome } from "@/components/app-store-previews/PhoneChrome";
 import {
+  DARK_FRAMES,
   PREVIEW_FRAMES,
   renderPreviewFrame,
-  type PreviewFrameId,
   type PreviewFrameMeta,
 } from "@/components/app-store-previews/featureFrames";
-
-const DARK_FRAMES = new Set<PreviewFrameId>([
-  "auth",
-  "wallet",
-  "savings",
-  "credit",
-  "loans",
-  "buy",
-  "withdraw",
-  "send",
-  "receive",
-  "request",
-  "send-pro",
-  "menu",
-  "card",
-  "scan",
-  "nft",
-]);
 
 const FrameCard = ({
   frame,

@@ -138,7 +138,7 @@ const HomeLanding = () => {
               </h1>
               <p className="mt-4 text-[15px] sm:text-base text-[#8e8e93] leading-relaxed max-w-md mx-auto lg:mx-0">
                 Hold OpenUSD, send with QR, mine rewards, spend with a Virtual Card, chat with OpenPay AI, and accept
-                payments with QR Pay & Merchant POS — 29 App Store–ready screens.
+                payments with QR Pay & Merchant POS — App Store–ready screens from the live product UI.
               </p>
               <div className="mt-7 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
                 <BlueCta href={`${APP}/auth`}>

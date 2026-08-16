@@ -6,6 +6,13 @@ import Footer from "@/components/Footer";
 import ListenButton from "@/components/ListenButton";
 import { ArrowLeft, Calendar, User, ArrowRight } from "lucide-react";
 import { supabase } from "@/utils/supabase";
+import { PhoneChrome } from "@/components/app-store-previews/PhoneChrome";
+import {
+  DARK_FRAMES,
+  frameIdForMockup,
+  renderPreviewFrame,
+  type PreviewFrameId,
+} from "@/components/app-store-previews/featureFrames";
 
 interface BlogPost {
   id: string;
@@ -21,6 +28,20 @@ interface BlogPost {
   content: string;
   cta_text: string;
   cta_link: string;
+}
+
+function BlogUiMock({ id }: { id: PreviewFrameId }) {
+  return (
+    <div className="my-8 flex justify-center">
+      <div className="relative w-[min(100%,280px)] overflow-hidden" style={{ aspectRatio: "390 / 844" }}>
+        <div className="absolute left-0 top-0 origin-top-left scale-[0.7179]">
+          <PhoneChrome statusLight={DARK_FRAMES.has(id)}>
+            {renderPreviewFrame(id)}
+          </PhoneChrome>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const BlogPostDetail = () => {
@@ -1024,7 +1045,7 @@ For each post:
 
 1. Start with the **hero** and meta — the one-line promise.
 2. Skim the **why** section, then the **tutorials**.
-3. Use ASCII mockups as a map until screenshots land — same section headings.
+3. Match each **UI/UX mockup** to the live App Store phone frame — same UI as [feature previews](/app-store-previews).
 4. Follow **Open it** links to the live product.
 5. Cross-link **Related features** between posts + [QR Pay](/blog/openpay-qr-pay).
 
@@ -6222,7 +6243,9 @@ The future of Web3 commerce is being built today, and you're invited to be part 
             <p className="text-xl sm:text-2xl text-foreground/80 leading-[1.6] mb-10">{post.meta}</p>
 
             <div className="text-foreground text-lg leading-[1.75] space-y-6 break-words">
-              {post.content.split('\n\n').map((paragraph, index) => {
+              {(() => {
+                let lastHeading = "";
+                return post.content.split('\n\n').map((paragraph, index) => {
                 const trimmed = paragraph.trim();
                 if (!trimmed) return null;
 
@@ -6232,6 +6255,10 @@ The future of Web3 commerce is being built today, and you're invited to be part 
 
                 if (trimmed.startsWith('```')) {
                   const code = trimmed.replace(/^```\w*\n?/, '').replace(/\n?```$/, '');
+                  const isPhoneArt = code.includes('┌') || code.includes('│');
+                  if (isPhoneArt) {
+                    return <BlogUiMock key={index} id={frameIdForMockup(lastHeading, code, post.slug)} />;
+                  }
                   return (
                     <pre key={index} className="my-6 overflow-x-auto rounded-2xl bg-secondary p-4 sm:p-5 text-sm font-mono leading-relaxed">
                       <code className="whitespace-pre">{code}</code>
@@ -6245,6 +6272,7 @@ The future of Web3 commerce is being built today, and you're invited to be part 
                   const rest = lines.slice(1).join('\n').trim();
                   const level = headingLine.match(/^#+/)?.[0].length || 1;
                   const text = cleanMarkdown(headingLine.replace(/^#+\s*/, ''));
+                  lastHeading = text;
                   const HeadingTag = `h${Math.min(level, 3)}` as keyof JSX.IntrinsicElements;
                   return (
                     <div key={index}>
@@ -6321,7 +6349,8 @@ The future of Web3 commerce is being built today, and you're invited to be part 
                     {renderInline(trimmed, `p-${index}`)}
                   </p>
                 );
-              })}
+              });
+              })()}
             </div>
           </motion.div>
 

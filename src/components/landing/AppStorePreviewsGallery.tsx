@@ -44,7 +44,7 @@ export default function AppStorePreviewsGallery({ limit, showMeta = true, compac
       {showMeta && (
         <motion.div {...fade(reduce)} className="flex flex-wrap items-center gap-2 mb-6 text-[12px] font-semibold text-[#8e8e93]">
           <span className="px-2.5 py-1 rounded-full bg-white border border-black/[0.06] text-[#1d1d1f]">v1.0.0</span>
-          <span>29 screens</span>
+          <span>{PREVIEW_SCREENS.length} screens</span>
           <span>·</span>
           <span>iPhone portrait · 9:16</span>
           <span>·</span>
@@ -101,7 +101,7 @@ export default function AppStorePreviewsGallery({ limit, showMeta = true, compac
             to="/app-store-previews"
             className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full bg-[#007AFF] text-white text-[15px] font-semibold hover:opacity-90 active:scale-[0.98] transition-transform"
           >
-            Open all 29 feature previews <ArrowRight size={16} />
+            Open all {PREVIEW_SCREENS.length} feature previews <ArrowRight size={16} />
           </Link>
         </div>
       )}
