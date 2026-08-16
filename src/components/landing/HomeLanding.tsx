@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import {
   AiChatMock,
+  AuthCardMock,
   DashboardPhoneMock,
   DevKeysMock,
   MiningPhoneMock,
@@ -26,8 +27,6 @@ import AppStorePreviewsGallery, {
   FeatureBulletsStrip,
   TrustMerchantEarnStrips,
 } from "@/components/landing/AppStorePreviewsGallery";
-import { PreviewScreenById } from "@/components/landing/AppStorePreviewScreens";
-import { OPENLEDGER_TX_URL, PI_EXPLORER_TX_URL } from "@/lib/explorerLinks";
 
 const APP = "https://openpy.space";
 const PRO = "https://openpaypro.space";
@@ -511,16 +510,16 @@ const HomeLanding = () => {
         caption="Pi Auth, MPIN, optional 2FA, KYC, disputes, and OpenLedger — receipts with Tx ID everywhere money moves."
       >
         <div className="grid lg:grid-cols-2 gap-10 items-center">
-          <div className="flex justify-center rounded-[28px] bg-[#EEF2FF] p-6 sm:p-8">
-            <PreviewScreenById id="pi-tx" />
+          <div className="rounded-[28px] bg-gradient-to-br from-[#2563EB] to-[#1D4ED8] p-8 sm:p-10">
+            <AuthCardMock />
           </div>
           <div>
             <ul className="space-y-3">
               {[
-                "OpenPay → Pi receipt after every send",
-                "Same tx in Activity history",
-                "Same tx in in-app Ledger",
-                "Pi Blockexplorer + OpenLedger hash links",
+                "Authenticate with Pi — one identity",
+                "MPIN on pays · optional 2FA",
+                "KYC unlocks higher limits & merchant",
+                "OpenLedger public explorer · dispute by Tx ID",
               ].map((line) => (
                 <li key={line} className="flex gap-3 text-[15px] text-slate-500">
                   <Check className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" strokeWidth={2.5} />
@@ -529,21 +528,9 @@ const HomeLanding = () => {
               ))}
             </ul>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href={PI_EXPLORER_TX_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="h-12 px-5 inline-flex items-center rounded-full bg-[#7D2AE8] text-[15px] font-semibold text-white"
-              >
-                Pi Explorer
-              </a>
-              <a
-                href={OPENLEDGER_TX_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="h-12 px-5 inline-flex items-center rounded-full bg-[#007AFF] text-[15px] font-semibold text-white"
-              >
-                OpenLedger
+              <BlueCta href={`${APP}/auth`}>Sign in</BlueCta>
+              <a href={`${APP}/auth/ledger`} className="h-12 px-5 inline-flex items-center text-[15px] font-semibold text-[#3B82F6]">
+                OpenLedger →
               </a>
               <Link to="/security" className="h-12 px-5 inline-flex items-center text-[15px] font-semibold text-[#3B82F6]">
                 Security →

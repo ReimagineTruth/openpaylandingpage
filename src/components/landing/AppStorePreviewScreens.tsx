@@ -38,7 +38,7 @@ function ScaledLatestFrame({ id }: { id: string }) {
   const dark = DARK_FRAMES.has(id as PreviewFrameId);
   return (
     <div
-      className="relative mx-auto w-[220px] overflow-hidden rounded-[22px] sm:w-[240px] sm:rounded-[24px]"
+      className="relative mx-auto w-[220px] overflow-hidden rounded-[27px] bg-transparent sm:w-[240px] sm:rounded-[30px]"
       style={{ aspectRatio: "390 / 844" }}
     >
       <div className="absolute left-0 top-0 origin-top-left scale-[0.5641] sm:scale-[0.6154]">
@@ -77,7 +77,4 @@ export function AiChatMock() {
 }
 export function NftGridMock() {
   return <ScaledLatestFrame id="nft" />;
-}
-export function PiTxPhoneMock() {
-  return <ScaledLatestFrame id="pi-tx" />;
 }

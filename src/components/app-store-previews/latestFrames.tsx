@@ -9,17 +9,14 @@ import {
   Bell,
   BookOpen,
   Bot,
-  Check,
   CheckCircle2,
   ChevronRight,
   Coins,
   CreditCard,
-  Download,
   FileText,
   Fingerprint,
   Gift,
   Globe,
-  Heart,
   HelpCircle,
   History,
   KeyRound,
@@ -49,20 +46,12 @@ import {
   Wallet,
   WalletCards,
   Webhook,
-  X,
   Zap,
 } from "lucide-react";
 import AuthMark from "@/components/AuthMark";
 import BrandLogo from "@/components/BrandLogo";
 import { APP_VERSION_LABEL } from "@/lib/appVersion";
 import { APPLE_PAY_LOGO } from "@/lib/applePayLogo";
-import {
-  OPENLEDGER_TX,
-  OPENLEDGER_TX_URL,
-  PI_EXPLORER_TX_URL,
-  PI_NETWORK_TX,
-  shortHash,
-} from "@/lib/explorerLinks";
 import { OUSD_TOKEN } from "@/lib/ousdPrice";
 import { BluePage, LightPage } from "./PhoneChrome";
 import { BlueBtn, BottomNavMock, Chip, Group, IosHeader, LogoMark, Row, SectionLabel } from "./previewKit";
@@ -75,7 +64,7 @@ const PRO = "/openpay-o.svg";
 
 export function AuthLatestFrame() {
   return (
-    <div className="h-full overflow-hidden rounded-[30px] bg-[#062468] px-5 pb-8 pt-14 text-white">
+    <div className="h-full overflow-hidden bg-[#062468] px-5 pb-8 pt-14 text-white">
       <div className="mb-5 text-center">
         <AuthMark className="mx-auto mb-3 h-14 w-14" />
         <h1 className="text-[28px] font-bold">OpenPay</h1>
@@ -281,14 +270,6 @@ export function SendLatestFrame() {
       </div>
       <div className="mx-4 mt-4 space-y-3">
         <div className="overflow-hidden rounded-[18px] bg-white text-[#1C1C1E]">
-          <div className="flex items-center gap-3 border-b border-black/[0.08] px-3.5 py-3">
-            <img src={PI} alt="" className="h-8 w-8 rounded-full bg-[#7D2AE8]/10" />
-            <div className="flex-1">
-              <p className="text-[16px] font-semibold">Pi Network</p>
-              <p className="text-[12px] text-[#8E8E93]">OpenPay → π · explorer receipt</p>
-            </div>
-            <span className="text-[14px] font-semibold text-[#007AFF]">Send</span>
-          </div>
           <Row icon={Zap} title="Express Send" subtitle="PayMongo InstaPay / PESONet" />
           <Row icon={Landmark} title="List of Banks" subtitle="152 InstaPay & PESONet receivers" last />
         </div>
@@ -393,7 +374,7 @@ export function InvoiceLatestFrame() {
 
 export function ScanLatestFrame() {
   return (
-    <div className="relative h-full overflow-hidden rounded-[30px] bg-[#0B0B0F] text-white">
+    <div className="relative h-full overflow-hidden bg-[#0B0B0F] text-white">
       <div className="flex items-center justify-between px-4 pt-12">
         <span className="text-[22px] leading-none">‹</span>
         <h1 className="text-[17px] font-semibold">Scan QR Code</h1>
@@ -754,94 +735,6 @@ export function WithdrawLatestFrame() {
   );
 }
 
-export function PiTxModalLatestFrame() {
-  return (
-    <div className="relative h-full overflow-hidden rounded-[30px] bg-[#4A5564]">
-      <div className="absolute inset-0 px-6 pt-16 text-white/40">
-        <p className="text-[15px] font-semibold">Send</p>
-        <p className="mt-6 text-[40px] font-bold tracking-tight">123.00</p>
-        <p className="text-[13px]">OUSD → Pi Wallet</p>
-      </div>
-      <div className="absolute inset-0 bg-[#2C3440]/50 backdrop-blur-[20px]" />
-
-      <div className="absolute inset-x-[22px] top-[58px] z-10 overflow-hidden rounded-[32px] bg-white shadow-[0_28px_90px_rgba(0,0,0,0.42)]">
-        <div className="relative bg-[#007AFF] px-6 pb-8 pt-6 text-center text-white">
-          <span className="absolute right-4 top-4 flex h-7 w-7 items-center justify-center rounded-full bg-[#3A3A3C]">
-            <X className="h-3.5 w-3.5" strokeWidth={2.75} />
-          </span>
-          <div className="relative mx-auto flex h-[78px] w-[78px] items-center justify-center">
-            <span className="absolute inset-0 rounded-full border-[2.5px] border-dashed border-white/95" />
-            <Check className="h-9 w-9" strokeWidth={2.75} />
-          </div>
-          <h2 className="mt-4 text-[28px] font-bold tracking-tight">Thank You!</h2>
-          <p className="mt-1 text-[15px] font-medium text-white/90">Payment sent successfully</p>
-        </div>
-
-        <div className="px-5 pb-6 pt-5">
-          <div className="flex items-center gap-3 rounded-[16px] bg-[#F2F2F7] px-3.5 py-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-[13px] font-bold text-[#007AFF] shadow-sm">
-              PW
-            </span>
-            <div className="min-w-0">
-              <p className="text-[16px] font-semibold tracking-tight text-[#1C1C1E]">Pi Wallet</p>
-              <p className="truncate font-mono text-[12px] text-[#8E8E93]">@GDSXE7…D4LJ</p>
-            </div>
-          </div>
-
-          <p className="mt-5 text-center text-[34px] font-bold tracking-tight text-[#1C1C1E]">$123.00</p>
-
-          <div className="mt-5 flex items-center gap-3 rounded-[16px] bg-[#EAF2FF] px-3.5 py-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#007AFF] shadow-sm">
-              <Heart className="h-4 w-4" fill="currentColor" />
-            </span>
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#8E8E93]">Purpose</p>
-              <p className="text-[15px] font-semibold text-[#1C1C1E]">Pi_wallet_xfer</p>
-            </div>
-          </div>
-
-          <a
-            href={PI_EXPLORER_TX_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2.5 flex items-center gap-3 rounded-[16px] bg-[#F2F2F7] px-3.5 py-3"
-          >
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#7D2AE8] shadow-sm">
-              <FileText className="h-4 w-4" />
-            </span>
-            <div className="min-w-0">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#8E8E93]">Note</p>
-              <p className="truncate font-mono text-[13px] font-semibold text-[#1C1C1E]">
-                Pi tx {PI_NETWORK_TX.slice(0, 12)}…
-              </p>
-            </div>
-          </a>
-
-          <div className="mt-5 flex h-[50px] items-center justify-center rounded-full bg-[#007AFF] text-[17px] font-semibold text-white">
-            Done
-          </div>
-          <a
-            href={OPENLEDGER_TX_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 flex items-center justify-center gap-1.5 text-[15px] font-semibold text-[#007AFF]"
-          >
-            <Download className="h-4 w-4" />
-            View Receipt
-          </a>
-        </div>
-      </div>
-
-      <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded-full bg-white px-3.5 py-2.5 shadow-[0_12px_40px_rgba(0,0,0,0.22)]">
-        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#1C1C1E] text-white">
-          <Check className="h-3 w-3" strokeWidth={3} />
-        </span>
-        <p className="whitespace-nowrap text-[12px] font-semibold text-[#1C1C1E]">Sent 123.00 OUSD to Pi Wallet</p>
-      </div>
-    </div>
-  );
-}
-
 export function ConverterLatestFrame() {
   return (
     <LightPage>
@@ -1034,7 +927,7 @@ export function LoansLatestFrame() {
 
 export function CardLatestFrame() {
   return (
-    <div className="h-full overflow-hidden rounded-[30px] bg-gradient-to-b from-[#007AFF] to-[#072a7a] px-4 pt-12 text-white">
+    <div className="h-full overflow-hidden bg-gradient-to-b from-[#007AFF] to-[#072a7a] px-4 pt-12 text-white">
       <p className="text-white/80">‹ Back</p>
       <h1 className="mt-2 text-[26px] font-bold">OpenPay Virtual Card</h1>
       <p className="mt-1 text-[13px] text-white/70">Linked · 1,284.50 OUSD</p>
@@ -1121,7 +1014,7 @@ export function AiLatestFrame() {
 
 export function NftLatestFrame() {
   return (
-    <div className="h-full overflow-hidden rounded-[30px] bg-[#08080a] px-4 pt-12 text-white">
+    <div className="h-full overflow-hidden bg-[#08080a] px-4 pt-12 text-white">
       <div className="flex items-center justify-between">
         <p className="text-[22px] font-bold">OpenNFT</p>
         <span className="rounded-full bg-white px-3 py-1.5 text-[12px] font-semibold text-black">Mint NFT</span>
@@ -1177,7 +1070,7 @@ export function PosLatestFrame() {
 export function ActivityLatestFrame() {
   return (
     <LightPage>
-      <IosHeader title="Activity" subtitle="Newest first · OpenPay → Pi receipt" />
+      <IosHeader title="Activity" subtitle="Newest first" />
       <div className="mx-4 flex gap-2">
         {["All", "Transfers", "Merchant", "NFT"].map((t, i) => (
           <Chip key={t} active={i === 0}>{t}</Chip>
@@ -1185,20 +1078,11 @@ export function ActivityLatestFrame() {
       </div>
       <div className="mx-4 mt-3">
         <Group>
-          <a href={PI_EXPLORER_TX_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 border-b border-black/[0.08] px-3.5 py-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#FF3B30]/10 text-[#FF3B30]">
-              <ArrowUpRight className="h-4 w-4" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="text-[15px] font-semibold">Pi Wallet</p>
-              <p className="font-mono text-[11px] text-[#7D2AE8]">{shortHash(PI_NETWORK_TX)}</p>
-            </div>
-            <p className="text-[15px] font-bold">−123.00</p>
-          </a>
           {[
             ["Sent to @alice", "−25.00", "Today"],
             ["Cash In · Apple Pay", "+50.00", "Today"],
             ["QR Pay · Store", "+18.00", "Yesterday"],
+            ["Mining claim", "+0.25", "Yesterday"],
           ].map(([t, a, d], i, arr) => (
             <div key={t} className={`flex items-center gap-3 px-3.5 py-3 ${i < arr.length - 1 ? "border-b border-black/[0.08]" : ""}`}>
               <span className={`flex h-9 w-9 items-center justify-center rounded-full ${String(a).startsWith("+") ? "bg-[#34C759]/12 text-[#34C759]" : "bg-[#FF3B30]/10 text-[#FF3B30]"}`}>
@@ -1291,7 +1175,7 @@ export function SettingsLatestFrame() {
 
 export function TwoFactorLatestFrame() {
   return (
-    <div className="h-full overflow-hidden rounded-[30px] bg-gradient-to-b from-[#007AFF] to-[#072a7a] px-4 pt-12 text-white">
+    <div className="h-full overflow-hidden bg-gradient-to-b from-[#007AFF] to-[#072a7a] px-4 pt-12 text-white">
       <p className="text-white/80">‹ Back</p>
       <div className="mt-6 rounded-[24px] bg-white p-5 text-[#1C1C1E]">
         <AuthMark className="mx-auto h-12 w-12" />
@@ -1599,25 +1483,17 @@ export function DevelopersLatestFrame() {
 export function LedgerLatestFrame() {
   return (
     <LightPage>
-      <IosHeader title="OpenLedger" subtitle="Tap a row · Pi explorer + OpenLedger" />
+      <IosHeader title="OpenLedger" subtitle="Amounts in OUSD · user IDs hidden" />
       <div className="mx-4">
         <div className="rounded-[12px] bg-white px-4 py-2.5 text-[16px] text-[#8E8E93]">Search ledger</div>
         <Group className="mt-3">
-          <a href={OPENLEDGER_TX_URL} target="_blank" rel="noopener noreferrer" className="block px-3.5 py-3">
-            <div className="flex items-center justify-between gap-3">
-              <div className="min-w-0">
-                <p className="text-[15px] font-semibold">Pi Wallet</p>
-                <p className="font-mono text-[11px] text-[#007AFF]">{shortHash(OPENLEDGER_TX)}</p>
-              </div>
-              <p className="shrink-0 font-bold">−123.00</p>
-            </div>
-          </a>
           {[
             ["+50.00", "Apple Pay"],
             ["−25.00", "P2P send"],
             ["+18.00", "QR Pay"],
-          ].map(([a, m]) => (
-            <div key={m} className="flex items-center justify-between border-t border-black/[0.08] px-3.5 py-3">
+            ["+0.25", "Mining"],
+          ].map(([a, m], i) => (
+            <div key={m} className={`flex items-center justify-between px-3.5 py-3 ${i ? "border-t border-black/[0.08]" : ""}`}>
               <div>
                 <p className="text-[15px] font-semibold">{m}</p>
                 <p className="text-[11px] text-[#8E8E93]">2 min ago</p>
@@ -1626,14 +1502,6 @@ export function LedgerLatestFrame() {
             </div>
           ))}
         </Group>
-        <a
-          href={PI_EXPLORER_TX_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 flex h-11 items-center justify-center rounded-[14px] bg-[#7D2AE8] text-[14px] font-semibold text-white"
-        >
-          Pi Blockexplorer
-        </a>
       </div>
     </LightPage>
   );

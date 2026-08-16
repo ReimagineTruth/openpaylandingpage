@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Activity, Shield, Link2, Search, Database, Clock, ArrowRight, ExternalLink, Hash, TrendingUp } from "lucide-react";
-import { OPENLEDGER_TX, OPENLEDGER_TX_URL, PI_EXPLORER_TX_URL, PI_NETWORK_TX, shortHash } from "@/lib/explorerLinks";
 
 const OpenLedgerShowcaseSection = () => {
   const metrics = [
@@ -67,22 +66,6 @@ const OpenLedgerShowcaseSection = () => {
                 <Search size={16} className="text-muted-foreground" />
                 <span className="text-sm text-muted-foreground font-mono truncate">Search block, tx, or address…</span>
               </div>
-              <a
-                href={OPENLEDGER_TX_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mb-5 block rounded-xl border border-accent/30 bg-accent/5 p-3 hover:bg-accent/10 transition-colors"
-              >
-                <p className="text-xs font-semibold uppercase tracking-wider text-accent">Featured · OpenPay → Pi</p>
-                <p className="mt-1 font-mono text-sm font-semibold text-foreground">{shortHash(OPENLEDGER_TX)}</p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Payment · −25.00 OUSD · +80.12 π ·{" "}
-                  <span className="text-accent">View on OpenLedger</span>
-                </p>
-                <p className="mt-1 font-mono text-[11px] text-muted-foreground">
-                  Pi · {shortHash(PI_NETWORK_TX)}
-                </p>
-              </a>
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">Latest Blocks</p>
               <div className="space-y-2">
                 {recentBlocks.map((b, i) => (
@@ -129,14 +112,9 @@ const OpenLedgerShowcaseSection = () => {
                 ))}
               </ul>
             </div>
-            <div>
-              <a href={OPENLEDGER_TX_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-accent rounded-full font-semibold hover:bg-white/90 transition-all">
-                Open this transaction <ExternalLink size={16} />
-              </a>
-              <a href={PI_EXPLORER_TX_URL} target="_blank" rel="noopener noreferrer" className="mt-3 flex items-center text-sm font-semibold text-white/80 hover:text-white">
-                Pi Blockexplorer →
-              </a>
-            </div>
+            <a href="https://www.openpyledger.space/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-accent rounded-full font-semibold hover:bg-white/90 transition-all self-start">
+              Open Explorer <ExternalLink size={16} />
+            </a>
           </motion.div>
         </div>
 

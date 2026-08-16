@@ -33,7 +33,7 @@ interface BlogPost {
 function BlogUiMock({ id }: { id: PreviewFrameId }) {
   return (
     <div className="my-8 flex justify-center">
-      <div className="relative w-[min(100%,280px)] overflow-hidden rounded-[29px]" style={{ aspectRatio: "390 / 844" }}>
+      <div className="relative w-[min(100%,280px)] overflow-hidden rounded-[34px] bg-transparent" style={{ aspectRatio: "390 / 844" }}>
         <div className="absolute left-0 top-0 origin-top-left scale-[0.7179]">
           <PhoneChrome statusLight={DARK_FRAMES.has(id)}>
             {renderPreviewFrame(id)}
@@ -1006,12 +1006,12 @@ No. **Cash In** funds *your* wallet. **QR Pay** lets customers pay *you* as a me
     id: "openpay-new-features-blog-pack",
     slug: "openpay-new-features-blog-pack",
     title: "OpenPay — New Features Blog Pack (after QR Pay)",
-    date: "Aug 10, 2026",
+    date: "Aug 16, 2026",
     author: "OpenPay Team",
     category: "Update",
-    desc: "After QR Pay: Cash In, Bank Transfer, Apple Pay, PayMongo Links, and a redesigned Services Menu — the full fund → earn → send → get paid loop.",
-    meta: "After QR Pay: Cash In, Bank Transfer, Apple Pay, PayMongo Links, and a redesigned Services Menu — the complete fund → earn → send → get paid loop on OpenPay.",
-    tags: ["cash-in", "bank-transfer", "apple-pay", "paymongo", "services", "qr-pay", "ousd"],
+    desc: "After QR Pay: Cash In, Bank Transfer, Apple Pay, PayMongo Links, Services Menu, Scanner, and OpenPay → Pi Wallet — the full fund → earn → send → get paid loop.",
+    meta: "After QR Pay: Cash In, Bank Transfer, Apple Pay, PayMongo Links, Services Menu, Scanner, and OpenPay → Pi Wallet — the complete fund → earn → send → get paid loop on OpenPay.",
+    tags: ["cash-in", "bank-transfer", "apple-pay", "paymongo", "services", "scanner", "pi-wallet", "qr-pay", "ousd"],
     hero: "Fund. Earn. Send. Get paid.",
     cta_text: "Read the OpenPay blog",
     cta_link: "https://www.openpy.space/blog",
@@ -1019,7 +1019,6 @@ No. **Cash In** funds *your* wallet. **QR Pay** lets customers pay *you* as a me
 
 Use this index when exploring what’s new on [openpy.space/blog](https://www.openpy.space/blog). Each post is a **standalone guide** with tutorials and UI/UX mockups — same style as the QR Pay flagship story.
 
-**Latest:** [OpenPay Scanner Update](/blog/openpay-scanner-update) · Live: [https://openpy.space/scan-qr](https://openpy.space/scan-qr)  
 **Previous flagship:** [OpenPay QR Pay](/blog/openpay-qr-pay) · Live: [https://openpy.space/qr-pay](https://openpy.space/qr-pay)
 
 ---
@@ -1028,14 +1027,15 @@ Use this index when exploring what’s new on [openpy.space/blog](https://www.op
 
 | # | Post | Slug | One-line pitch |
 |---|------|------|----------------|
-| 0 | [Scanner Update](/blog/openpay-scanner-update) | \`openpay-scanner-update\` | One camera for OpenPay, Pro, QR Ph & bank |
-| 1 | Cash In | \`openpay-cash-in\` | Fund OUSD via QR Ph, e-wallets, cards & Apple Pay |
-| 2 | Bank Transfer | \`openpay-bank-transfer\` | InstaPay / PESONet from wallet to PH banks |
-| 3 | Apple Pay | \`openpay-apple-pay\` | Face ID top-ups + shortfall CTAs |
+| 1 | [Cash In](/blog/openpay-cash-in) | \`openpay-cash-in\` | Fund OUSD via QR Ph, e-wallets, cards & Apple Pay |
+| 2 | [Bank Transfer](/blog/openpay-bank-transfer) | \`openpay-bank-transfer\` | InstaPay / PESONet from wallet to PH banks |
+| 3 | [Apple Pay](/blog/openpay-apple-pay) | \`openpay-apple-pay\` | Face ID top-ups + shortfall CTAs |
 | 4 | [PayMongo Payment Links](/blog/openpay-paymongo-payment-links) | \`openpay-paymongo-payment-links\` | Shareable PayMongo \`pm.link\` → OUSD |
 | 5 | [Services Menu](/blog/openpay-services-menu) | \`openpay-services-menu\` | Redesigned Services / Transactions grid |
+| 6 | [Scanner update](/blog/openpay-scanner-update) | \`openpay-scanner-update\` | One camera for OpenPay, Pro, QR Ph & bank |
+| 7 | [OpenPay → Pi Wallet](/blog/openpay-to-pi-wallet) | \`openpay-to-pi-wallet\` | Debit OpenPay OUSD, credit OpenUSD in Pi Wallet |
 
-**Open the products:** [Scan QR](https://openpy.space/scan-qr) · [Cash In](https://openpy.space/cash-in) · [Bank Transfer](https://openpy.space/bank-transfer) · [Apple Pay](https://openpy.space/topup-apple-pay) · [PayMongo Links](https://openpy.space/paymongo-links) · [Services Menu](https://openpy.space/menu)
+**Open the products:** [Cash In](https://openpy.space/cash-in) · [Bank Transfer](https://openpy.space/bank-transfer) · [Apple Pay](https://openpy.space/topup-apple-pay) · [PayMongo Links](https://openpy.space/paymongo-links) · [Services Menu](https://openpy.space/menu) · [Scan QR](https://openpy.space/scan-qr)
 
 ---
 
@@ -1055,12 +1055,13 @@ For each post:
 
 | Post | OG description |
 |------|----------------|
-| Scanner | Scan any OpenPay, Pro, or QR Ph code. One camera. Instant send. |
 | Cash In | Add money with QR Ph, GCash, Maya, or Apple Pay. |
 | Bank Transfer | Send to any PH bank with InstaPay or PESONet. |
 | Apple Pay | Top up OUSD with Face ID — never stuck mid-send. |
 | PayMongo Links | Share a PHP checkout link. Get paid in OUSD. |
 | Services Menu | Every OpenPay action — finally readable on mobile. |
+| Scanner update | One camera for OpenPay, OpenPay Pro, QR Ph, and bank. |
+| Pi Wallet send | Debit OpenPay OUSD. Credit OpenUSD in Pi Wallet. |
 
 ---
 
@@ -1093,18 +1094,20 @@ flowchart TD
 
 ## Related stories already live
 
-- [OpenPay Scanner Update — OpenPay, OpenPay Pro, QR Ph & Bank in One Scan](/blog/openpay-scanner-update)
-- [OpenPay QR Pay — Accept Payments with QR Codes & Links](/blog/openpay-qr-pay)
-- [OpenPay PayMongo Payment Links — Share PHP Checkout Like QR Pay](/blog/openpay-paymongo-payment-links)
-- [OpenPay Services Menu — Redesigned Transaction Grid](/blog/openpay-services-menu)
+- [OpenPay → Pi Wallet](/blog/openpay-to-pi-wallet) — debit OpenPay OUSD, credit OpenUSD in Pi Wallet
+- [OpenPay Scanner Update](/blog/openpay-scanner-update) — one camera for OpenPay, OpenPay Pro, QR Ph
+- [OpenPay QR Pay](/blog/openpay-qr-pay)
+- [QR Pay landing](/qr-pay)
+- [Third-party Auth & Checkout](/blog/openpay-third-party-integration)
+- [OpenPay NFT](/blog/openpay-nft-marketplace)
 - [Meet OpenPay AI](/blog/meet-openpay-ai)
-- [OpenPay NFT — Complete Feature Blog](/blog/openpay-nft-marketplace)
+- [Core wallet features](/blog/core-wallet-features-guide)
 
 ---
 
 ## Closing
 
-Ship **Cash In → Bank Transfer → Apple Pay → PayMongo Links → Services Menu** after the QR Pay story so readers see a complete **fund → earn → send → get paid** loop on OpenPay.
+Ship **Cash In → Bank Transfer → Apple Pay → PayMongo Links → Services Menu** after the QR Pay story so readers see a complete **fund → earn → send → get paid** loop on OpenPay. Then add **Scanner** and **OpenPay → Pi Wallet**.
 
 **Explore the blog →** [https://www.openpy.space/blog](https://www.openpy.space/blog)
 `

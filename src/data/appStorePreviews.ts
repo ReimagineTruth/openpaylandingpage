@@ -1,5 +1,4 @@
 import { PREVIEW_FRAMES } from "@/components/app-store-previews/featureFrames";
-import { OPENLEDGER_TX_URL } from "@/lib/explorerLinks";
 
 export type PreviewGroup =
   | "Onboarding"
@@ -61,7 +60,6 @@ const HREF: Record<string, string> = {
   usdc: `${APP}/auth/topup-usdc`,
   "pro-topup": `${APP}/auth/send/pro`,
   withdraw: `${APP}/auth/swap-withdrawal`,
-  "pi-tx": OPENLEDGER_TX_URL,
   converter: `${APP}/auth/currency-converter`,
   "topup-history": `${APP}/auth/topup-history`,
   mining: `${APP}/auth/mining`,
