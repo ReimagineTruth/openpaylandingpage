@@ -33,7 +33,12 @@ import {
   PartnerApiLatestFrame,
   PaymentLinksLatestFrame,
   PaypalLatestFrame,
+  PiActivityLatestFrame,
   PiAdsLatestFrame,
+  PiNotificationsLatestFrame,
+  PiReceiptLatestFrame,
+  PiSetupLatestFrame,
+  PiThankYouLatestFrame,
   PiTopUpLatestFrame,
   PosLatestFrame,
   ProductsLatestFrame,
@@ -46,7 +51,10 @@ import {
   SavingsLatestFrame,
   ScanHelpLatestFrame,
   ScanLatestFrame,
+  ScanPiLatestFrame,
   SendLatestFrame,
+  SendPiFormLatestFrame,
+  SendPiHubLatestFrame,
   SettingsLatestFrame,
   StakingLatestFrame,
   StripeLatestFrame,
@@ -69,11 +77,14 @@ export type PreviewFrameId =
   | "savings"
   | "openusd"
   | "send"
+  | "send-pi-hub"
+  | "send-pi"
   | "receive"
   | "request"
   | "invoice"
   | "scan"
   | "scan-help"
+  | "scan-pi"
   | "qrpay"
   | "contacts"
   | "buy"
@@ -124,7 +135,12 @@ export type PreviewFrameId =
   | "app-marketplace"
   | "guide"
   | "support-channels"
-  | "send-pro";
+  | "send-pro"
+  | "pi-thankyou"
+  | "pi-activity"
+  | "pi-receipt"
+  | "pi-notifications"
+  | "pi-setup";
 
 export type PreviewFrameMeta = {
   id: PreviewFrameId;
@@ -143,10 +159,18 @@ export const PREVIEW_FRAMES: PreviewFrameMeta[] = [
   { id: "savings", title: "Savings", feature: "3.75% p.a.", file: "06-savings.png", group: "Wallet" },
   { id: "openusd", title: "OpenUSD", feature: "OUSD $1 peg", file: "07-openusd.png", group: "Wallet" },
   { id: "send", title: "Send", feature: "Express Send / Pro", file: "08-send.png", group: "Payments" },
+  { id: "send-pi-hub", title: "Send hub", feature: "OpenPay · Pro · Pi Wallet", file: "08b-send-pi-hub.png", group: "Payments" },
+  { id: "send-pi", title: "Send to Pi Wallet", feature: "Debit OUSD · credit OpenUSD", file: "08c-send-pi.png", group: "Payments" },
   { id: "request", title: "Request", feature: "QR receive money", file: "09-request.png", group: "Payments" },
   { id: "invoice", title: "Invoice", feature: "Bill a customer", file: "10-invoice.png", group: "Payments" },
   { id: "scan", title: "Scan QR", feature: "One camera for every QR", file: "11-scan.png", group: "Payments" },
   { id: "scan-help", title: "Scan safely", feature: "How to scan tutorial", file: "12-scan-help.png", group: "Payments" },
+  { id: "scan-pi", title: "Scan Pi Wallet", feature: "Pi G-address is first-class", file: "12b-scan-pi.png", group: "Payments" },
+  { id: "pi-thankyou", title: "Pi Thank You", feature: "Explorer + OpenLedger", file: "12c-pi-thankyou.png", group: "Payments" },
+  { id: "pi-activity", title: "Pi Activity", feature: "Chain + ledger details", file: "12d-pi-activity.png", group: "Payments" },
+  { id: "pi-receipt", title: "Pi Receipt", feature: "Full OpenPay → Pi receipt", file: "12e-pi-receipt.png", group: "Payments" },
+  { id: "pi-notifications", title: "Pi Alerts", feature: "Sent to Pi Wallet", file: "12f-pi-notifications.png", group: "Payments" },
+  { id: "pi-setup", title: "Enable OpenUSD", feature: "Recipient Pi Wallet setup", file: "12g-pi-setup.png", group: "Payments" },
   { id: "qrpay", title: "QR Pay", feature: "Create QR payments", file: "13-qrpay.png", group: "Payments" },
   { id: "contacts", title: "Contacts", feature: "People you send to", file: "14-contacts.png", group: "Payments" },
   { id: "pi-topup", title: "Cash in with Pi", feature: "Automatic Pi credit", file: "15-pi-topup.png", group: "Money" },
@@ -203,6 +227,8 @@ export const DARK_FRAMES = new Set<PreviewFrameId>([
   "request",
   "invoice",
   "scan",
+  "scan-pi",
+  "pi-thankyou",
   "withdraw",
   "mining",
   "affiliate",
@@ -219,11 +245,14 @@ const FRAME_MAP: Record<PreviewFrameId, () => ReactNode> = {
   savings: SavingsLatestFrame,
   openusd: OpenUsdLatestFrame,
   send: SendLatestFrame,
+  "send-pi-hub": SendPiHubLatestFrame,
+  "send-pi": SendPiFormLatestFrame,
   receive: RequestLatestFrame,
   request: RequestLatestFrame,
   invoice: InvoiceLatestFrame,
   scan: ScanLatestFrame,
   "scan-help": ScanHelpLatestFrame,
+  "scan-pi": ScanPiLatestFrame,
   qrpay: QrPayLatestFrame,
   contacts: ContactsLatestFrame,
   buy: PiTopUpLatestFrame,
@@ -275,6 +304,11 @@ const FRAME_MAP: Record<PreviewFrameId, () => ReactNode> = {
   guide: GuideLatestFrame,
   "support-channels": SupportChannelsLatestFrame,
   "send-pro": SendLatestFrame,
+  "pi-thankyou": PiThankYouLatestFrame,
+  "pi-activity": PiActivityLatestFrame,
+  "pi-receipt": PiReceiptLatestFrame,
+  "pi-notifications": PiNotificationsLatestFrame,
+  "pi-setup": PiSetupLatestFrame,
 };
 
 export function renderPreviewFrame(id: PreviewFrameId | string) {
@@ -284,8 +318,20 @@ export function renderPreviewFrame(id: PreviewFrameId | string) {
 
 export function frameIdForMockup(heading: string, code = "", slug = ""): PreviewFrameId {
   const t = `${heading} ${code} ${slug}`.toLowerCase();
+  const h = heading.toLowerCase();
+  if (slug.includes("openpay-to-pi-wallet") || t.includes("openpay-to-pi-wallet")) {
+    if (h.includes("scan")) return "scan-pi";
+    if (h.includes("thank")) return "pi-thankyou";
+    if (h.includes("activity") || h.includes("blockchain")) return "pi-activity";
+    if (h.includes("receipt") || h.includes("transaction details")) return "pi-receipt";
+    if (h.includes("notification")) return "pi-notifications";
+    if (h.includes("enable") || h.includes("recipient") || h.includes("setup") || h.includes("callout")) return "pi-setup";
+    if (h.includes("form") || h.includes("send to pi wallet")) return "send-pi";
+    return "send-pi-hub";
+  }
   if (t.includes("scan safely") || t.includes("how to scan")) return "scan-help";
   if (t.includes("scan qr") || t.includes("viewfinder") || (t.includes("camera") && t.includes("paste"))) return "scan";
+  if (t.includes("send to pi") || t.includes("pi wallet")) return "send-pi";
   if (t.includes("apple pay") || t.includes("face id") || t.includes("top up screen")) return "stripe";
   if (t.includes("paypal")) return "paypal";
   if (t.includes("google pay")) return "google-pay";

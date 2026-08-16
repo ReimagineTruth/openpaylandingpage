@@ -9,6 +9,7 @@ import {
   Bell,
   BookOpen,
   Bot,
+  Check,
   CheckCircle2,
   ChevronRight,
   Coins,
@@ -57,7 +58,12 @@ import { BluePage, LightPage } from "./PhoneChrome";
 import { BlueBtn, BottomNavMock, Chip, Group, IosHeader, LogoMark, Row, SectionLabel } from "./previewKit";
 
 const PI = "/payment-providers/pi.svg";
+const PI_NETWORK = "/payment-providers/pi-network.svg";
 const PAYPAL = "/payment-providers/paypal.svg";
+
+function PiNetworkMark({ className = "h-9 w-9" }: { className?: string }) {
+  return <img src={PI_NETWORK} alt="" className={`rounded-full object-cover ${className}`} />;
+}
 const VISA = "/payment-providers/visa.svg";
 const MC = "/payment-providers/mastercard.svg";
 const PRO = "/openpay-o.svg";
@@ -394,17 +400,17 @@ export function ScanLatestFrame() {
         ))}
       </div>
       <p className="mt-3 px-4 text-center text-[12px] font-semibold text-white/75">
-        OpenPay · OpenPay Pro · QR Pay · QR Ph / InstaPay
+        OpenPay · OpenPay Pro · π Wallet · QR Pay · QR Ph / InstaPay
       </p>
       <div className="mt-2 flex flex-wrap justify-center gap-1.5 px-4">
-        {["OpenPay", "Pro", "maya", "GCash", "QR Ph"].map((t) => (
+        {["OpenPay", "Pro", "π", "maya", "GCash", "QR Ph"].map((t) => (
           <span key={t} className="rounded-full bg-white px-2.5 py-1 text-[10px] font-bold text-[#1C1C1E]">
             {t}
           </span>
         ))}
       </div>
       <p className="mt-3 px-8 text-center text-[12px] leading-snug text-white/65">
-        OpenPay to OpenPay, OpenPay to OpenPay Pro, QR Ph, bank, and international — one scan.
+        OpenPay to OpenPay, OpenPay to OpenPay Pro, Pi Wallet, QR Ph, bank, and international — one scan.
       </p>
       <div className="mx-auto mt-5 flex h-[210px] w-[210px] items-center justify-center rounded-[28px] border-2 border-white/45">
         <QrCode className="h-16 w-16 text-white/35" />
@@ -422,12 +428,12 @@ export function ScanHelpLatestFrame() {
           <QrCode className="h-7 w-7 text-[#007AFF]" />
         </span>
         <h1 className="mt-3 text-[22px] font-bold">How to scan safely</h1>
-        <p className="mt-1 text-[13px] text-[#8E8E93]">OpenPay, OpenPay Pro, QR Pay, and QR Ph / InstaPay codes are supported.</p>
+        <p className="mt-1 text-[13px] text-[#8E8E93]">OpenPay, OpenPay Pro, Pi Wallet, QR Pay, and QR Ph / InstaPay codes are supported.</p>
       </div>
       <div className="mx-4 mt-4 space-y-3">
         <Group>
           <div className="flex flex-wrap gap-1.5 px-4 py-3">
-            {["OpenPay", "Pro", "Maya", "GCash", "QR Ph", "InstaPay"].map((t) => (
+            {["OpenPay", "Pro", "π Wallet", "Maya", "GCash", "QR Ph", "InstaPay"].map((t) => (
               <Chip key={t} active={t === "OpenPay"}>
                 {t}
               </Chip>
@@ -437,6 +443,7 @@ export function ScanHelpLatestFrame() {
         <Group>
           <Row icon={Send} title="OpenPay to OpenPay" subtitle="Wallet, checkout, merchant QR" />
           <Row icon={ArrowLeftRight} title="OpenPay to OpenPay Pro" subtitle="@username or 0x wallet" />
+          <Row icon={Coins} title="OpenPay to Pi Wallet" subtitle="G-address · OpenUSD on Pi" />
           <Row icon={Landmark} title="OpenPay to bank" subtitle="QR Ph auto-fill" />
           <Row icon={Globe} title="International" subtitle="OpenPay rails beyond local payouts" />
           <Row icon={ShieldCheck} title="Verify before you pay" subtitle="Name, handle, or bank details" last />
@@ -444,6 +451,376 @@ export function ScanHelpLatestFrame() {
         <div className="grid grid-cols-2 gap-2">
           <div className="flex h-11 items-center justify-center rounded-[14px] bg-white text-[15px] font-semibold">Close</div>
           <BlueBtn className="h-11">I Understand</BlueBtn>
+        </div>
+      </div>
+    </LightPage>
+  );
+}
+
+const PI_G = "GDSXE7…D4LJ";
+const PI_G_LONG = "GDSXE7…VD4LJ";
+
+export function SendPiHubLatestFrame() {
+  return (
+    <LightPage>
+      <div className="flex items-center px-4 pt-12">
+        <span className="text-[22px] leading-none text-[#007AFF]">‹</span>
+        <h1 className="flex-1 text-center text-[17px] font-semibold">Send</h1>
+        <span className="w-4" />
+      </div>
+      <div className="mx-4 mt-4 inline-flex w-[calc(100%-0px)] rounded-full bg-[#E5E5EA] p-1">
+        {["OpenPay", "Pro", "π"].map((t, i) => (
+          <span
+            key={t}
+            className={`flex-1 py-1.5 text-center text-[13px] font-semibold ${i === 2 ? "rounded-full bg-white text-[#007AFF] shadow-sm" : "text-[#8E8E93]"}`}
+          >
+            {t}
+          </span>
+        ))}
+      </div>
+      <div className="mx-4 mt-4 overflow-hidden rounded-[18px] bg-white">
+        <div className="flex items-center gap-3 px-4 py-4">
+          <PiNetworkMark className="h-12 w-12" />
+          <div className="min-w-0 flex-1">
+            <p className="text-[17px] font-semibold text-[#1C1C1E]">Send to Pi Wallet</p>
+            <p className="mt-0.5 text-[13px] leading-snug text-[#8E8E93]">Credit OpenUSD (OUSD) to a Pi Wallet G-address.</p>
+          </div>
+          <ChevronRight className="h-5 w-5 text-[#C7C7CC]" />
+        </div>
+      </div>
+      <div className="mx-4 mt-3 space-y-2">
+        <Group>
+          <Row icon={Send} title="OpenPay to OpenPay" subtitle="Wallet · username · QR" />
+          <Row icon={ArrowLeftRight} title="OpenPay to Pro" subtitle="@username or 0x wallet" last />
+        </Group>
+      </div>
+    </LightPage>
+  );
+}
+
+export function SendPiFormLatestFrame() {
+  return (
+    <LightPage>
+      <div className="flex items-center gap-2 px-4 pt-12">
+        <span className="text-[22px] leading-none text-[#007AFF]">‹</span>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-1.5">
+            <h1 className="text-[17px] font-semibold leading-tight">Send to Pi Wallet</h1>
+            <PiNetworkMark className="h-5 w-5" />
+          </div>
+          <p className="text-[11px] text-[#8E8E93]">OpenPay → Pi Network</p>
+        </div>
+      </div>
+      <div className="mx-4 mt-3 space-y-3">
+        <div className="rounded-[18px] bg-[#007AFF] px-4 py-3.5 text-white">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-white/75">Your balance</p>
+          <p className="mt-0.5 text-[28px] font-bold tracking-tight">8.87 OUSD</p>
+          <p className="mt-1 text-[12px] leading-snug text-white/85">
+            Debits OpenPay OUSD and credits OpenUSD in the recipient’s Pi Wallet.
+          </p>
+        </div>
+        <div className="rounded-[18px] bg-white px-3.5 py-3">
+          <div className="flex items-start gap-3">
+            <PiNetworkMark className="h-10 w-10" />
+            <div>
+              <p className="text-[15px] font-semibold">Pi Wallet · OpenUSD</p>
+              <p className="mt-0.5 text-[12px] leading-snug text-[#8E8E93]">
+                Recipient must enable OUSD in Pi Wallet (Tokens) first.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className="mb-1.5 flex items-center justify-between px-1">
+            <p className="text-[13px] font-semibold">Pi Wallet address</p>
+            <span className="flex items-center gap-1 text-[13px] font-semibold text-[#007AFF]">
+              <ScanLine className="h-3.5 w-3.5" /> Scan
+            </span>
+          </div>
+          <div className="rounded-[14px] bg-white px-3.5 py-3 font-mono text-[15px] font-semibold">{PI_G_LONG}</div>
+          <p className="mt-1.5 px-1 text-[11px] text-[#8E8E93]">Paste from Pi Wallet → Receive, or tap Scan.</p>
+        </div>
+        <div>
+          <p className="mb-1.5 px-1 text-[13px] font-semibold">Amount (OUSD)</p>
+          <div className="rounded-[14px] bg-white px-3.5 py-3 text-[22px] font-bold">10.00</div>
+        </div>
+        <div>
+          <p className="mb-1.5 px-1 text-[13px] font-semibold">Memo (optional, 28 chars)</p>
+          <div className="rounded-[14px] bg-white px-3.5 py-3 text-[15px]">cashout</div>
+        </div>
+        <p className="px-1 text-[12px] text-[#8E8E93]">
+          Preview: Send to {PI_G} · 10.00 OUSD
+        </p>
+        <BlueBtn>Send to {PI_G}</BlueBtn>
+        <p className="flex items-center justify-center gap-1 text-center text-[13px] font-semibold text-[#007AFF]">
+          OUSD on Pi Wallet <ArrowUpRight className="h-3.5 w-3.5" />
+        </p>
+      </div>
+    </LightPage>
+  );
+}
+
+export function ScanPiLatestFrame() {
+  return (
+    <div className="relative h-full overflow-hidden bg-[#0B0B0F] text-white">
+      <div className="flex items-center justify-between px-4 pt-12">
+        <span className="text-[22px] leading-none">‹</span>
+        <h1 className="text-[17px] font-semibold">Scan QR Code</h1>
+        <div className="flex items-center gap-3 text-white/80">
+          <HelpCircle className="h-5 w-5" />
+          <span className="text-[15px]">↻</span>
+        </div>
+      </div>
+      <div className="mx-4 mt-3 flex rounded-full bg-white/12 p-1">
+        {["Camera", "Photo", "Paste"].map((t, i) => (
+          <span
+            key={t}
+            className={`flex-1 py-1.5 text-center text-[13px] font-semibold ${i === 0 ? "rounded-full bg-white text-[#007AFF]" : "text-white/70"}`}
+          >
+            {t}
+          </span>
+        ))}
+      </div>
+      <p className="mt-3 px-4 text-center text-[12px] font-semibold text-white/75">
+        OpenPay · Pro · π Wallet · QR Pay · QR Ph / InstaPay
+      </p>
+      <div className="mt-2 flex flex-wrap items-center justify-center gap-2 px-4">
+        <span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-bold text-[#1C1C1E]">O</span>
+        <span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-bold text-[#1C1C1E]">Pro</span>
+        <PiNetworkMark className="h-7 w-7" />
+        <span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-bold text-[#1C1C1E]">G</span>
+      </div>
+      <div className="mx-auto mt-6 flex h-[210px] w-[210px] items-center justify-center rounded-[28px] border-2 border-white/45">
+        <QrCode className="h-16 w-16 text-white/35" />
+      </div>
+      <p className="mt-4 px-8 text-center text-[13px] font-semibold leading-snug text-white/70">
+        Point at a Pi receive QR (G-address)
+      </p>
+    </div>
+  );
+}
+
+export function PiThankYouLatestFrame() {
+  return (
+    <div className="relative h-full overflow-hidden bg-[#4A5564]">
+      <div className="absolute inset-0 bg-[#2C3440]/50" />
+      <div className="absolute inset-x-[22px] top-[70px] z-10 overflow-hidden rounded-[32px] bg-white shadow-[0_28px_90px_rgba(0,0,0,0.42)]">
+        <div className="bg-[#007AFF] px-6 pb-7 pt-6 text-center text-white">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/80">Thank You</p>
+          <div className="relative mx-auto mt-3 flex h-[72px] w-[72px] items-center justify-center">
+            <span className="absolute inset-0 rounded-full border-[2.5px] border-dashed border-white/95" />
+            <Check className="h-8 w-8" strokeWidth={2.75} />
+          </div>
+          <p className="mt-3 text-[17px] font-semibold">Sent to Pi Wallet</p>
+        </div>
+        <div className="px-5 pb-6 pt-5">
+          <div className="flex items-center gap-3 rounded-[16px] bg-[#F2F2F7] px-3.5 py-3">
+            <PiNetworkMark className="h-11 w-11" />
+            <div className="min-w-0">
+              <p className="text-[16px] font-semibold text-[#1C1C1E]">Pi Wallet</p>
+              <p className="font-mono text-[12px] text-[#8E8E93]">{PI_G}</p>
+            </div>
+          </div>
+          <p className="mt-5 text-center text-[34px] font-bold tracking-tight text-[#1C1C1E]">$10.00</p>
+          <div className="mt-4 space-y-2">
+            <div className="flex items-center justify-between rounded-[14px] bg-[#F2F2F7] px-3.5 py-3 text-[15px] font-semibold text-[#007AFF]">
+              <span>View on Pi Explorer</span>
+              <ArrowUpRight className="h-4 w-4" />
+            </div>
+            <div className="flex items-center justify-between rounded-[14px] bg-[#F2F2F7] px-3.5 py-3 text-[15px] font-semibold text-[#007AFF]">
+              <span>OpenLedger</span>
+              <ArrowUpRight className="h-4 w-4" />
+            </div>
+          </div>
+          <div className="mt-5 flex h-[50px] items-center justify-center rounded-full bg-[#007AFF] text-[17px] font-semibold text-white">
+            Done
+          </div>
+          <p className="mt-3 text-center text-[15px] font-semibold text-[#007AFF]">View Receipt</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function PiActivityLatestFrame() {
+  return (
+    <LightPage>
+      <div className="flex items-center px-4 pt-12">
+        <span className="text-[17px] font-semibold text-[#007AFF]">‹ Close</span>
+        <h1 className="flex-1 text-center text-[17px] font-semibold">Details</h1>
+        <span className="w-14" />
+      </div>
+      <div className="mt-6 flex flex-col items-center px-4 text-center">
+        <PiNetworkMark className="h-16 w-16" />
+        <p className="mt-3 text-[20px] font-bold">Pi Wallet</p>
+        <p className="font-mono text-[13px] text-[#8E8E93]">{PI_G}</p>
+        <p className="mt-2 text-[34px] font-bold tracking-tight text-[#FF3B30]">−$10.00</p>
+        <span className="mt-1 rounded-full bg-[#34C759]/15 px-3 py-1 text-[12px] font-semibold text-[#34C759]">Completed</span>
+      </div>
+      <div className="mx-4 mt-5">
+        <Group>
+          <div className="flex items-center justify-between px-3.5 py-3 text-[15px]">
+            <span className="text-[#8E8E93]">Username</span>
+            <span className="font-semibold">@you</span>
+          </div>
+          <div className="flex items-center justify-between border-t border-black/[0.08] px-3.5 py-3 text-[15px]">
+            <span className="text-[#8E8E93]">When</span>
+            <span className="font-semibold">Aug 16, 3:55 PM</span>
+          </div>
+          <div className="flex items-center justify-between border-t border-black/[0.08] px-3.5 py-3 text-[15px]">
+            <span className="text-[#8E8E93]">Note</span>
+            <span className="font-semibold">cashout</span>
+          </div>
+          <div className="flex items-center justify-between border-t border-black/[0.08] px-3.5 py-3 text-[15px]">
+            <span className="text-[#8E8E93]">Blockchain</span>
+            <span className="flex items-center gap-0.5 font-semibold text-[#007AFF]">
+              View on Pi Explorer <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
+          </div>
+          <div className="flex items-center justify-between border-t border-black/[0.08] px-3.5 py-3 text-[15px]">
+            <span className="text-[#8E8E93]">OpenLedger</span>
+            <span className="flex items-center gap-0.5 font-semibold text-[#007AFF]">
+              View transaction <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
+          </div>
+        </Group>
+        <BlueBtn className="mt-4">View receipt</BlueBtn>
+      </div>
+    </LightPage>
+  );
+}
+
+export function PiReceiptLatestFrame() {
+  return (
+    <LightPage>
+      <div className="flex items-center justify-between px-4 pt-12">
+        <span className="text-[22px] leading-none text-[#007AFF]">‹</span>
+        <h1 className="text-[17px] font-semibold">Transaction Details</h1>
+        <ArrowUpRight className="h-5 w-5 text-[#007AFF]" />
+      </div>
+      <div className="mt-5 flex flex-col items-center text-center">
+        <div className="relative">
+          <BrandLogo animate={false} className="h-12 w-12" />
+          <span className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#34C759] text-white">
+            <Check className="h-3 w-3" strokeWidth={3} />
+          </span>
+        </div>
+        <p className="mt-3 text-[34px] font-bold tracking-tight text-[#FF3B30]">−$10.00</p>
+        <p className="text-[15px] font-semibold text-[#8E8E93]">Sent</p>
+      </div>
+      <div className="mx-4 mt-4">
+        <Group>
+          {[
+            ["From", "You @you"],
+            ["To", `Pi Wallet  ${PI_G}`],
+            ["Amount", "$10.00"],
+            ["Reference", "6e7a55ea"],
+            ["Method", "Pi Wallet"],
+            ["Date", "16 Aug 2026 15:55"],
+            ["Status", "Confirmed"],
+            ["Pi transaction", "6e7a55ea…"],
+          ].map(([k, v], i) => (
+            <div key={k} className={`flex items-start justify-between gap-3 px-3.5 py-2.5 text-[14px] ${i ? "border-t border-black/[0.08]" : ""}`}>
+              <span className="shrink-0 text-[#8E8E93]">{k}</span>
+              <span className="text-right font-semibold leading-snug">{v}</span>
+            </div>
+          ))}
+          <div className="flex items-center justify-between border-t border-black/[0.08] px-3.5 py-2.5 text-[14px]">
+            <span className="text-[#8E8E93]">Blockchain</span>
+            <span className="flex items-center gap-0.5 font-semibold text-[#007AFF]">
+              View on Pi Explorer <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
+          </div>
+          <div className="flex items-center justify-between border-t border-black/[0.08] px-3.5 py-2.5 text-[14px]">
+            <span className="text-[#8E8E93]">OpenLedger</span>
+            <span className="flex items-center gap-0.5 font-semibold text-[#007AFF]">
+              View transaction <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
+          </div>
+        </Group>
+        <div className="mt-4 flex h-11 items-center justify-center rounded-[14px] border border-[#007AFF] text-[15px] font-semibold text-[#007AFF]">
+          Save to device
+        </div>
+        <p className="mt-3 text-center text-[13px] font-semibold text-[#007AFF]">Need Help?</p>
+      </div>
+    </LightPage>
+  );
+}
+
+export function PiNotificationsLatestFrame() {
+  return (
+    <LightPage>
+      <div className="flex items-center px-4 pt-12">
+        <span className="text-[17px] font-semibold text-[#007AFF]">‹ Close</span>
+        <h1 className="flex-1 text-center text-[17px] font-semibold">Details</h1>
+        <span className="text-[17px] font-semibold text-[#007AFF]">Done</span>
+      </div>
+      <div className="mt-6 flex flex-col items-center text-center">
+        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FF3B30]/12 text-[#FF3B30]">
+          <ArrowDownToLine className="h-6 w-6 rotate-180" />
+        </span>
+        <p className="mt-3 text-[13px] font-semibold uppercase tracking-wide text-[#8E8E93]">Sent</p>
+        <p className="text-[20px] font-bold">Sent to Pi Wallet</p>
+        <p className="mt-1 text-[28px] font-bold">$10.00</p>
+        <span className="mt-1 rounded-full bg-[#34C759]/15 px-3 py-1 text-[12px] font-semibold text-[#34C759]">Completed</span>
+      </div>
+      <div className="mx-4 mt-5">
+        <Group>
+          <div className="px-3.5 py-3">
+            <p className="text-[12px] font-semibold uppercase tracking-wide text-[#8E8E93]">Summary</p>
+            <p className="mt-1 text-[15px] font-semibold">OUSD paid on the Pi blockchain</p>
+          </div>
+          <div className="flex items-center justify-between border-t border-black/[0.08] px-3.5 py-3 text-[15px]">
+            <span className="text-[#8E8E93]">When</span>
+            <span className="font-semibold">Aug 16 · 3:55 PM</span>
+          </div>
+          <div className="flex items-center justify-between border-t border-black/[0.08] px-3.5 py-3 text-[15px]">
+            <span className="text-[#8E8E93]">Reference</span>
+            <span className="font-mono text-[13px] font-semibold">785bd50c-…</span>
+          </div>
+          <div className="flex items-center justify-between border-t border-black/[0.08] px-3.5 py-3 text-[15px]">
+            <span className="text-[#8E8E93]">Blockchain</span>
+            <span className="flex items-center gap-0.5 font-semibold text-[#007AFF]">
+              View on Pi Explorer <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
+          </div>
+          <div className="flex items-center justify-between border-t border-black/[0.08] px-3.5 py-3 text-[15px]">
+            <span className="text-[#8E8E93]">OpenLedger</span>
+            <span className="flex items-center gap-0.5 font-semibold text-[#007AFF]">
+              View transaction <ArrowUpRight className="h-3.5 w-3.5" />
+            </span>
+          </div>
+        </Group>
+        <BlueBtn className="mt-4">View Activity</BlueBtn>
+      </div>
+    </LightPage>
+  );
+}
+
+export function PiSetupLatestFrame() {
+  return (
+    <LightPage>
+      <IosHeader title="Enable OpenUSD" subtitle="Recipient setup in Pi Wallet" />
+      <div className="mx-4">
+        <div className="rounded-[18px] bg-white p-4">
+          <div className="flex items-center gap-3">
+            <PiNetworkMark className="h-12 w-12" />
+            <div>
+              <p className="text-[17px] font-bold">Enable OpenUSD in Pi Wallet</p>
+              <p className="text-[12px] text-[#8E8E93]">They must enable OUSD before they can receive.</p>
+            </div>
+          </div>
+          <ol className="mt-4 space-y-2.5 text-[15px] leading-snug text-[#1C1C1E]">
+            <li><span className="mr-2 font-bold text-[#007AFF]">1.</span>Open Pi Wallet</li>
+            <li><span className="mr-2 font-bold text-[#007AFF]">2.</span>Tokens → enable OUSD issued by OpenPay</li>
+            <li><span className="mr-2 font-bold text-[#007AFF]">3.</span>Receive → copy G-address or show QR</li>
+          </ol>
+          <p className="mt-4 rounded-[12px] bg-[#F2F2F7] px-3 py-2.5 text-[13px] leading-snug text-[#8E8E93]">
+            Address: 56 chars, starts with G
+          </p>
+          <div className="mt-4 flex h-11 items-center justify-center gap-1 rounded-[14px] bg-[#007AFF] text-[15px] font-semibold text-white">
+            OUSD on Pi Wallet <ArrowUpRight className="h-4 w-4" />
+          </div>
         </div>
       </div>
     </LightPage>

@@ -16,6 +16,7 @@ const categories: Category[] = [
       { name: "Dashboard", path: "/dashboard" },
       { name: "Send Money", path: "/send" },
       { name: "Send Pro", path: "/send/pro" },
+      { name: "Send to Pi Wallet", path: "/send/pi" },
       { name: "Transfer to OpenPay Pro", path: "/transfer-pro" },
       { name: "Receive", path: "/receive" },
       { name: "Request Payment", path: "/request-payment" },

@@ -170,6 +170,380 @@ const BlogPostDetail = () => {
 
   const getFallbackPosts = (): BlogPost[] => [
   {
+    id: "openpay-to-pi-wallet",
+    slug: "openpay-to-pi-wallet",
+    title: "OpenPay → Pi Wallet — Debit OUSD, Credit OpenUSD on Pi",
+    date: "Aug 16, 2026",
+    author: "OpenPay Team",
+    category: "Product",
+    desc: "Pay a Pi Wallet directly from OpenPay. Debit OUSD from your balance and credit OpenUSD (OUSD) on the Pi blockchain — with Pi Explorer and OpenLedger on every receipt.",
+    meta: "Pay a Pi Wallet directly from OpenPay. Debit OUSD from your balance and credit OpenUSD (OUSD) on the Pi blockchain. Scan their receive QR. Every send gets Pi Explorer and OpenLedger links.",
+    tags: ["pi-wallet", "openusd", "ousd", "send", "scanner", "openledger", "pi-explorer"],
+    hero: "Wallet to Pi Wallet. OpenUSD on the chain.",
+    cta_text: "Send to Pi Wallet",
+    cta_link: "https://openpy.space/send/pi",
+    content: `# OpenPay → Pi Wallet
+
+OpenPay can now pay a **Pi Wallet** directly. Debit OUSD from your OpenPay balance and credit **OpenUSD (OUSD)** in their Pi Wallet on the Pi blockchain. Scan their receive QR with the same camera as OpenPay and QR Ph. Every send gets **Pi Explorer** and **OpenLedger** links on Thank You, Activity, and the receipt.
+
+[Send to Pi Wallet →](https://openpy.space/send/pi)
+
+> Brand: \`#007AFF\` · canvas \`#F2F2F7\` · success \`#34C759\` · debit \`#FF3B30\`  
+> Logo: gold-on-black π — same mark as Authenticate with Pi  
+> Live: [https://openpy.space/send/pi](https://openpy.space/send/pi)
+
+---
+
+## 1. Send hub — Pi Wallet rail
+
+**Route:** \`/send\`  
+**Caption:** *OpenPay, OpenPay Pro, or Pi Wallet — pick the destination first.*
+
+\`\`\`
+┌─────────────────────────────┐
+│ ● ● ●                  9:41 │
+│ ←          Send             │
+├─────────────────────────────┤
+│                             │
+│  [ OpenPay ] [ Pro ] [ π ]  │
+│                             │
+│  ┌───────────────────────┐  │
+│  │  (π)                  │  │
+│  │  Send to Pi Wallet  › │  │
+│  │  Credit OpenUSD       │  │
+│  │  (OUSD) to a Pi       │  │
+│  │  Wallet G-address.    │  │
+│  └───────────────────────┘  │
+│                             │
+│  ┌───────────────────────┐  │
+│  │  OpenPay to OpenPay › │  │
+│  └───────────────────────┘  │
+│  ┌───────────────────────┐  │
+│  │  OpenPay to Pro     › │  │
+│  └───────────────────────┘  │
+│                             │
+└─────────────────────────────┘
+\`\`\`
+
+**Alt:** Send screen with Pi Wallet rail and gold π mark.
+
+---
+
+## 2. Send to Pi Wallet — form
+
+**Route:** \`/send/pi\`  
+**Caption:** *Balance on top. G-address, amount, optional memo. Scan or paste.*
+
+\`\`\`
+┌─────────────────────────────┐
+│ ● ● ●                  9:41 │
+│ ←  Send to Pi Wallet    (π) │
+│    OpenPay → Pi Network     │
+├─────────────────────────────┤
+│  YOUR BALANCE · 8.87 OUSD   │
+│  Debits OpenPay OUSD and    │
+│  credits OpenUSD in the     │
+│  recipient’s Pi Wallet.     │
+│                             │
+│  (π) Pi Wallet · OpenUSD    │
+│  Recipient must enable      │
+│  OUSD in Pi Wallet first.   │
+│                             │
+│  Pi Wallet address  [ Scan ]│
+│  GDSXE7…VD4LJ               │
+│  Paste from Pi Wallet →     │
+│                             │
+│  Amount (OUSD)   10.00      │
+│  Memo            cashout    │
+│                             │
+│  Preview: GDSXE7…D4LJ       │
+│           10.00 OUSD        │
+│  [ Send to GDSXE7…D4LJ ]    │
+│      OUSD on Pi Wallet ↗    │
+└─────────────────────────────┘
+\`\`\`
+
+**Alt:** Send to Pi Wallet form with blue balance card, π logo, Scan, and Send button.
+
+---
+
+## 3. Scan QR — Pi Wallet rail
+
+**Route:** \`/scan-qr?returnTo=/send/pi\`  
+**Caption:** *Same camera as OpenPay, Pro, and QR Ph. Pi G-address is first-class.*
+
+\`\`\`
+┌─────────────────────────────┐
+│ ● ● ●                  9:41 │
+│ ←     Scan QR Code      ? ↻ │
+├─────────────────────────────┤
+│   [ Camera ]  Photo  Paste  │
+│                             │
+│   OpenPay · Pro · π Wallet  │
+│   QR Pay · QR Ph / InstaPay │
+│                             │
+│      (O) (Pro) (π) (G)      │
+│                             │
+│         ┌───────────┐       │
+│         │           │       │
+│         │ viewfinder│       │
+│         │           │       │
+│         └───────────┘       │
+│                             │
+│  Point at a Pi receive QR   │
+│  (G-address)                │
+└─────────────────────────────┘
+\`\`\`
+
+**Alt:** OpenPay scanner with Pi Wallet chip and live camera frame.
+
+**Decode order:** QR Ph → OpenPay Pro → **Pi G-address** → OpenPay.
+
+---
+
+## 4. Thank You — explorer + OpenLedger
+
+**Caption:** *After the chain confirms — Pi Explorer and OpenLedger on the success sheet.*
+
+\`\`\`
+┌─────────────────────────────┐
+│ ● ● ●                  9:41 │
+│                             │
+│     ┌─────────────────┐     │
+│     │     THANK YOU   │     │
+│     │        ✓        │     │
+│     │ Sent to Pi Wallet│    │
+│     ├─────────────────┤     │
+│     │ (π)  Pi Wallet  │     │
+│     │ GDSXE7…D4LJ     │     │
+│     │                 │     │
+│     │     $10.00      │     │
+│     │                 │     │
+│     │ ↗ View on Pi    │     │
+│     │   Explorer      │     │
+│     │ ↗ OpenLedger    │     │
+│     │                 │     │
+│     │     [ Done ]    │     │
+│     │  View Receipt   │     │
+│     └─────────────────┘     │
+│                             │
+└─────────────────────────────┘
+\`\`\`
+
+**Links**
+
+- Pi Explorer: \`https://blockexplorer.minepi.com/testnet/transactions/{hash}\`
+- OpenLedger: \`https://www.openpyledger.space/tx/{hash}\` or \`/tx/ref/{openpay-id}\`
+
+---
+
+## 5. Activity details — Blockchain + OpenLedger
+
+**Route:** \`/activity\` → tap the Pi Wallet send  
+**Caption:** *Not a top-up. Pi Wallet send with chain and ledger links in the list.*
+
+\`\`\`
+┌─────────────────────────────┐
+│ ● ● ●                  9:41 │
+│ ← Close        Details      │
+├─────────────────────────────┤
+│            (π)              │
+│         Pi Wallet           │
+│        GDSXE7…D4LJ          │
+│          -$10.00            │
+│         Completed           │
+│                             │
+│  Username         @you      │
+│  When   Aug 16, 3:55 PM     │
+│  Note          cashout      │
+│  Blockchain                 │
+│    View on Pi Explorer   ↗  │
+│  OpenLedger                 │
+│    View transaction      ↗  │
+│                             │
+│  [ View receipt ]           │
+└─────────────────────────────┘
+\`\`\`
+
+**Alt:** Activity details for a Pi Wallet payout with Blockchain and OpenLedger rows.
+
+---
+
+## 6. Receipt — View receipt
+
+**Route:** \`/transaction/{id}\`  
+**Caption:** *Full receipt: from OpenPay, to Pi Wallet, chain hash, explorer, OpenLedger.*
+
+\`\`\`
+┌─────────────────────────────┐
+│ ● ● ●                  9:41 │
+│ ←   Transaction Details  ↗  │
+├─────────────────────────────┤
+│           (logo) ✓          │
+│          -$10.00            │
+│            Sent             │
+│                             │
+│  From          You @you     │
+│  To         Pi Wallet       │
+│             GDSXE7…D4LJ     │
+│  Amount            $10.00   │
+│  Reference         6e7a55ea │
+│  Method         Pi Wallet   │
+│  Date      16 Aug 2026 15:55│
+│  Status         Confirmed   │
+│  Pi transaction  6e7a55ea…  │
+│  Blockchain                 │
+│    View on Pi Explorer   ↗  │
+│  OpenLedger                 │
+│    View transaction      ↗  │
+│                             │
+│  [ Save to device ]         │
+│       Need Help?            │
+└─────────────────────────────┘
+\`\`\`
+
+---
+
+## 7. Notifications details
+
+**Route:** \`/notifications\`  
+**Caption:** *Pi Wallet cashouts are labeled Sent to Pi Wallet — with the same two links.*
+
+\`\`\`
+┌─────────────────────────────┐
+│ ● ● ●                  9:41 │
+│ ← Close     Details    Done │
+├─────────────────────────────┤
+│            ( ↓ )            │
+│            Sent             │
+│     Sent to Pi Wallet       │
+│          $10.00             │
+│         Completed           │
+│                             │
+│  Summary                    │
+│    OUSD paid on the Pi      │
+│    blockchain               │
+│  When     Aug 16 · 3:55 PM  │
+│  Reference     785bd50c-…   │
+│  Blockchain                 │
+│    View on Pi Explorer   ↗  │
+│  OpenLedger                 │
+│    View transaction      ↗  │
+│                             │
+│  [ View Activity ]          │
+└─────────────────────────────┘
+\`\`\`
+
+---
+
+## 8. Recipient setup (callout card)
+
+**Caption:** *They must enable OUSD in Pi Wallet before they can receive.*
+
+\`\`\`
+┌─────────────────────────────┐
+│  Enable OpenUSD in Pi Wallet│
+│                             │
+│  1. Open Pi Wallet          │
+│  2. Tokens → enable OUSD    │
+│     issued by OpenPay       │
+│  3. Receive → copy G-address│
+│     or show QR              │
+│                             │
+│  Address: 56 chars, starts  │
+│  with G                     │
+│                             │
+│  [ OUSD on Pi Wallet ↗ ]    │
+└─────────────────────────────┘
+\`\`\`
+
+**pi.toml:** [https://openpy.space/.well-known/pi.toml](https://openpy.space/.well-known/pi.toml)
+
+---
+
+## Journey
+
+\`\`\`
+OpenPay OUSD  →  Send to Pi Wallet  →  Pi chain OpenUSD  →  Their Pi Wallet
+                      ↓                        ↓
+                 Activity / receipt      Pi Explorer
+                      ↓
+                  OpenLedger
+\`\`\`
+
+| You want to pay | Open |
+|-----------------|------|
+| OpenPay user | [Send](https://openpy.space/send) |
+| OpenPay Pro | [Pro](https://openpy.space/send/pro) |
+| **Pi Wallet** | [Send to Pi Wallet](https://openpy.space/send/pi) |
+| Bank / GCash / Maya | [Bank](https://openpy.space/bank-transfer) |
+
+---
+
+## Specs
+
+| Spec | Value |
+|------|--------|
+| Min | 0.01 OUSD |
+| Max | 50,000 OUSD / send |
+| Token | OpenUSD (OUSD) — not native PI |
+| Network | Pi Testnet |
+| Address | G + 55 chars |
+| Memo | 28 characters, on-chain |
+| Explorer | [blockexplorer.minepi.com/testnet](https://blockexplorer.minepi.com/testnet) |
+| Ledger | [openpyledger.space](https://www.openpyledger.space) |
+
+---
+
+## Tutorial
+
+1. Sign in at [https://openpy.space/auth](https://openpy.space/auth).
+2. Open [https://openpy.space/send](https://openpy.space/send) and tap the **π** rail — or go straight to [https://openpy.space/send/pi](https://openpy.space/send/pi).
+3. Ask the recipient to **enable OUSD** in Pi Wallet (Tokens → OpenUSD issued by OpenPay).
+4. Paste their G-address or tap **Scan** and point at their Pi receive QR.
+5. Enter amount (0.01–50,000 OUSD) and an optional 28-character memo.
+6. Confirm. When the chain settles, open **Pi Explorer** and **OpenLedger** from Thank You, Activity, or the receipt.
+
+---
+
+## FAQ
+
+**Is this native PI?**  
+No. You debit **OpenPay OUSD**. They receive **OpenUSD (OUSD)** in Pi Wallet — the OpenPay-issued token on Pi, not native PI.
+
+**Why didn’t they get the funds?**  
+They must enable **OUSD** in Pi Wallet first. Until the token is on, the G-address cannot hold OpenUSD.
+
+**Can I scan a Pi receive QR?**  
+Yes. The same camera as OpenPay, OpenPay Pro, and QR Ph reads a Pi G-address. Decode order: QR Ph → OpenPay Pro → **Pi G-address** → OpenPay.
+
+**Where are the explorer links?**  
+On the Thank You sheet, Activity details, Notifications details, and the full receipt.
+
+---
+
+## Related features
+
+- Send to Pi Wallet — [https://openpy.space/send/pi](https://openpy.space/send/pi)
+- Send — [https://openpy.space/send](https://openpy.space/send)
+- Scan QR — [https://openpy.space/scan-qr](https://openpy.space/scan-qr)
+- OpenLedger — [https://www.openpyledger.space](https://www.openpyledger.space)
+- Pi Explorer — [https://blockexplorer.minepi.com/testnet](https://blockexplorer.minepi.com/testnet)
+- [Scanner update](/blog/openpay-scanner-update)
+- [New features pack](/blog/openpay-new-features-blog-pack)
+- [Bank Transfer](/blog/openpay-bank-transfer)
+- [Cash In](/blog/openpay-cash-in)
+
+---
+
+## Closing
+
+**OpenPay OUSD in. OpenUSD in their Pi Wallet out. Explorer and OpenLedger on every receipt.**
+
+**Start here →** [https://openpy.space/send/pi](https://openpy.space/send/pi)
+`
+  },
+  {
     id: "openpay-scanner-update",
     slug: "openpay-scanner-update",
     title: "OpenPay Scanner Update — OpenPay, OpenPay Pro, QR Ph & Bank in One Scan",
@@ -253,6 +627,7 @@ Same screen. Camera, photo, or paste.
 | **OpenPay QR** | Wallet receive, \`openpay://pay\`, OP account, \`@username\` | [Send](https://openpy.space/send) |
 | **QR Pay** | Merchant checkout \`qrp_…\` token | [QR Pay checkout](https://openpy.space/qr-pay) |
 | **OpenPay Pro QR** | \`openpaypro.space\` pay / receive, \`@user\`, or \`0x\` wallet | [Transfer to Pro](https://openpy.space/send/pro) |
+| **Pi Wallet QR** | Pi receive QR · G-address (56 chars) | [Send to Pi Wallet](https://openpy.space/send/pi) |
 | **QR Ph / InstaPay** | EMVCo bank & e-wallet codes (GCash, Maya, banks) | [Bank send](https://openpy.space/bank-transfer/local/send) — auto-filled |
 | **POS / checkout** | Merchant session or payment link | Public payment or POS pay |
 | **Paste & search** | Link, OP account, \`@username\`, email | Express Search on Send |
@@ -379,8 +754,9 @@ Pi Browser tip: if the viewfinder stays black, enable camera permission and tap 
 
 1. **QR Ph / EMVCo?** → Bank send, fields auto-filled (GCash, Maya, InstaPay, banks).
 2. **OpenPay Pro QR?** → Transfer to OpenPay Pro (\`@username\` or \`0x\` wallet).
-3. **OpenPay / QR Pay?** → Send, checkout, or POS.
-4. Otherwise → “Not a supported code.”
+3. **Pi G-address?** → Send to Pi Wallet (OpenUSD on Pi).
+4. **OpenPay / QR Pay?** → Send, checkout, or POS.
+5. Otherwise → “Not a supported code.”
 
 QR Ph is checked first so a GCash or Maya code is never mistaken for a wallet username. Pro is checked next so \`openpaypro.space\` pay links are not treated as generic OpenPay URLs.
 
@@ -422,11 +798,13 @@ Yes. Photo and Paste tabs accept OpenPay links, Pro pay URLs, OP account numbers
 
 ## Related features
 
-- QR Pay — [https://openpy.space/qr-pay](https://openpy.space/qr-pay)
+- Scan QR — [https://openpy.space/scan-qr](https://openpy.space/scan-qr)
 - Bank Transfer — [https://openpy.space/bank-transfer](https://openpy.space/bank-transfer)
 - Cash In — [https://openpy.space/cash-in](https://openpy.space/cash-in)
 - Transfer to OpenPay Pro — [https://openpy.space/send/pro](https://openpy.space/send/pro)
 - Send — [https://openpy.space/send](https://openpy.space/send)
+- Send to Pi Wallet — [https://openpy.space/send/pi](https://openpy.space/send/pi)
+- [OpenPay → Pi Wallet](/blog/openpay-to-pi-wallet)
 - [OpenPay QR Pay story](/blog/openpay-qr-pay)
 - [OpenPay Bank Transfer story](/blog/openpay-bank-transfer)
 
