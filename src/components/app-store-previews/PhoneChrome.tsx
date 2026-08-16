@@ -19,31 +19,33 @@ export const PhoneChrome = ({
     ref={frameRef}
     data-preview-id={previewId}
     className={cn(
-      "relative mx-auto w-[390px] overflow-hidden rounded-[40px] bg-black shadow-[0_24px_80px_-20px_rgba(0,0,0,0.45)] ring-[10px] ring-[#1d1d1f]",
+      "relative mx-auto box-border w-[390px] overflow-hidden rounded-[40px] bg-[#1d1d1f] p-[10px] shadow-[0_24px_80px_-20px_rgba(0,0,0,0.45)]",
       className,
     )}
     style={{ height: 844 }}
   >
-    <div
-      className={cn(
-        "pointer-events-none absolute inset-x-0 top-0 z-30 flex h-11 items-end justify-between px-7 pb-1.5 text-[12px] font-semibold",
-        statusLight ? "text-white" : "text-white mix-blend-difference",
-      )}
-    >
-      <span>9:41</span>
-      <div className="flex items-center gap-1.5 text-[11px]">
-        <span>●●●●</span>
-        <span>5G</span>
-        <span className="rounded-[3px] border border-current px-1 text-[9px]">100</span>
+    <div className="relative h-full overflow-hidden rounded-[30px] bg-white">
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-x-0 top-0 z-30 flex h-11 items-end justify-between px-7 pb-1.5 text-[12px] font-semibold",
+          statusLight ? "text-white" : "text-white mix-blend-difference",
+        )}
+      >
+        <span>9:41</span>
+        <div className="flex items-center gap-1.5 text-[11px]">
+          <span>●●●●</span>
+          <span>5G</span>
+          <span className="rounded-[3px] border border-current px-1 text-[9px]">100</span>
+        </div>
       </div>
+      <div className="pointer-events-none absolute left-1/2 top-2 z-30 h-[28px] w-[120px] -translate-x-1/2 rounded-full bg-black" />
+      <div className="h-full overflow-hidden rounded-[30px]">{children}</div>
     </div>
-    <div className="pointer-events-none absolute left-1/2 top-2 z-30 h-[28px] w-[120px] -translate-x-1/2 rounded-full bg-black" />
-    <div className="h-full overflow-hidden bg-white">{children}</div>
   </div>
 );
 
 export const BluePage = ({ children, className }: { children: ReactNode; className?: string }) => (
-  <div className={cn("h-full overflow-y-auto bg-paypal-blue pb-10 text-white", className)}>{children}</div>
+  <div className={cn("h-full overflow-hidden overflow-y-auto rounded-[30px] bg-paypal-blue pb-10 text-white", className)}>{children}</div>
 );
 
 export const LightPage = ({
@@ -55,7 +57,7 @@ export const LightPage = ({
   className?: string;
   bg?: string;
 }) => (
-  <div className={cn("h-full overflow-y-auto pb-10", bg, className)}>{children}</div>
+  <div className={cn("h-full overflow-hidden overflow-y-auto rounded-[30px] pb-10", bg, className)}>{children}</div>
 );
 
 export const SoftHeader = ({

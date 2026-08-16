@@ -33,7 +33,7 @@ interface BlogPost {
 function BlogUiMock({ id }: { id: PreviewFrameId }) {
   return (
     <div className="my-8 flex justify-center">
-      <div className="relative w-[min(100%,280px)] overflow-hidden" style={{ aspectRatio: "390 / 844" }}>
+      <div className="relative w-[min(100%,280px)] overflow-hidden rounded-[29px]" style={{ aspectRatio: "390 / 844" }}>
         <div className="absolute left-0 top-0 origin-top-left scale-[0.7179]">
           <PhoneChrome statusLight={DARK_FRAMES.has(id)}>
             {renderPreviewFrame(id)}

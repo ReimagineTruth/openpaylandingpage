@@ -35,6 +35,7 @@ import {
   PaypalLatestFrame,
   PiAdsLatestFrame,
   PiTopUpLatestFrame,
+  PiTxModalLatestFrame,
   PosLatestFrame,
   ProductsLatestFrame,
   ProfileLatestFrame,
@@ -85,6 +86,7 @@ export type PreviewFrameId =
   | "usdc"
   | "pro-topup"
   | "withdraw"
+  | "pi-tx"
   | "converter"
   | "topup-history"
   | "mining"
@@ -157,6 +159,7 @@ export const PREVIEW_FRAMES: PreviewFrameMeta[] = [
   { id: "usdc", title: "USDC", feature: "Circle USDC", file: "20-usdc.png", group: "Money" },
   { id: "pro-topup", title: "Pro Top-up", feature: "Pay from OpenPay Pro", file: "21-pro-topup.png", group: "Money" },
   { id: "withdraw", title: "Withdraw", feature: "OUSD payout", file: "22-withdraw.png", group: "Money" },
+  { id: "pi-tx", title: "OpenPay → Pi", feature: "Explorer receipt", file: "22b-pi-tx.png", group: "Money" },
   { id: "converter", title: "Converter", feature: "Live PI · OUSD peg", file: "23-converter.png", group: "Money" },
   { id: "topup-history", title: "Top-up History", feature: "Track cash-ins", file: "24-topup-history.png", group: "Money" },
   { id: "mining", title: "Mining", feature: "Engage Mining + ads", file: "25-mining.png", group: "Earn" },
@@ -204,6 +207,7 @@ export const DARK_FRAMES = new Set<PreviewFrameId>([
   "invoice",
   "scan",
   "withdraw",
+  "pi-tx",
   "mining",
   "affiliate",
   "card",
@@ -235,6 +239,7 @@ const FRAME_MAP: Record<PreviewFrameId, () => ReactNode> = {
   usdc: UsdcLatestFrame,
   "pro-topup": ProTopUpLatestFrame,
   withdraw: WithdrawLatestFrame,
+  "pi-tx": PiTxModalLatestFrame,
   converter: ConverterLatestFrame,
   "topup-history": TopUpHistoryLatestFrame,
   mining: MiningLatestFrame,
@@ -305,6 +310,7 @@ export function frameIdForMockup(heading: string, code = "", slug = ""): Preview
   if (t.includes("loan")) return "loans";
   if (t.includes("credit")) return "credit";
   if (t.includes("withdraw")) return "withdraw";
+  if (t.includes("openpay → pi") || t.includes("openpay to pi") || t.includes("pi explorer") || t.includes("blockexplorer") || t.includes("pi testnet")) return "pi-tx";
   if (t.includes("auth") || t.includes("sign in")) return "auth";
   if (t.includes("kyc")) return "kyc";
   if (t.includes("profile")) return "profile";
